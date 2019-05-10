@@ -21,7 +21,7 @@
 
         public function __destruct()
         {
-            echo __CLASS__, ' destruct', PHP_EOL;
+            echo __CLASS__, ' destruct1', PHP_EOL;
         }
     }
 
