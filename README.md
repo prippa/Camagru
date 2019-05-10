@@ -1,2 +1,4 @@
 # Camagru
-This small web application allowing you to make basic photo and video editing using your webcam and some predefined images.
+Project from Web branch in school 42
+
+[more info](https://github.com/prippa/Camagru/blob/master/camagru.en.pdf)
