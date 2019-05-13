@@ -1,43 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Camagru Project</title>
-    <style>
-
-    </style>
 </head>
 <body>
-<div>
-    <?php
-    class MyClass
-    {
-        public $var;
+<?php
+require 'Post.php';
 
-        public function __construct($num)
-        {
-            $this->var = $num;
-        }
+$posts = getPosts();
+foreach ($posts as $post)
+{
+    echo "<h2>" . $post['title'] . "</h2>";
+    echo "<p>" . $post['content'] . "</p>";
+    echo "<img src=" . "uploads/" . $post['image'] . "width=\"50\">";
+}
 
-        public function __destruct()
-        {
-            echo __CLASS__, ' destruct1', PHP_EOL;
-        }
-    }
-
-    function f($arg1, $arg2, $arg3)
-    {
-        echo $arg1, PHP_EOL;
-        echo $arg2, PHP_EOL;
-    }
-
-    $foo = new MyClass(42);
-    $a = 'a';
-    if ($a || $a)
-        echo 123;
-    echo $foo->var, PHP_EOL;
-    f(1, 'Hello', 3);
-    ?>
-</div>
+//include "views/index.show.php";
+?>
 </body>
 </html>
