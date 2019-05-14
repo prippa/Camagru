@@ -4,7 +4,7 @@ function uploadImage($image)
 {
     $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
     $filename = uniqid() . "." . $extension;
-    move_uploaded_file($image['tmp_name'], "uploads/" . $filename);
+    move_uploaded_file($image['tmp_name'], "/Camagru/uploads/" . $filename);
     return $filename;
 }
 
