@@ -6,11 +6,12 @@
 </head>
 <body>
 <?php
-require 'Post.php';
+//echo dirname(dirname(__FILE__)) . '/';
+require 'post.php';
 
 $posts = getPosts();
 
-include "views/index.show.php";
+require "views/index.show.php";
 ?>
 </body>
 </html>
