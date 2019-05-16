@@ -1,7 +1,6 @@
 <?php
 
-require 'post.php';
-require 'config/dirs.php';
+require_once 'post.php';
 
 $filename = uploadImage($_FILES['image']);
 addPost($_POST['title'], $_POST['content'], $filename);

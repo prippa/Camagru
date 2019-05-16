@@ -1,4 +1,4 @@
-<?php require 'config/dirs.php'; ?>
+<?php require_once 'config/dirs.php'; ?>
 
 <?php foreach ($posts as $post): ?>
     <h2><?= $post['title']; ?></h2>

@@ -1,6 +1,6 @@
 <?php
-require 'config/dirs.php';
-require 'config/database.php';
+require_once 'config/dirs.php';
+require_once 'config/database.php';
 
 function uploadImage($image)
 {
