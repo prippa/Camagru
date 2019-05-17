@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Camagru Project</title>
+    <title>Posts</title>
 </head>
 <body>
 <?php
@@ -10,8 +10,11 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-echo "Hello, World!\n";
+require_once 'post.php';
 
+$posts = getPosts();
+
+require_once "index.show.php";
 ?>
 </body>
 </html>
