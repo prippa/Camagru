@@ -2,14 +2,52 @@
 
 namespace app\components;
 
-use app\models\User;
-
 class Router
 {
+    /**
+     * Routes array
+     * @var array
+     */
+    private $routes;
+
+    /**
+     * Router constructor.
+     */
+    public function __construct()
+    {
+        $this->routes = include ROOT . '/config/routes.php';
+    }
+
+    /**
+     * Returns request uri
+     * @return string
+     */
+    private function getURI()
+    {
+        return trim($_SERVER['REQUEST_URI'], '/');
+    }
+
+    /**
+     * Find the valid route, create the associated controller class and call the action method
+     * @return bool
+     */
     public function run()
     {
-        $user = new User();
+        $uri = $this->getURI();
 
-        $user->hello();
+        foreach ($this->routes as $uriPattern => $path) {
+            if (preg_match("~^$uriPattern$~", $uri)) {
+                $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
+
+                $segments = explode('/', $internalRoute);
+                $controllerName = 'app\controllers\\' . ucfirst(array_shift($segments)) . 'Controller';
+                $actionName = 'action' . ucfirst(array_shift($segments));
+
+                $controllerObject = new $controllerName;
+                call_user_func_array(array($controllerObject, $actionName), $segments);
+                return true;
+            }
+        }
+        return false;
     }
 }

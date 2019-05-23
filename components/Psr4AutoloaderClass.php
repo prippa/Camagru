@@ -1,6 +1,6 @@
 <?php
 
-namespace Example;
+namespace app\components;
 
 /**
  * An example of a general-purpose implementation that includes the optional
@@ -160,8 +160,8 @@ class Psr4AutoloaderClass
                 . str_replace('\\', '/', $relative_class)
                 . '.php';
 
-            // if the mapped file exists, require it
-            if ($this->requireFile($file)) {
+            // if the mapped file exists, include it
+            if ($this->includeFile($file)) {
                 // yes, we're done
                 return $file;
             }
@@ -172,15 +172,15 @@ class Psr4AutoloaderClass
     }
 
     /**
-     * If a file exists, require it from the file system.
+     * If a file exists, include it from the file system.
      *
-     * @param string $file The file to require.
+     * @param string $file The file to include.
      * @return bool True if the file exists, false if not.
      */
-    protected function requireFile($file)
+    protected function includeFile($file)
     {
         if (file_exists($file)) {
-            require $file;
+            include $file;
             return true;
         }
         return false;

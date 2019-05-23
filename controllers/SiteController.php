@@ -4,7 +4,7 @@ namespace app\controllers;
 
 class SiteController
 {
-    public function indexAction()
+    public function actionIndex()
     {
         echo 'SiteController indexAction';
     }

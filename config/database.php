@@ -1,8 +1,7 @@
 <?php
 
 return array(
-    'host' => 'localhost',
-    'dbname' => 'camagru_db',
+    'dns' => 'mysql:dbname=camagru_db;host=localhost',
     'user' => 'root',
     'password' => 'prippa',
 );
