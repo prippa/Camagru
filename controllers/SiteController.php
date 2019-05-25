@@ -6,6 +6,6 @@ class SiteController
 {
     public function actionIndex()
     {
-        echo 'SiteController indexAction';
+        require ROOT . 'views/index.php';
     }
 }

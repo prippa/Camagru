@@ -15,7 +15,7 @@ class Router
      */
     public function __construct()
     {
-        $this->routes = include ROOT . '/config/routes.php';
+        $this->routes = require ROOT . '/config/routes.php';
     }
 
     /**

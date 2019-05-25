@@ -12,9 +12,10 @@ class DB
      */
     public static function getConnection()
     {
-        $settings = include ROOT . 'config/database.php';
+        $settings = require ROOT . 'config/database.php';
 
-        $db = new PDO($settings['dns'], $settings['user'], $settings['password']);
+        $dns = 'mysql:dbname=' . $settings['dbname'] . ';host=' . $settings['host'];
+        $db = new PDO($dns, $settings['user'], $settings['password']);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $db;

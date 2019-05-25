@@ -6,8 +6,8 @@
  */
 $autoLoader = function ()
 {
-    include ROOT . 'components/Psr4AutoloaderClass.php';
-    $nsList = include ROOT . 'config/namespaces.php';
+    require ROOT . 'components/Psr4AutoloaderClass.php';
+    $nsList = require ROOT . 'config/namespaces.php';
 
     $loader = new app\components\Psr4AutoloaderClass;
     $loader->register();
