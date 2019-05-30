@@ -8,6 +8,6 @@
     <title>Register</title>
 </head>
 <body>
-
+<a href="register">register</a>
 </body>
 </html>

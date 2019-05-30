@@ -27,6 +27,10 @@ $autoLoader();
 unset($autoLoader);
 
 // 3. Call the Router
-$router = new app\components\Router();
+$router = new app\components\Router(
+    require ROOT . 'config/routes.php',
+    'app\\controllers\\',
+    'action',
+    'Controller');
 if (!$router->run())
     echo 'Page Not Found!';

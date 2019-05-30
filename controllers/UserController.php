@@ -6,12 +6,12 @@ class UserController
 {
     public function actionRegister()
     {
-        echo 'actionRegister';
+        require ROOT . 'views/register.php';
     }
 
     public function actionLogin()
     {
-        echo 'actionLogin';
+        require ROOT . 'views/login.php';
     }
 
     public function actionLogout()
