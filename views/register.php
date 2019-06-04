@@ -13,37 +13,37 @@
     <div class="container text-center">
         <div class="row">
             <div class="col-md-6">
-                <img class="img-fluid" src="/images/4.jpg">
+                <img class="mt-3 img-fluid" src="/images/4.jpg">
             </div>
             <div class="col-md">
                 <div class="row">
                     <div class="col-md-6">
-                        <img class="img-fluid" src="/images/4.jpg">
+                        <img class="mt-3 img-fluid" src="/images/4.jpg">
                     </div>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="/images/4.jpg">
+                        <img class="mt-3 img-fluid" src="/images/4.jpg">
                     </div>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="/images/4.jpg">
+                        <img class="mt-3 img-fluid" src="/images/4.jpg">
                     </div>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="/images/4.jpg">
+                        <img class="mt-3 img-fluid" src="/images/4.jpg">
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md">
-                <img class="img-fluid" src="/images/4.jpg">
+                <img class="mt-3 img-fluid" src="/images/4.jpg">
             </div>
             <div class="col-md">
-                <img class="img-fluid" src="/images/4.jpg">
+                <img class="mt-3 img-fluid" src="/images/4.jpg">
             </div>
             <div class="col-md">
-                <img class="img-fluid" src="/images/4.jpg">
+                <img class="mt-3 img-fluid" src="/images/4.jpg">
             </div>
             <div class="col-md">
-                <img class="img-fluid" src="/images/4.jpg">
+                <img class="mt-3 img-fluid" src="/images/4.jpg">
             </div>
         </div>
     </div>
