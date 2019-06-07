@@ -1,7 +1,9 @@
-<?php require ROOT . 'views/includes/header.php' ?>
+<?php require VIEWS . 'includes/head_html.php' ?>
 
 <main>
-    <h1>HELLO!</h1>
+    <div class="container">
+        <div class="d-flex justify-content-center"></div>
+    </div>
 </main>
 
-<?php require ROOT . 'views/includes/header.php' ?>
+<?php require VIEWS . 'includes/tail_html.php' ?>

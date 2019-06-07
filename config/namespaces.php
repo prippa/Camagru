@@ -13,4 +13,8 @@ return array(
         'namespace' => 'app\models',
         'path' => 'models'
     ],
+    [
+        'namespace' => 'app\components\lib',
+        'path' => 'components/lib'
+    ],
 );

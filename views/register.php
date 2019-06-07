@@ -1,51 +1,30 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/template/css/main.css" rel="stylesheet">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-md-6">
-                <img class="mt-3 img-fluid" src="/images/4.jpg">
-            </div>
-            <div class="col-md">
-                <div class="row">
-                    <div class="col-md-6">
-                        <img class="mt-3 img-fluid" src="/images/4.jpg">
-                    </div>
-                    <div class="col-md-6">
-                        <img class="mt-3 img-fluid" src="/images/4.jpg">
-                    </div>
-                    <div class="col-md-6">
-                        <img class="mt-3 img-fluid" src="/images/4.jpg">
-                    </div>
-                    <div class="col-md-6">
-                        <img class="mt-3 img-fluid" src="/images/4.jpg">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md">
-                <img class="mt-3 img-fluid" src="/images/4.jpg">
-            </div>
-            <div class="col-md">
-                <img class="mt-3 img-fluid" src="/images/4.jpg">
-            </div>
-            <div class="col-md">
-                <img class="mt-3 img-fluid" src="/images/4.jpg">
-            </div>
-            <div class="col-md">
-                <img class="mt-3 img-fluid" src="/images/4.jpg">
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+<?php require VIEWS . 'includes/head_html.php' ?>
+
+<div class="container">
+    <h1>Регистрация</h1>
+
+    <form action="https://echo.htmlacademy.ru" method="post">
+        <label for="email-faild">Ваш логин (email):</label>
+        <br>
+        <input id="email-faild" type="text">
+        <br>
+
+        <label for="password-faild">Пароль:</label>
+        <br>
+        <input id="password-faild" type="password">
+        <br>
+
+        <label for="info-faild">Информация о себе:</label>
+        <br>
+        <textarea id="info-faild" rows="3"></textarea>
+        <br>
+
+        <input id="subscribe" type="checkbox" checked>
+        <label for="subscribe">Подписаться на рассылку</label>
+        <br>
+
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+</div>
+
+<?php require VIEWS . 'includes/tail_html.php' ?>

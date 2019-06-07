@@ -12,7 +12,7 @@ class DB
      */
     public static function getConnection()
     {
-        $settings = require ROOT . 'config/database.php';
+        $settings = require CONFIG . 'database.php';
 
         $dns = 'mysql:dbname=' . $settings['dbname'] . ';host=' . $settings['host'];
         $db = new PDO($dns, $settings['user'], $settings['password']);

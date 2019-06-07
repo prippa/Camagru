@@ -1,73 +1,37 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/template/css/style.css" rel="stylesheet">
-    <title>Login</title>
-</head>
-<body>
+<?php require VIEWS . 'includes/head_html.php' ?>
 
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-10">
-            <h4>МНЕНИЕ МЕЖДУНАРОДНОЙ ОБЩЕСТВЕННОСТИ</h4>
-            <hr>
-        </div>
-        <div class="col-md align-self-center">
-            <a class="" href="#">Перейти на страницу</a>
-        </div>
-    </div>
-
-    <br>
-
-    <div class="row">
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/eWn7ZrzDvtQ?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ЗА ДРУЖБУ И ВЗАИМОПОМОЩЬ МЕЖДУ ЛЮДЬМИ</p>
-        </div>
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Oy9kQYbl-8U?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ВЗАИМОУВАЖЕНИЕ И СОВЕСТЬ - ОСНОВА СОЗИДАТЕЛЬНОГО ОБЩЕСТВА</p>
-        </div>
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/eWn7ZrzDvtQ?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ВРЕМЯ ОТКРЫТО ГОВОРИТЬ О ПРАВДЕ И ДОБРЕ</p>
-        </div>
-
-        <div class="w-100"></div>
-
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Oy9kQYbl-8U?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ВЫБИРАЙ ДОБРО</p>
-        </div>
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/eWn7ZrzDvtQ?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ТЫ СОЗДАЁШЬ ОБЩЕСТВО В КОТОРОМ МЫ ВСЕ ЖИВЁМ</p>
-        </div>
-        <div class="col-md">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Oy9kQYbl-8U?rel=0" allowfullscreen></iframe>
-            </div>
-            <p>ЗА СПРАВЕДЛИВОСТЬ И ЧЕСТНОСТЬ В ОБЩЕСТВЕ</p>
-        </div>
-    </div>
-
+<div class="container-fluid">
+    <header class="row justify-content-center">
+        <img src="/images/icon.png" alt="Logo">
+    </header>
 </div>
 
-</body>
-</html>
+<div class="container">
+    <h1>Login to Camagru</h1>
+    <div class="row justify-content-center">
+        <div class="login-radius">
+            <div class="row justify-content-center">
+                <form class="login-form" action="login" method="post">
+                    <div class="row">
+                        <label for="login-field">Username</label>
+                    </div>
+                    <div class="row">
+                        <input size="30" id="login-field" type="text" name="login" required>
+                    </div>
+                    <div class="row justify-content-between">
+                        <label for="password-field">Password</label>
+                        <a href="#">Forgot?</a>
+                    </div>
+                    <div class="row">
+                        <input size="30" id="password-field" type="password" name="password" required>
+                    </div>
+                    <div class="row">
+                        <input class="btn btn-success btn-block" type="submit" value="Login">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require VIEWS . 'includes/tail_html.php' ?>
