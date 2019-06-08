@@ -15,14 +15,15 @@ label {
 }
 
 .login-form {
-    margin-top: 16px;
+    margin: 30px;
     background-color: white;
 }
 
 .login-radius {
     border-radius: 5px;
     border: 1px solid #dce1e4;
-    width: 500px;
-    height: 300px;
+    width: 330px;
+    height: 250px;
     background-color: white;
+    margin: 20px;
 }
