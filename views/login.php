@@ -6,7 +6,7 @@
 
 <div class="grid">
     <div class="login-form">
-        <form class="login-form" action="login" method="post">-->
+        <form class="login-form" action="login" method="post">
             <div class="grid">
                 <label for="login-field">Username</label>
             </div>
