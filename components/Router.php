@@ -35,7 +35,7 @@ class Router
      * @param string $action_prefix
      * @param string $controller_postfix
      */
-    public function __construct($routes, $namespace, $action_prefix, $controller_postfix)
+    public function __construct(array $routes, string $namespace, string $action_prefix, string $controller_postfix)
     {
         $this->routes = $routes;
         $this->namespace = $namespace;
@@ -45,9 +45,8 @@ class Router
 
     /**
      * Returns request uri
-     * @return string
      */
-    private function getURI()
+    private function getURI() : string
     {
         return trim($_SERVER['REQUEST_URI'], '/');
     }
@@ -56,7 +55,7 @@ class Router
      * Find the valid route, create the associated controller class and call the action method
      * @return bool if route was found returns true otherwise false.
      */
-    public function run()
+    public function run() : bool
     {
         $uri = $this->getURI();
 

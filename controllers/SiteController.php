@@ -2,17 +2,16 @@
 
 namespace app\controllers;
 
-use app\components\lib\RenderPage;
+use app\components\lib\Lib;
 
 class SiteController
 {
     public function actionIndex()
     {
-        $rp = new RenderPage(
+        Lib::renderPage(
             'Main',
             [BOOTSTRAP, CSS . 'style.css'],
             VIEWS . 'index.php'
         );
-        $rp->render();
     }
 }

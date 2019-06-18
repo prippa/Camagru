@@ -8,9 +8,8 @@ class DB
 {
     /**
      * Get connected object of PDO Class
-     * @return PDO
      */
-    public static function getConnection()
+    public static function getConnection() : PDO
     {
         $settings = require CONFIG . 'database.php';
 

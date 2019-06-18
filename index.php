@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Call the Psr4AutoloaderClass and announce all namespaces in namespaces.php file
- * @return void
+ * Call the Psr4AutoloaderClass and load all namespaces in namespaces.php file
  */
-$auto_loader = function ()
+$auto_loader = function() : void
 {
     require ROOT . 'components/Psr4AutoloaderClass.php';
     $ns_list = require CONFIG . 'namespaces.php';

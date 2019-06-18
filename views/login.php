@@ -1,64 +1,53 @@
 <?php require VIEWS . 'includes/head_html.php' ?>
 
-<header class="grid-header">
+<div class="container">
 
-</header>
-
-<div class="grid">
-    <div class="login-form">
-        <form class="login-form" action="login" method="post">
-            <div class="grid">
-                <label for="login-field">Username</label>
-            </div>
-            <div class="grid">
-                <input size="30" id="login-field" type="text" name="login" required>
-            </div>
-            <div class="grid">
-                <label for="password-field">Password</label>
-                <a href="#">Forgot?</a>
-            </div>
-            <div class="grid">
-                <input size="30" id="password-field" type="password" name="password" required>
-            </div>
-            <div class="grid">
-                <input class="btn btn-success btn-block" type="submit" value="Login">
-            </div>
-        </form>
+    <div class="row mt-5 text-center">
+        <div class="col-12">
+            <img class="logo-img" src="/images/logo.svg" alt="">
+        </div>
     </div>
-</div>
 
-<!--<div class="container-fluid">-->
-<!--    <header class="row justify-content-center">-->
-<!--        <img src="/images/icon.png" alt="Logo">-->
-<!--    </header>-->
-<!--</div>-->
-<!---->
-<!--<div class="container">-->
-<!--    <h1>Login to Camagru</h1>-->
-<!--    <div class="row justify-content-center">-->
-<!--        <div class="login-radius">-->
-<!--            <div class="d-flex flex-row justify-content-center">-->
-<!--                <form class="login-form" action="login" method="post">-->
-<!--                    <div class="row">-->
-<!--                        <label for="login-field">Username</label>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <input size="30" id="login-field" type="text" name="login" required>-->
-<!--                    </div>-->
-<!--                    <div class="row justify-content-between">-->
-<!--                        <label for="password-field">Password</label>-->
-<!--                        <a href="#">Forgot?</a>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <input size="30" id="password-field" type="password" name="password" required>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <input class="btn btn-success btn-block" type="submit" value="Login">-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+    <div class="row mt-5 justify-content-center">
+
+        <div class="col-12 text-center">
+            <h1>Login</h1>
+        </div>
+
+        <div class="col-auto mt-3 form-radius">
+            <form action="login" method="post">
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <label for="username-field">Username</label>
+                        <input type="text" class="form-control" id="username-field" name="username">
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="password-field">Password</label>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="#">Forgot?</a>
+                            </div>
+                        </div>
+                        <input type="password" class="form-control" id="password-field" name="password">
+                    </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <h1>REGISTER</h1>
+        </div>
+    </div>
+
+</div>
 
 <?php require VIEWS . 'includes/tail_html.php' ?>
