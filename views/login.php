@@ -4,23 +4,24 @@
 
     <div class="row mt-5 text-center">
         <div class="col-12">
-            <img class="logo-img" src="/images/logo.svg" alt="">
+            <a href="#"><img class="logo-img" src="/images/logo.svg" alt=""></a>
         </div>
     </div>
 
-    <div class="row mt-5 justify-content-center">
+    <div class="row mt-5 mr-2 ml-2 justify-content-center">
 
         <div class="col-12 text-center">
             <h1>Login</h1>
         </div>
 
-        <div class="col-auto mt-3 form-radius">
+        <div class="col-12 mt-3 col-radius-form">
             <form action="login" method="post">
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
                         <label for="username-field">Username</label>
-                        <input type="text" class="form-control" id="username-field" name="username">
+                        <input type="text" class="form-control" id="username-field"
+                               name="username" required tabindex="1">
                     </div>
 
                     <div class="form-group col-md-6">
@@ -29,23 +30,22 @@
                                 <label for="password-field">Password</label>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="#">Forgot?</a>
+                                <a href="#" tabindex="4">Forgot?</a>
                             </div>
                         </div>
-                        <input type="password" class="form-control" id="password-field" name="password">
+                        <input type="password" class="form-control" id="password-field"
+                               name="password" required tabindex="2">
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                <button type="submit" class="btn btn-primary btn-block" tabindex="3">Sign in</button>
             </form>
         </div>
 
-    </div>
-
-    <div class="row mt-4">
-        <div class="col">
-            <h1>REGISTER</h1>
+        <div class="col-12 mt-4 mr-2 ml-2 col-radius-reg text-center">
+            <div class="no-ac-text">No account yet? <a href="#">Register</a></div>
         </div>
+
     </div>
 
 </div>

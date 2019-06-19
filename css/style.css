@@ -1,0 +1,9 @@
+a {
+    color: #008cfb;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #005ca9;
+    text-decoration: none;
+}
