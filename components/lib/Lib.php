@@ -7,7 +7,7 @@ abstract class Lib
     /**
      * @param $url - Route
      */
-    public static function redirect(string $url = '') : void
+    public static function redirect(string $url = null) : void
     {
         $request = $_SERVER['REQUEST_SCHEME'];
         $host = $_SERVER['HTTP_HOST'];

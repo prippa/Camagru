@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-12 mt-4 mr-2 ml-2 col-radius-reg text-center">
-            <div class="no-ac-text">No account yet? <a href="#">Register</a></div>
+            <div class="no-ac-text">No account yet? <a href="register">Register</a></div>
         </div>
 
     </div>

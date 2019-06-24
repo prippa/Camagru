@@ -10,7 +10,7 @@ class UserController
     {
         Lib::renderPage(
             'Register',
-            [BOOTSTRAP, CSS . 'style.css'],
+            [BOOTSTRAP, CSS . 'style.css', CSS . 'login_and_register.css'],
             VIEWS . 'register.php'
         );
     }
@@ -19,7 +19,7 @@ class UserController
     {
         Lib::renderPage(
             'Login',
-            [BOOTSTRAP, CSS . 'style.css', CSS . 'login.css'],
+            [BOOTSTRAP, CSS . 'style.css', CSS . 'login_and_register.css'],
             VIEWS . 'login.php'
         );
     }
