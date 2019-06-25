@@ -3,14 +3,24 @@
 namespace app\controllers;
 
 use app\components\lib\Lib;
+use app\models\User;
 
 class UserController
 {
     public function actionRegister()
     {
+        if (!empty($_POST))
+        {
+            if (User::insertNewUser($_POST))
+            {
+                echo "OK";
+                return ;
+            }
+        }
         Lib::renderPage(
             'Register',
-            [BOOTSTRAP, CSS . 'style.css', CSS . 'login_and_register.css'],
+            [BOOTSTRAP, CSS . 'style.css', CSS . 'register_and_login.css'],
+            [JS . 'register_and_login.js'],
             VIEWS . 'register.php'
         );
     }
@@ -19,7 +29,8 @@ class UserController
     {
         Lib::renderPage(
             'Login',
-            [BOOTSTRAP, CSS . 'style.css', CSS . 'login_and_register.css'],
+            [BOOTSTRAP, CSS . 'style.css', CSS . 'register_and_login.css'],
+            [JS . 'register_and_login.js'],
             VIEWS . 'login.php'
         );
     }

@@ -18,15 +18,21 @@ abstract class Lib
 
     /**
      * @param $title - Title of page
-     * @param $style_paths - Page style paths
+     * @param $css_paths - Page css paths
+     * @param $js_paths - Page js paths
      * @param $path_to_page_view - Path to HTML file
      */
-    public static function renderPage(string $title, array $style_paths, string $path_to_page_view) : void
+    public static function renderPage(string $title,
+                                      array $css_paths, array $js_paths,
+                                      string $path_to_page_view) : void
     {
-        $styles = [];
+        $css = [];
+        $js = [];
 
-        foreach ($style_paths as $item)
-            $styles[] = "<link href=\"$item\" rel=\"stylesheet\">";
+        foreach ($css_paths as $item)
+            $css[] = "<link href=\"$item\" rel=\"stylesheet\">";
+        foreach ($js_paths as $item)
+            $js[] = "<script type=\"text/javascript\" src=\"$item\"></script>";
 
         require $path_to_page_view;
     }

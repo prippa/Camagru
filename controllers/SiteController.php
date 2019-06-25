@@ -11,6 +11,7 @@ class SiteController
         Lib::renderPage(
             'Main',
             [BOOTSTRAP, CSS . 'style.css'],
+            [],
             VIEWS . 'index.php'
         );
     }

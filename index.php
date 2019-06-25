@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 /**
  * Call the Psr4AutoloaderClass and load all namespaces in namespaces.php file
@@ -22,6 +23,7 @@ define('ROOT', __DIR__ . '/');
 define('CONFIG', ROOT . 'config/');
 define('VIEWS', ROOT . 'views/');
 define('CSS', '/css/');
+define('JS', '/js/');
 define('BOOTSTRAP', CSS . 'bootstrap.min.css');
 
 // 2. PSR-4 Auto Loader
