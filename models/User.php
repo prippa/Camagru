@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\components\lib\Lib;
+
 class User
 {
     /**
@@ -11,9 +13,10 @@ class User
      */
     public static function insertNewUser(array $data) : bool
     {
-        if (false) // data validation
-            return false;
+        $db = Lib::
+        if (preg_match('~^[\w]$~', $data['username'])) // data validation
+            return true;
         // insert to DB
-        return true;
+        return false;
     }
 }
