@@ -36,4 +36,14 @@ abstract class Lib
 
         require $path_to_page_view;
     }
+
+    /**
+     * Returning config array from config file
+     * @param string $path_to_config_file
+     * @return array
+     */
+    public static function getConfigArray(string $path_to_config_file) : array
+    {
+        return require $path_to_config_file;
+    }
 }

@@ -1,18 +1,16 @@
-<?php ## Простейший разбор даты.
-$str = " 15-16/2000       "; // к примеру
-$re = '{
-    ^\s*(                  # начало строки
-      (\d+)                  # день
-        \s* [[:punct:]] \s*  # разделитель
-      (\d+)                  # месяц
-        \s* [[:punct:]] \s*  # разделитель
-      (\d+)                  # год
-    )\s*$                  # конец строки
-  }xs';
-// Разбиваем строку на куски при помощи preg_match().
-preg_match($re, $str, $matches) or die("Not a date: $str");
-// Теперь разбираемся с карманами.
-echo "Дата без пробелов: '$matches[1]' <br />";
-echo "День: $matches[2] <br />";
-echo "Месяц: $matches[3] <br />";
-echo "Год: $matches[4] <br />";
+<?php
+
+$email_a = 'a@a.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.aa.a123456789012';
+$email_b = 'bogus';
+
+if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+    echo "E-mail адрес '$email_a' указан верно.\n";
+} else {
+    echo "E-mail адрес '$email_a' указан неверно.\n";
+}
+
+if (filter_var($email_b, FILTER_VALIDATE_EMAIL)) {
+    echo "E-mail адрес '$email_b' указан верно.\n";
+} else {
+    echo "E-mail адрес '$email_b' указан неверно.\n";
+}

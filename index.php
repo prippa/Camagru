@@ -32,7 +32,7 @@ unset($auto_loader);
 
 // 3. Call the Router
 $router = new app\components\Router(
-    require CONFIG . 'routes.php',
+    app\components\lib\Lib::getConfigArray(CONFIG . 'routes.php'),
     'app\\controllers\\',
     'action',
     'Controller');

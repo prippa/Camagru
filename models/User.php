@@ -13,10 +13,14 @@ class User
      */
     public static function insertNewUser(array $data) : bool
     {
-        $db = Lib::
-        if (preg_match('~^[\w]$~', $data['username'])) // data validation
+        $dvr = Lib::getConfigArray(CONFIG . 'form_validation_rules.php');
+
+        if (preg_match($dvr['username'], $data['username'])
+            && preg_match($dvr['password'], $data['password'])
+            && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) // data validation
+        {
             return true;
-        // insert to DB
+        }
         return false;
     }
 }

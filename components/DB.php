@@ -3,6 +3,7 @@
 namespace app\components;
 
 use PDO;
+use app\components\lib\Lib;
 
 class DB
 {
@@ -11,7 +12,7 @@ class DB
      */
     public static function getConnection() : PDO
     {
-        $settings = require CONFIG . 'database.php';
+        $settings = Lib::getConfigArray(CONFIG . 'database.php');
 
         $dns = 'mysql:dbname=' . $settings['dbname'] . ';host=' . $settings['host'];
         $db = new PDO($dns, $settings['user'], $settings['password']);
