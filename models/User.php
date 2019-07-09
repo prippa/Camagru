@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use app\components\lib\Lib;
-
 class User
 {
     /**
@@ -13,7 +11,7 @@ class User
      */
     public static function insertNewUser(array $data) : bool
     {
-        $dvr = Lib::getConfigArray(CONFIG . 'form_validation_rules.php');
+        $dvr = require 'config/form_validation_rules.php';
 
         if (preg_match($dvr['username'], $data['username'])
             && preg_match($dvr['password'], $data['password'])

@@ -17,22 +17,12 @@ class UserController
                 return ;
             }
         }
-        Lib::renderPage(
-            'Register',
-            [BOOTSTRAP, CSS . 'style.css', CSS . 'register_and_login.css'],
-            [JS . 'register_and_login.js'],
-            VIEWS . 'register.php'
-        );
+        Lib::renderPage('Register', 'views/register.php');
     }
 
     public function actionLogin()
     {
-        Lib::renderPage(
-            'Login',
-            [BOOTSTRAP, CSS . 'style.css', CSS . 'register_and_login.css'],
-            [JS . 'register_and_login.js'],
-            VIEWS . 'login.php'
-        );
+        Lib::renderPage('Login', 'views/login.php');
     }
 
     public function actionLogout()

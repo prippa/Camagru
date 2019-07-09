@@ -1,10 +1,23 @@
-<?php require VIEWS . 'includes/head_html.php' ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/template/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/template/css/style.css">
+    <link rel="stylesheet" href="/template/css/register_and_login.css">
+    <title><?= $title ?></title>
+</head>
+<body>
 
 <div class="container">
 
     <div class="row mt-5 text-center">
         <div class="col-12">
-            <a href="#"><img class="logo-img" src="/images/logo.svg" alt=""></a>
+            <a href="#"><img class="logo-img" src="/template/images/logo.svg" alt=""></a>
         </div>
     </div>
 
@@ -50,4 +63,6 @@
 
 </div>
 
-<?php require VIEWS . 'includes/tail_html.php' ?>
+<script type="text/javascript" src="/template/js/register_and_login.js"></script>
+</body>
+</html>

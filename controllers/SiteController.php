@@ -8,11 +8,6 @@ class SiteController
 {
     public function actionIndex()
     {
-        Lib::renderPage(
-            'Main',
-            [BOOTSTRAP, CSS . 'style.css'],
-            [],
-            VIEWS . 'index.php'
-        );
+        Lib::renderPage('Main', 'views/index.php');
     }
 }
