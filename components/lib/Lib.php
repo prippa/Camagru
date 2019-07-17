@@ -23,5 +23,6 @@ abstract class Lib
     public static function renderPage(string $title, string $path_to_page_view) : void
     {
         require $path_to_page_view;
+        exit();
     }
 }

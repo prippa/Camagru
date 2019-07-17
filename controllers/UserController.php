@@ -11,8 +11,9 @@ class UserController
     {
         if (!empty($_POST))
         {
-            if (User::insertNewUser($_POST))
+            if (User::validate($_POST))
             {
+                User::add($_POST);
                 echo "OK";
                 return ;
             }
