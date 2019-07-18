@@ -32,6 +32,11 @@ try
 
     if (!$router->run())
         app\components\lib\Lib::renderPage('404', 'views/error_pages/404.php');
+//    $fd = fopen("test.txt", "a");
+//    fwrite($fd, "1\n");
+//    fclose($fd);
+//    app\components\lib\Lib::mail('pavelrippa@gmail.com', 'LOLOLOLOO', '<h1>42</h1>');
+//    echo "<pre>". file_get_contents('test.txt') ."</pre>";
 }
 catch (Exception $e)
 {

@@ -30,4 +30,14 @@ abstract class Lib
     {
         return md5(time() . $text);
     }
+
+    public static function mail(string $to, string $subject, string $message)
+    {
+        $header  = 'MIME-Version: 1.0' . "\r\n";
+        $header .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $header .= 'From: <prippa@student.42.fr>' . "\r\n";
+
+        // Send mail
+        mail($to, $subject, $message, $header);
+    }
 }
