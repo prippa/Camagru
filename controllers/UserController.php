@@ -11,10 +11,17 @@ class UserController
     {
         if (!empty($_POST))
         {
-            if (User::validate($_POST))
+            $login = $_POST['login'];
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $password_confirm = $_POST['password_confirm'];
+
+            if (User::validate($login, $email, $password, $password_confirm))
             {
-                User::add($_POST);
-                echo "OK";
+                $password = password_hash($password, PASSWORD_DEFAULT);
+                $token = Lib::getUniqueToken($login);
+
+                User::add($login, $email, $password, $token);
                 return ;
             }
         }

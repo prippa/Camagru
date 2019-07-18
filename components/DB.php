@@ -20,13 +20,19 @@ class DB
         return $db;
     }
 
-    public static function select($statement, PDO $db=null, $fetch_mod=PDO::FETCH_ASSOC) : array
+    public static function isArgExists(string $table, string $column, string $arg, PDO $db=null) : array
     {
         if (!$db)
             $db = self::getConnection();
 
-        $result = $db->query('SELECT ' . $statement);
-        $result->setFetchMode($fetch_mod);
+        $sql = 'SELECT :column FROM :table WHERE :column=:arg';
+        $result = $db->prepare($sql);
+        $result->bindParam(':column', $column);
+        $result->bindParam(':table', $table);
+        $result->bindParam(':column', $column);
+        $result->bindParam(':arg', $arg);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_ASSOC);
 
         return $result->fetchAll();
     }

@@ -25,4 +25,9 @@ abstract class Lib
         require $path_to_page_view;
         exit();
     }
+
+    public static function getUniqueToken(string $text) : string
+    {
+        return md5(time() . $text);
+    }
 }
