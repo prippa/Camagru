@@ -1,0 +1,29 @@
+<?php
+
+return "
+<html>
+    <head>
+        <title>Verify your email</title>
+        <style>
+            a {
+                color: #008cfb;
+                text-decoration: underline;
+            }
+            
+            a:hover {
+                color: #005ca9;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Hi $login!</p>
+        <p>Please <a href='$link'>Click this link</a> to confirm your email address.</p>
+        <p>
+            If you can't click the link from your email program,
+            please copy this URL and paste it into your web browser:
+        </p>
+        <a href='$link'>$link</a>
+    </body>
+</html>
+";

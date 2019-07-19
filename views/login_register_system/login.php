@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
     <link rel="stylesheet" href="/template/css/register_and_login.css">
-    <title><?= $title ?></title>
+    <title>Login</title>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
                     <div class="form-group col-md-6">
                         <label for="username-field">Username</label>
                         <input type="text" class="form-control" id="username-field"
-                               name="username" required tabindex="1">
+                               name="login" required tabindex="1">
                     </div>
 
                     <div class="form-group col-md-6">

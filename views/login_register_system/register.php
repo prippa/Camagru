@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
     <link rel="stylesheet" href="/template/css/register_and_login.css">
-    <title><?= $title ?></title>
+    <title>Register</title>
 </head>
 <body>
 
@@ -52,7 +52,7 @@
                     <div class="form-group col-12">
                         <label for="password-confirm-field">Password confirm</label>
                         <input type="password" class="form-control" id="password-confirm-field"
-                               name="password-confirm" required tabindex="4">
+                               name="password_confirm" required tabindex="4">
                     </div>
 
                 </div>

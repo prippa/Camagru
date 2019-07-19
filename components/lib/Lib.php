@@ -17,10 +17,11 @@ abstract class Lib
     }
 
     /**
+     * Call the View html
      * @param $title - Title of page
      * @param $path_to_page_view - Path to HTML file
      */
-    public static function renderPage(string $title, string $path_to_page_view) : void
+    public static function view(string $path_to_page_view, array $data=null) : void
     {
         require $path_to_page_view;
         exit();
