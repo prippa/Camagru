@@ -18,6 +18,10 @@ class UserController
 
     public function actionRegister()
     {
+        $errors = null;
+        $login = '';
+        $email = '';
+
         if (!empty($_POST))
         {
             $login = $_POST['login'];
@@ -25,7 +29,8 @@ class UserController
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
-            if (User::registerValidate($login, $email, $password, $password_confirm))
+            $errors = User::registerValidate($login, $email, $password, $password_confirm);
+            if (!$errors)
             {
                 $vkey = Lib::getUniqueToken($login);
 
@@ -34,7 +39,8 @@ class UserController
                 Lib::view('views/login_register_system/mail/confirm.php', ['email' => $email]);
             }
         }
-        Lib::view('views/login_register_system/register.php');
+        Lib::view('views/login_register_system/register.php',
+            ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
     public function actionConfirm($vkey)
@@ -47,19 +53,31 @@ class UserController
 
     public function actionLogin()
     {
+        $errors = null;
+        $login = '';
+
         if (!empty($_POST))
         {
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            if (User::login($login, $password))
+            $result = User::loginValidate($login, $password);
+            if (isset($result['email']))
+                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $result['email']]);
+            if (isset($result['id']))
+            {
+                User::login($result['id']);
                 Lib::redirect();
+            }
+            $errors = $result;
         }
-        Lib::view('views/login_register_system/login.php');
+        Lib::view('views/login_register_system/login.php',
+            ['errors' => $errors, 'login' => $login]);
     }
 
     public function actionLogout()
     {
-        echo 'actionLogout';
+        User::logout();
+        Lib::redirect();
     }
 }

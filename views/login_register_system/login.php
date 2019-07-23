@@ -28,13 +28,24 @@
         </div>
 
         <div class="col-12 mt-3 col-radius-form">
+
+            <?php if ($data['errors']): ?>
+                <div class="error-box">
+                    <ul class="error-list">
+                        <?php foreach ($data['errors'] as $item): ?>
+                            <li class="error-item"><?= $item ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php endif ?>
+
             <form action="login" method="post">
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
                         <label for="username-field">Username</label>
                         <input type="text" class="form-control" id="username-field"
-                               name="login" required tabindex="1">
+                               name="login" required tabindex="1" value="<?= $data['login'] ?>">
                     </div>
 
                     <div class="form-group col-md-6">

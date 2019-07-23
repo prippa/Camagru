@@ -7,15 +7,13 @@ use PDO;
 
 class User
 {
-    const HASH_ALGO = PASSWORD_DEFAULT;
-
     public static function add(string $login, string $email, string $password, string $vkey) : void
     {
         $db = DB::getConnection();
 
         $sql = 'INSERT INTO user (login, password, email, vkey) '
             . 'VALUES (:login, :password, :email, :vkey)';
-        $password = password_hash($password, self::HASH_ALGO);
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login);
@@ -29,93 +27,86 @@ class User
     {
         $db = DB::getConnection();
 
-        $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = '$vkey' LIMIT 1";
+        $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = :vkey LIMIT 1";
 
-        $result = $db->query($sql);
+        $result = $db->prepare($sql);
+        $result->bindParam(':vkey', $vkey);
+        $result->execute();
         if ($result->rowCount() != 1)
             return false;
 
-        $sql = "UPDATE user SET verified = 1, vkey = '0' WHERE vkey = '$vkey' LIMIT 1";
-        $db->query($sql);
+        $sql = "UPDATE user SET verified = 1 WHERE vkey = :vkey LIMIT 1";
+        $result = $db->prepare($sql);
+        $result->bindParam(':vkey', $vkey);
+        $result->execute();
         return true;
     }
 
-    public static function login(string $login, string $password) : int
+    private static function baseValidation($login, $password) : ?array
     {
+        $errors = null;
         $dvr = require 'config/form_validation_rules.php';
 
-        if (preg_match($dvr['login'], $login) // regular expression validate (login)
-            && preg_match($dvr['password'], $password)) // regular expression validate (password)
-        {
-            $db = DB::getConnection();
-
-            $sql = 'SELECT id, password, verified, email  FROM user WHERE login = :login LIMIT 1';
-
-            $result = $db->prepare($sql);
-            $result->bindParam(':login', $login);
-            $result->execute();
-            $result->setFetchMode(PDO::FETCH_ASSOC);
-
-            $user = $result->fetchAll();
-            if ($user && $user['verified'] == '1')
-            {
-                $hash = password_hash($password, self::HASH_ALGO);
-                if (password_verify($password, $hash))
-                    return
-//                echo "<pre>" . var_dump($user) . "</pre>";
-            }
-        }
-        return null;
+        if (!preg_match($dvr['login'], $login))
+            $errors[] = 'Invalid login';
+        if (!preg_match($dvr['password'], $password))
+            $errors[] = 'Invalid password';
+        return $errors;
     }
 
-    public static function checkVerification(string $login) : bool
+    public static function loginValidate(string $login, string $password) : array
     {
-        $dvr = require 'config/form_validation_rules.php';
+        $errors = self::baseValidation($login, $password);
 
-        if (preg_match($dvr['login'], $login) // regular expression validate (login)
-            && preg_match($dvr['password'], $password)) // regular expression validate (password)
-            return true;
-        return false;
-    }
+        if ($errors)
+            return $errors;
 
-    public static function loginValidate(string $login, string $password) : bool
-    {
-        $dvr = require 'config/form_validation_rules.php';
+        $db = DB::getConnection();
 
-        if (preg_match($dvr['login'], $login) // regular expression validate (login)
-            && preg_match($dvr['password'], $password)) // regular expression validate (password)
-        {
-            $db = DB::getConnection();
+        $sql = 'SELECT id, password, verified, email FROM user WHERE login = :login LIMIT 1';
 
-            $sql = 'SELECT password FROM user WHERE login = :login LIMIT 1';
-            $result = $db->prepare($sql);
-            $result->bindParam(':login', $login);
-            $result->execute();
-            $result->setFetchMode(PDO::FETCH_ASSOC);
-            $user = $result->fetchAll();
+        $result = $db->prepare($sql);
+        $result->bindParam(':login', $login);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_ASSOC);
 
-            if ($user && password_verify($user['password'], password_hash($user['password'], self::HASH_ALGO)))
-                return true;
-        }
-        return false;
+        $user = $result->fetch();
+        if (!$user)
+            return ["That username - <b>$login</b> is not registered"];
+        if (!password_verify($password, $user['password']))
+            return ['username or password is not correct'];
+        if ($user['verified'] == '0')
+            return ['email' => $user['email']];
+        return ['id' => $user['id']];
     }
 
     public static function registerValidate(string $login, string $email,
-                                            string $password, string $password_confirm) : bool
+                                            string $password, string $password_confirm) : ?array
     {
-        $dvr = require 'config/form_validation_rules.php';
+        $errors = self::baseValidation($login, $password);
 
-        if (preg_match($dvr['login'], $login) // regular expression validate (login)
-            && preg_match($dvr['password'], $password) // regular expression validate (password)
-            && $password == $password_confirm // password == password-confirm validate
-            && filter_var($email, FILTER_VALIDATE_EMAIL)) // validate email
-        {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            $errors[] = 'Invalid email';
+        if ($password != $password_confirm)
+            $errors[] = 'Passwords are not equal';
+        if (!$errors) {
             $db = DB::getConnection();
 
-            if (!DB::isArgExists('user', 'login', $login, $db) // validate if no such login in DB
-                && !DB::isArgExists('user', 'email', $email, $db)) // validate if no such email in DB
-                return true;
+            if (DB::isArgExists('user', 'login', $login, $db))
+                $errors[] = "That username - <b>$login</b> is already taken";
+            if (DB::isArgExists('user', 'email', $email, $db))
+                $errors[] = "That email - <b>$email</b> is already registered";
         }
-        return false;
+        return $errors;
+    }
+
+    public static function login(string $id) : void
+    {
+        $_SESSION['user'] = $id;
+    }
+
+    public static function logout() : void
+    {
+        unset($_SESSION['user']);
     }
 }

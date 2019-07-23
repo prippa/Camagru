@@ -41,4 +41,11 @@ abstract class Lib
         // Send mail
         mail($to, $subject, $message, $header);
     }
+
+    public static function debug($data) : void
+    {
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
+    }
 }

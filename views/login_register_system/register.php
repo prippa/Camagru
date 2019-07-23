@@ -22,25 +22,33 @@
     </div>
 
     <div class="row mt-5 mr-2 ml-2 justify-content-center">
-
         <div class="col-12 text-center">
             <h1>Register</h1>
         </div>
 
         <div class="col-12 mt-3 col-radius-form">
+            <?php if ($data['errors']): ?>
+                <div class="error-box">
+                    <ul class="error-list">
+                        <?php foreach ($data['errors'] as $item): ?>
+                            <li class="error-item"><?= $item ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php endif ?>
             <form action="register" method="post">
                 <div class="form-row">
 
                     <div class="form-group col-md-6">
                         <label for="username-field">Username</label>
                         <input type="text" class="form-control" id="username-field"
-                               name="login" required tabindex="1">
+                               name="login" required tabindex="1" value="<?= $data['login'] ?>">
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="email-field">Email address</label>
                         <input type="email" class="form-control" id="email-field"
-                               name="email" required tabindex="2">
+                               name="email" required tabindex="2" value="<?= $data['email'] ?>">
                     </div>
 
                     <div class="form-group col-12">

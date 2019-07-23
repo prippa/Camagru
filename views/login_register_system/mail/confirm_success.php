@@ -19,7 +19,7 @@
 
 <div class="container text-center">
     <p>Your account has been confirmed!</p>
-    <p class="text">You may now <a href="login">Login</a></p>
+    <p class="text">You may now <a href="/login">Login</a></p>
 </div>
 
 </body>
