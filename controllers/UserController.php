@@ -61,15 +61,14 @@ class UserController
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            $result = User::loginValidate($login, $password);
-            if (isset($result['email']))
-                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $result['email']]);
-            if (isset($result['id']))
+            $errors = User::loginValidate($login, $password);
+            if (isset($errors['email']))
+                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $errors['email']]);
+            if (isset($errors['id']))
             {
-                User::login($result['id']);
+                User::login($errors['id']);
                 Lib::redirect();
             }
-            $errors = $result;
         }
         Lib::view('views/login_register_system/login.php',
             ['errors' => $errors, 'login' => $login]);
@@ -79,5 +78,30 @@ class UserController
     {
         User::logout();
         Lib::redirect();
+    }
+
+    public function actionPasswordReset()
+    {
+        $errors = null;
+        $email = '';
+
+        if (!empty($_POST))
+        {
+            $email = $_POST['email'];
+
+            $errors = User::passwordResetValidation($email);
+            if (!$errors)
+            {
+                $vkey = Lib::getUniqueToken($email);
+
+//                User::setToken($email, $vkey);
+//                $this->sendConfirmMail($login, $email, $vkey);
+//                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $email]);
+            }
+            else if (isset($result['email']))
+                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $errors['email']]);
+        }
+        Lib::view('views/login_register_system/forgot_password.php',
+            ['errors' => $errors, 'email' => $email]);
     }
 }

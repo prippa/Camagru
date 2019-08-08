@@ -15,37 +15,28 @@
 
 <div class="container">
 
-    <div class="row mt-5 text-center">
-        <div class="col-12">
-            <a href="#"><img class="logo-img" src="/template/images/logo.svg" alt=""></a>
-        </div>
-    </div>
+    <?php require 'views/login_register_system/includes/logo.php' ?>
 
     <div class="row mt-5 mr-2 ml-2 justify-content-center">
+
         <div class="col-12 text-center">
             <h1>Register</h1>
         </div>
 
         <div class="col-12 mt-3 col-radius-form">
-            <?php if ($data['errors']): ?>
-                <div class="error-box">
-                    <ul class="error-list">
-                        <?php foreach ($data['errors'] as $item): ?>
-                            <li class="error-item"><?= $item ?></li>
-                        <?php endforeach ?>
-                    </ul>
-                </div>
-            <?php endif ?>
+
+            <?php require 'views/login_register_system/includes/print_errors.php' ?>
+
             <form action="register" method="post">
                 <div class="form-row">
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-12">
                         <label for="username-field">Username</label>
                         <input type="text" class="form-control" id="username-field"
                                name="login" required tabindex="1" value="<?= $data['login'] ?>">
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-12">
                         <label for="email-field">Email address</label>
                         <input type="email" class="form-control" id="email-field"
                                name="email" required tabindex="2" value="<?= $data['email'] ?>">
@@ -68,10 +59,12 @@
             </form>
         </div>
 
-        <div class="col-12 mt-4 mr-2 ml-2 col-radius-reg text-center">
+    </div>
+
+    <div class="row mt-4 mr-2 ml-2 justify-content-center">
+        <div class="col-12 col-radius-reg text-center">
             <div class="no-ac-text">Already have an account? <a href="login">Login</a></div>
         </div>
-
     </div>
 
 </div>

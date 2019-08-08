@@ -8,6 +8,6 @@ class SiteController
 {
     public function actionIndex()
     {
-        Lib::view('views/index.php', ['title' => 'Main']);
+        Lib::view('views/index.php');
     }
 }

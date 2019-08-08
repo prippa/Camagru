@@ -66,8 +66,8 @@ class Router
                 $internal_route = preg_replace("~$uri_pattern~", $path, $uri);
 
                 $segments = explode('/', $internal_route);
-                $controller_name = $this->namespace . ucfirst(array_shift($segments)) . $this->controller_postfix;
-                $action_name = $this->action_prefix . ucfirst(array_shift($segments));
+                $controller_name = $this->namespace . array_shift($segments) . $this->controller_postfix;
+                $action_name = $this->action_prefix . array_shift($segments);
 
                 $controller_object = new $controller_name;
                 call_user_func_array(array($controller_object, $action_name), $segments);

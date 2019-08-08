@@ -5,7 +5,7 @@ try
     /**
      * Call the Psr4AutoloaderClass and load all namespaces in namespaces.php file
      */
-    (function() : void
+    (function()
     {
         require 'components/Psr4AutoloaderClass.php';
         $ns_list = require 'config/namespaces.php';

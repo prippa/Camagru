@@ -89,7 +89,8 @@ class User
             $errors[] = 'Invalid email';
         if ($password != $password_confirm)
             $errors[] = 'Passwords are not equal';
-        if (!$errors) {
+        if (!$errors)
+        {
             $db = DB::getConnection();
 
             if (DB::isArgExists('user', 'login', $login, $db))
@@ -98,6 +99,25 @@ class User
                 $errors[] = "That email - <b>$email</b> is already registered";
         }
         return $errors;
+    }
+
+    public static function passwordResetValidation(string $email) : ?array
+    {
+        $db = DB::getConnection();
+
+        $sql = 'SELECT verified FROM user WHERE email = :email LIMIT 1';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email);
+        $result->execute();
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+
+        $user = $result->fetch();
+        if (!$user)
+            return ["Can't find that email, sorry."];
+        if ($user['verified'] == '0')
+            return ['email' => $user['email']];
+        return null;
     }
 
     public static function login(string $id) : void

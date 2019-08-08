@@ -1,11 +1,12 @@
 <?php
 
 return array(
-    '' => 'site/index',
-    'news' => 'news/index',
-    'news/([0-9]+)' => 'news/view/$1',
-    'register' => 'user/register',
-    'register/confirm/(.+)' => 'user/confirm/$1',
-    'login' => 'user/login',
-    'logout' => 'user/logout',
+    '' => 'Site/Index',
+    'news' => 'News/Index',
+    'news/([0-9]+)' => 'News/View/$1',
+    'register' => 'User/Register',
+    'register/confirm/(.+)' => 'User/Confirm/$1',
+    'login' => 'User/Login',
+    'logout' => 'User/Logout',
+    'password_reset' => 'User/PasswordReset',
 );
