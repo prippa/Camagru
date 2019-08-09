@@ -8,18 +8,16 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <title>Oops :(</title>
-    <style>
-        p {
-            font-size: 22px;
-        }
-    </style>
+    <title>Register</title>
 </head>
 <body>
 
-<div class="container">
-    <p><?= $data['error'] ?></p>
-    <a href="/">Back to the main page</a>
+<div class="container text-center">
+    <h1>Please reset your password</h1>
+    <img class="img-fluid" src="/template/images/mail.png" width="500" alt="">
+    <p>We just emailed you at <b><?= $data['email'] ?></b>.</p>
+    <p>Click the link in your email to reset password.</p>
+    <p>If you can't find the email check your spam folder.</p>
 </div>
 
 </body>

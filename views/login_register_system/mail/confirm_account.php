@@ -24,6 +24,9 @@ return "
             please copy this URL and paste it into your web browser:
         </p>
         <a href='$link'>$link</a>
+        <p>
+            If you don’t use this link within 24 hours, it will expire.
+        </p>
     </body>
 </html>
 ";

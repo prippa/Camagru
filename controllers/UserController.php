@@ -7,17 +7,29 @@ use app\models\User;
 
 class UserController
 {
-    private function sendConfirmMail(string $login, string $email, string $vkey) : void
+    private function sendConfirmAccount(string $login, string $email, string $vkey) : void
     {
         $link = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/register/confirm/$vkey";
         $sybject = 'Camagru: confirm your email address';
-        $message = require 'views/login_register_system/mail/confirm_mail.php';
+        $message = require 'views/login_register_system/mail/confirm_account.php';
+
+        Lib::mail($email, $sybject, $message);
+    }
+
+    private function sendConfirmPassword(string $email, string $vkey) : void
+    {
+        $link = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/password_reset/$vkey";
+        $sybject = 'Camagru: please reset your password';
+        $message = require 'views/login_register_system/mail/password_reset.php';
 
         Lib::mail($email, $sybject, $message);
     }
 
     public function actionRegister()
     {
+        if (!User::isGuest())
+            Lib::redirect();
+
         $errors = null;
         $login = '';
         $email = '';
@@ -32,27 +44,31 @@ class UserController
             $errors = User::registerValidate($login, $email, $password, $password_confirm);
             if (!$errors)
             {
-                $vkey = Lib::getUniqueToken($login);
+                Lib::view('views/login_register_system/confirm_account.php', ['email' => $email], false);
 
+                $vkey = Lib::getUniqueToken($login);
                 User::add($login, $email, $password, $vkey);
-                $this->sendConfirmMail($login, $email, $vkey);
-                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $email]);
+                $this->sendConfirmAccount($login, $email, $vkey);
+                exit();
             }
         }
         Lib::view('views/login_register_system/register.php',
             ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
-    public function actionConfirm($vkey)
+    public function actionConfirmMail($vkey)
     {
         if (User::confirmMail($vkey))
-            Lib::view('views/login_register_system/mail/confirm_success.php');
+            Lib::view('views/login_register_system/account_confirmed.php');
         else
             Lib::view('views/error_pages/something_went_wrong.php', ['error' => 'Invalid account']);
     }
 
     public function actionLogin()
     {
+        if (!User::isGuest())
+            Lib::redirect();
+
         $errors = null;
         $login = '';
 
@@ -61,14 +77,15 @@ class UserController
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            $errors = User::loginValidate($login, $password);
-            if (isset($errors['email']))
-                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $errors['email']]);
-            if (isset($errors['id']))
+            $result = User::loginValidate($login, $password);
+            if (isset($result['email']))
+                Lib::view('views/login_register_system/confirm_account.php', ['email' => $result['email']]);
+            if (isset($result['id']))
             {
-                User::login($errors['id']);
+                User::login($result['id']);
                 Lib::redirect();
             }
+            $errors = $result;
         }
         Lib::view('views/login_register_system/login.php',
             ['errors' => $errors, 'login' => $login]);
@@ -89,19 +106,31 @@ class UserController
         {
             $email = $_POST['email'];
 
-            $errors = User::passwordResetValidation($email);
-            if (!$errors)
+            $result = User::passwordResetValidation($email);
+            if (isset($result['account_email']))
+                Lib::view('views/login_register_system/confirm_account.php', ['email' => $result['email']]);
+            if (isset($result['password_email']))
+                Lib::view('views/login_register_system/confirm_password.php', ['email' => $result['email']]);
+            if (!$result)
             {
-                $vkey = Lib::getUniqueToken($email);
+                Lib::view('views/login_register_system/confirm_password.php', ['email' => $email], false);
 
-//                User::setToken($email, $vkey);
-//                $this->sendConfirmMail($login, $email, $vkey);
-//                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $email]);
+                $vkey = Lib::getUniqueToken($email);
+                User::passwordResetAdd($email, $vkey);
+                $this->sendConfirmPassword($email, $vkey);
+                exit();
             }
-            else if (isset($result['email']))
-                Lib::view('views/login_register_system/mail/confirm.php', ['email' => $errors['email']]);
+            $errors = $result;
         }
         Lib::view('views/login_register_system/forgot_password.php',
             ['errors' => $errors, 'email' => $email]);
+    }
+
+    public function actionPasswordResetForm($vkey)
+    {
+        if (User::confirmMail($vkey))
+            Lib::view('views/login_register_system/mail/confirm_success.php');
+        else
+            Lib::view('views/error_pages/something_went_wrong.php', ['error' => 'Invalid account']);
     }
 }

@@ -21,10 +21,11 @@ abstract class Lib
      * @param $title - Title of page
      * @param $path_to_page_view - Path to HTML file
      */
-    public static function view(string $path_to_page_view, array $data=null) : void
+    public static function view(string $path_to_page_view, array $data=null, bool $is_exit=true) : void
     {
         require $path_to_page_view;
-        exit();
+        if ($is_exit)
+            exit();
     }
 
     public static function getUniqueToken(string $text) : string

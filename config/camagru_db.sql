@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 19, 2019 at 11:59 AM
+-- Generation Time: Aug 09, 2019 at 07:37 AM
 -- Server version: 8.0.16
 -- PHP Version: 7.3.5
 
@@ -25,6 +25,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `password_reset`
+--
+
+CREATE TABLE `password_reset` (
+  `email` varchar(320) NOT NULL,
+  `token` char(32) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -37,13 +49,6 @@ CREATE TABLE `user` (
   `vkey` char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `login`, `password`, `email`, `verified`, `vkey`) VALUES
-(12, 'prippa', '$2y$10$p1kOX2DtjZeXBjKQdbtufeOoa3B7lg035NXL8iUKTv88Wi8PXiyXC', 'pavelrippa@gmail.com', 1, '0');
 
 --
 -- Indexes for dumped tables
@@ -63,9 +68,26 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+--
+-- Events
+--
+CREATE EVENT delete_unconfirmed_users
+    ON SCHEDULE
+        EVERY 1 DAY
+            STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
+    DO
+    DELETE FROM user WHERE `verified` = '0' AND `create_date` < NOW() - INTERVAL 1 DAY;
+
+CREATE EVENT delete_unconfirmed_password_reset
+    ON SCHEDULE
+        EVERY 3 HOUR
+            STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
+    DO
+    DELETE FROM password_reset WHERE `create_date` < NOW() - INTERVAL 3 HOUR;

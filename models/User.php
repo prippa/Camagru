@@ -28,7 +28,6 @@ class User
         $db = DB::getConnection();
 
         $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = :vkey LIMIT 1";
-
         $result = $db->prepare($sql);
         $result->bindParam(':vkey', $vkey);
         $result->execute();
@@ -64,7 +63,6 @@ class User
         $db = DB::getConnection();
 
         $sql = 'SELECT id, password, verified, email FROM user WHERE login = :login LIMIT 1';
-
         $result = $db->prepare($sql);
         $result->bindParam(':login', $login);
         $result->execute();
@@ -106,7 +104,6 @@ class User
         $db = DB::getConnection();
 
         $sql = 'SELECT verified FROM user WHERE email = :email LIMIT 1';
-
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email);
         $result->execute();
@@ -116,8 +113,29 @@ class User
         if (!$user)
             return ["Can't find that email, sorry."];
         if ($user['verified'] == '0')
-            return ['email' => $user['email']];
+            return ['account_email'];
+
+        $sql = 'SELECT email FROM password_reset WHERE email = :email LIMIT 1';
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email);
+        $result->execute();
+
+        $email = $result->fetch();
+        if ($email)
+            return ['password_email'];
         return null;
+    }
+
+    public static function passwordResetAdd(string $email, string $token) : void
+    {
+        $db = DB::getConnection();
+
+        $sql = 'INSERT INTO password_reset (email, token) '
+            . 'VALUES (:email, :token)';
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email);
+        $result->bindParam(':email', $token);
+        $result->execute();
     }
 
     public static function login(string $id) : void
@@ -128,5 +146,12 @@ class User
     public static function logout() : void
     {
         unset($_SESSION['user']);
+    }
+
+    public static function isGuest()
+    {
+        if (isset($_SESSION['user']))
+            return false;
+        return true;
     }
 }
