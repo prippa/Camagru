@@ -21,6 +21,7 @@ try
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
     define('DEBUG', true);
+    define('HOST_NAME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}");
     session_start();
 
     // Call the Router

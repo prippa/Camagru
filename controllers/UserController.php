@@ -9,7 +9,7 @@ class UserController
 {
     private function sendConfirmAccount(string $login, string $email, string $vkey) : void
     {
-        $link = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/register/confirm/$vkey";
+        $link = HOST_NAME . "/register/confirm/$vkey";
         $subject = 'Camagru: confirm your email address';
         $message = require 'views/login_register_system/mail/confirm_account.php';
 
@@ -18,7 +18,7 @@ class UserController
 
     private function sendConfirmPassword(string $email, string $vkey) : void
     {
-        $link = "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}/password_reset/$vkey";
+        $link = HOST_NAME . "/password_reset/$vkey";
         $subject = 'Camagru: please reset your password';
         $message = require 'views/login_register_system/mail/password_reset.php';
 
