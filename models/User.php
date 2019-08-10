@@ -120,8 +120,7 @@ class User
         $result->bindParam(':email', $email);
         $result->execute();
 
-        $email = $result->fetch();
-        if ($email)
+        if ($result->fetch())
             return ['password_email'];
         return null;
     }
@@ -134,7 +133,7 @@ class User
             . 'VALUES (:email, :token)';
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email);
-        $result->bindParam(':email', $token);
+        $result->bindParam(':token', $token);
         $result->execute();
     }
 
