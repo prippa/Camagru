@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 09, 2019 at 07:37 AM
+-- Generation Time: Aug 10, 2019 at 06:38 AM
 -- Server version: 8.0.16
 -- PHP Version: 7.3.5
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `password_reset` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `email` varchar(320) NOT NULL,
   `token` char(32) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -55,14 +56,26 @@ CREATE TABLE `user` (
 --
 
 --
+-- Indexes for table `password_reset`
+--
+ALTER TABLE `password_reset`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `password_reset`
+--
+ALTER TABLE `password_reset`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `user`

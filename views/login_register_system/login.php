@@ -50,7 +50,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="3">LOGIN</button>
+                <button type="submit" class="btn btn-primary btn-block" tabindex="3">Login</button>
             </form>
 
         </div>

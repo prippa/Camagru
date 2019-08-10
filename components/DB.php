@@ -25,12 +25,10 @@ class DB
         if (!$db)
             $db = self::getConnection();
 
-        $sql = "SELECT $column FROM $table WHERE $column='$arg' LIMIT 1";
-        $result = $db->query($sql);
-//        $result = $db->prepare($sql);
-//        $result->bindParam(':table', $table);
-//        $result->bindParam(':arg', $arg);
-//        $result->execute();
+        $sql = "SELECT $column FROM $table WHERE $column = :arg LIMIT 1";
+        $result = $db->prepare($sql);
+        $result->bindParam(':arg', $arg);
+        $result->execute();
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
         return $result->fetchAll();

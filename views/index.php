@@ -1,18 +1,22 @@
-<?php
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/template/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/template/css/style.css">
+    <title>Camagru</title>
+</head>
+<body>
 
-if (isset($_SESSION['user']))
-{
-    echo '<pre>';
-    echo "Welcome!" . PHP_EOL;
-    echo '<a href="logout">Logout?</a>';
-    echo '</pre>';
-}
-else
-{
-    echo '<pre>';
-    echo "Who are you?!" . PHP_EOL;
-    echo '<a href="login">Login!</a>';
-    echo '</pre>';
-}
+<div class="container">
 
-//\app\components\lib\Lib::view('views/login_register_system/mail/confirm_success.php');
+    <h1>Main Page</h1>
+
+</div>
+
+</body>
+</html>

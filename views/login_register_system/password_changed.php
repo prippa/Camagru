@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
     <link rel="stylesheet" href="/template/css/register_and_login.css">
-    <title>Register</title>
+    <title>Password has been changed</title>
     <style>
         p {
             font-size: 22px;
@@ -22,8 +22,8 @@
 
     <?php require 'views/login_register_system/includes/logo.php' ?>
 
-    <p class="mt-5">Your account has been confirmed!</p>
-    <p class="text">You may now <a href="/login">Login</a></p>
+    <p class="mt-5"><b>@<?= $data['login'] ?></b> your password has been changed!</p>
+    <p class="text">You may now <a href="/login">Login</a> with new password</p>
 
 </div>
 

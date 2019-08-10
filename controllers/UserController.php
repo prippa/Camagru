@@ -98,6 +98,9 @@ class UserController
 
     public function actionPasswordReset()
     {
+        if (!User::isGuest())
+            Lib::redirect();
+
         $errors = null;
         $email = '';
 
@@ -106,10 +109,6 @@ class UserController
             $email = $_POST['email'];
 
             $result = User::passwordResetValidation($email);
-            if (in_array('account_email', $result))
-                Lib::view('views/login_register_system/confirm_account.php', ['email' => $email]);
-            if (in_array('password_email', $result))
-                Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
             if (!$result)
             {
                 $vkey = Lib::getUniqueToken($email);
@@ -118,14 +117,41 @@ class UserController
                 $this->sendConfirmPassword($email, $vkey);
                 Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
             }
+            if (in_array('account_email', $result))
+                Lib::view('views/login_register_system/confirm_account.php', ['email' => $email]);
+            if (in_array('password_email', $result))
+                Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
             $errors = $result;
         }
         Lib::view('views/login_register_system/forgot_password.php',
             ['errors' => $errors, 'email' => $email]);
     }
 
-    public function actionPasswordResetForm($vkey)
+    public function actionPasswordResetForm($token)
     {
-        Lib::debug($vkey);
+        $email = User::passwordResetGetEmailByVkey($token);
+
+        if (!$email)
+            Lib::view('views/error_pages/something_went_wrong.php',
+                ['error' => 'Unable to change password by this link']);
+
+        $login = User::getLoginByEmail($email);
+        $errors = null;
+
+        if (!empty($_POST))
+        {
+            $password = $_POST['password'];
+            $password_confirm = $_POST['password_confirm'];
+
+            $errors = User::passwordResetFormValidation($password, $password_confirm);
+            if (!$errors)
+            {
+                User::passwordResetDeleteByEmail($email);
+                User::changePasswordByLogin($login, $password);
+                Lib::view('views/login_register_system/password_changed.php', ['login' => $login]);
+            }
+        }
+        Lib::view('views/login_register_system/password_reset_form.php',
+            ['errors' => $errors, 'login' => $login, 'token' => $token]);
     }
 }
