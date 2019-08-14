@@ -11,21 +11,9 @@ abstract class User extends Modal
     public static function add(string $login, string $email, string $password, string $vkey) : void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
-//$db = DB::getConnection();
+
         $sql = 'INSERT INTO user (login, password, email, vkey) VALUES (:login, :password, :email, :vkey)';
-        $params = array(
-            ':login' => $login,
-            ':password' => $password,
-            ':email' => $email,
-            ':vkey' => $vkey,
-        );
-        DB::execute($sql, $params);
-//        $result = $db->prepare($sql);
-//        $result->bindParam(':login', $login);
-//        $result->bindParam(':password', $password);
-//        $result->bindParam(':email', $email);
-//        $result->bindParam(':vkey', $vkey);
-//        $result->execute();
+        DB::execute($sql, [':login' => $login, ':password' => $password, ':email' => $email, ':vkey' => $vkey]);
     }
 
     public static function changePasswordByLogin(string $login, string $password) : void
