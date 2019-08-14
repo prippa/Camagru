@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components;
+namespace app\components\lib;
 
 /**
  * Simple Router class

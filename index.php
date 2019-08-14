@@ -25,7 +25,7 @@ try
     session_start();
 
     // Call the Router
-    $router = new app\components\Router(
+    $router = new app\components\lib\Router(
         require 'config/routes.php',
         'app\\controllers\\',
         'action',

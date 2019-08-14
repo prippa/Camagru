@@ -3,28 +3,12 @@
 namespace app\controllers;
 
 use app\components\lib\Lib;
+use app\components\lib\Mail;
+use app\models\PasswordReset;
 use app\models\User;
 
 class UserController
 {
-    private function sendConfirmAccount(string $login, string $email, string $vkey) : void
-    {
-        $link = HOST_NAME . "/register/confirm/$vkey";
-        $subject = 'Camagru: confirm your email address';
-        $message = require 'views/login_register_system/mail/confirm_account.php';
-
-        Lib::mail($email, $subject, $message);
-    }
-
-    private function sendConfirmPassword(string $email, string $vkey) : void
-    {
-        $link = HOST_NAME . "/password_reset/$vkey";
-        $subject = 'Camagru: please reset your password';
-        $message = require 'views/login_register_system/mail/password_reset.php';
-
-        Lib::mail($email, $subject, $message);
-    }
-
     public function actionRegister()
     {
         if (!User::isGuest())
@@ -47,7 +31,7 @@ class UserController
                 $vkey = Lib::getUniqueToken($login);
 
                 User::add($login, $email, $password, $vkey);
-                $this->sendConfirmAccount($login, $email, $vkey);
+                Mail::ConfirmAccount($login, $email, $vkey);
                 Lib::view('views/login_register_system/confirm_account.php', ['email' => $email]);
             }
         }
@@ -108,13 +92,13 @@ class UserController
         {
             $email = $_POST['email'];
 
-            $result = User::passwordResetValidation($email);
+            $result = PasswordReset::validation($email);
             if (!$result)
             {
                 $vkey = Lib::getUniqueToken($email);
 
-                User::passwordResetAdd($email, $vkey);
-                $this->sendConfirmPassword($email, $vkey);
+                PasswordReset::add($email, $vkey);
+                Mail::ConfirmPassword($email, $vkey);
                 Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
             }
             if (in_array('account_email', $result))
@@ -129,7 +113,7 @@ class UserController
 
     public function actionPasswordResetForm($token)
     {
-        $email = User::passwordResetGetEmailByVkey($token);
+        $email = PasswordReset::getEmailByToken($token);
 
         if (!$email)
             Lib::view('views/error_pages/something_went_wrong.php',
@@ -143,10 +127,10 @@ class UserController
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
-            $errors = User::passwordResetFormValidation($password, $password_confirm);
+            $errors = PasswordReset::formValidation($password, $password_confirm);
             if (!$errors)
             {
-                User::passwordResetDeleteByEmail($email);
+                PasswordReset::deleteByEmail($email);
                 User::changePasswordByLogin($login, $password);
                 Lib::view('views/login_register_system/password_changed.php', ['login' => $login]);
             }

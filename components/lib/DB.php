@@ -1,10 +1,11 @@
 <?php
 
-namespace app\components;
+namespace app\components\lib;
 
 use PDO;
+use PDOStatement;
 
-class DB
+abstract class DB
 {
     /**
      * Get connected object of PDO Class
@@ -26,11 +27,26 @@ class DB
             $db = self::getConnection();
 
         $sql = "SELECT $column FROM $table WHERE $column = :arg LIMIT 1";
-        $result = $db->prepare($sql);
-        $result->bindParam(':arg', $arg);
-        $result->execute();
-        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result = self::execute($sql, [':arg' => $arg], $db);
 
         return $result->fetchAll();
+    }
+
+    /**
+     * @param string $sql
+     * @param array|null $params
+     * @param PDO|null $db
+     * @return bool|PDOStatement
+     */
+    public static function execute(string $sql, array $params=null, PDO $db=null)
+    {
+        if (!$db)
+            $db = self::getConnection();
+
+        $result = $db->prepare($sql);
+        foreach ($params as $key => &$value)
+            $result->bindParam($key, $value);
+        $result->execute();
+        return $result;
     }
 }
