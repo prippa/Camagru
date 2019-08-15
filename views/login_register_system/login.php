@@ -15,7 +15,7 @@
 
 <div class="container">
 
-    <?php require 'views/login_register_system/includes/logo.php' ?>
+    <?php require 'views/includes/header.php' ?>
 
     <div class="row mt-5 mr-2 ml-2 justify-content-center">
 
@@ -62,6 +62,8 @@
             <div class="no-ac-text">No account yet? <a href="register">Register</a></div>
         </div>
     </div>
+
+    <?php require 'views/includes/footer.php' ?>
 
 </div>
 

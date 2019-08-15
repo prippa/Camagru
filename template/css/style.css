@@ -1,5 +1,9 @@
 html, body {
-    background-color: #f9f9f9;
+    background: url("/template/images/website-background.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 a {
@@ -10,4 +14,23 @@ a {
 a:hover {
     color: #005ca9;
     text-decoration: none;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.main-logo-img {
+    width: 100px;
+}
+
+.border-radius {
+    border-radius: 6px;
+}
+#navbar-toggle-cbox:checked ~ .collapse {
+    display:block;
+}
+
+#navbar-toggle-cbox {
+    display: none;
 }

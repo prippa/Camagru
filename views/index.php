@@ -14,7 +14,11 @@
 
 <div class="container">
 
-    <h1>Main Page</h1>
+    <?php require 'views/includes/header.php' ?>
+
+    <h1>Content</h1>
+
+    <?php require 'views/includes/footer.php' ?>
 
 </div>
 
