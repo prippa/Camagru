@@ -8,9 +8,12 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
+    <link rel="stylesheet" href="/template/css/register_and_login.css">
     <title>Register</title>
 </head>
 <body>
+
+<?php require 'views/includes/header.php' ?>
 
 <div class="container text-center">
     <h1>Please reset your password</h1>
@@ -19,6 +22,8 @@
     <p>Click the link in your email to reset password.</p>
     <p>If you can't find the email check your spam folder.</p>
 </div>
+
+<?php require 'views/includes/footer.php' ?>
 
 </body>
 </html>

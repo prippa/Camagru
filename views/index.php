@@ -12,15 +12,52 @@
 </head>
 <body>
 
+<?php require 'views/includes/header.php' ?>
+
 <div class="container">
 
-    <?php require 'views/includes/header.php' ?>
-
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
+    <h1>Content</h1>
     <h1>Content</h1>
 
-    <?php require 'views/includes/footer.php' ?>
-
 </div>
+
+<?php require 'views/includes/footer.php' ?>
 
 </body>
 </html>

@@ -18,14 +18,16 @@
 </head>
 <body>
 
-<div class="container text-center">
+<?php require 'views/includes/header.php' ?>
 
-    <?php require 'views/login_register_system/includes/logo.php' ?>
+<div class="container text-center">
 
     <p class="mt-5">Your account has been confirmed!</p>
     <p class="text">You may now <a href="/login">Login</a></p>
 
 </div>
+
+<?php require 'views/includes/footer.php' ?>
 
 </body>
 </html>

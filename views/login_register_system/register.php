@@ -13,9 +13,9 @@
 </head>
 <body>
 
-<div class="container">
+<?php require 'views/includes/header.php' ?>
 
-    <?php require 'views/includes/header.php' ?>
+<div class="container">
 
     <div class="row mt-5 mr-2 ml-2 justify-content-center">
 
@@ -67,9 +67,9 @@
         </div>
     </div>
 
-    <?php require 'views/includes/footer.php' ?>
-
 </div>
+
+<?php require 'views/includes/footer.php' ?>
 
 <script type="text/javascript" src="/template/js/register_and_login.js"></script>
 </body>

@@ -13,11 +13,12 @@
 </head>
 <body>
 
+<?php require 'views/includes/header.php' ?>
+
 <div class="container">
 
-    <?php require 'views/includes/header.php' ?>
 
-    <div class="row mt-5 mr-2 ml-2 justify-content-center">
+    <div class="row mr-2 ml-2 justify-content-center">
 
         <div class="col-12 text-center">
             <h1>Login</h1>
@@ -63,9 +64,10 @@
         </div>
     </div>
 
-    <?php require 'views/includes/footer.php' ?>
 
 </div>
+
+<?php require 'views/includes/footer.php' ?>
 
 <script type="text/javascript" src="/template/js/register_and_login.js"></script>
 </body>

@@ -20,3 +20,5 @@ catch (PDOException $e)
 {
     echo $e . PHP_EOL;
 }
+
+echo 'Database IS ALIVE!!!';

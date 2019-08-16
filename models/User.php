@@ -95,7 +95,7 @@ abstract class User extends Modal
     {
         $sql = 'SELECT login FROM user WHERE email = :email LIMIT 1';
 
-        $result = DB::execute($sql, ['$:email' => $email]);
+        $result = DB::execute($sql, [':email' => $email]);
         $login = $result->fetch(PDO::FETCH_ASSOC);
         return $login['login'];
     }
