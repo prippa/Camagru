@@ -110,10 +110,10 @@ abstract class User extends Modal
         unset($_SESSION['user']);
     }
 
-    public static function isGuest()
+    public static function isLogged()
     {
         if (isset($_SESSION['user']))
-            return false;
-        return true;
+            return true;
+        return false;
     }
 }

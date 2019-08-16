@@ -22,7 +22,6 @@ try
     error_reporting(E_ALL);
     define('DEBUG', true);
     define('HOST_NAME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}");
-    define('CURRENT_YEAR', date("Y"));
     session_start();
 
     // Call the Router
@@ -33,12 +32,12 @@ try
         'Controller');
 
     if (!$router->run())
-        app\components\lib\Lib::view('views/error_pages/404.php');
+        app\components\lib\View::run(app\components\lib\View::ERROR_400);
 }
 catch (Exception $e)
 {
     if (DEBUG)
         echo "<pre>$e</pre>";
     else
-        app\components\lib\Lib::view('views/error_pages/500.php');
+        app\components\lib\View::run(app\components\lib\View::ERROR_500);
 }

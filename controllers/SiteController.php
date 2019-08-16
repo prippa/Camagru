@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-use app\components\lib\Lib;
+use app\components\lib\View;
 
 class SiteController
 {
     public function actionIndex()
     {
-        Lib::view('views/index.php');
+        View::run(View::INDEX);
     }
 }

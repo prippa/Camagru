@@ -6,12 +6,13 @@ use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\models\PasswordReset;
 use app\models\User;
+use app\components\lib\View;
 
 class UserController
 {
     public function actionRegister()
     {
-        if (!User::isGuest())
+        if (User::isLogged())
             Lib::redirect();
 
         $errors = null;
@@ -32,24 +33,23 @@ class UserController
 
                 User::add($login, $email, $password, $vkey);
                 Mail::ConfirmAccount($login, $email, $vkey);
-                Lib::view('views/login_register_system/confirm_account.php', ['email' => $email]);
+                View::run(View::CONFIRM_ACCOUNT, ['email' => $email]);
             }
         }
-        Lib::view('views/login_register_system/register.php',
-            ['errors' => $errors, 'login' => $login, 'email' => $email]);
+        View::run(View::REGISTER, ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
     public function actionConfirmMail($vkey)
     {
         if (User::confirmMail($vkey))
-            Lib::view('views/login_register_system/account_confirmed.php');
+            View::run(View::ACCOUNT_CONFIRMED);
         else
-            Lib::view('views/error_pages/something_went_wrong.php', ['error' => 'Invalid account']);
+            View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Invalid account']);
     }
 
     public function actionLogin()
     {
-        if (!User::isGuest())
+        if (User::isLogged())
             Lib::redirect();
 
         $errors = null;
@@ -62,7 +62,7 @@ class UserController
 
             $result = User::loginValidate($login, $password);
             if (isset($result['email']))
-                Lib::view('views/login_register_system/confirm_account.php', ['email' => $result['email']]);
+                View::run(View::CONFIRM_ACCOUNT, ['email' => $result['email']]);
             if (isset($result['id']))
             {
                 User::login($result['id']);
@@ -70,8 +70,7 @@ class UserController
             }
             $errors = $result;
         }
-        Lib::view('views/login_register_system/login.php',
-            ['errors' => $errors, 'login' => $login]);
+        View::run(View::LOGIN, ['errors' => $errors, 'login' => $login]);
     }
 
     public function actionLogout()
@@ -82,7 +81,7 @@ class UserController
 
     public function actionPasswordReset()
     {
-        if (!User::isGuest())
+        if (User::isLogged())
             Lib::redirect();
 
         $errors = null;
@@ -99,16 +98,15 @@ class UserController
 
                 PasswordReset::add($email, $vkey);
                 Mail::ConfirmPassword($email, $vkey);
-                Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
+                View::run(View::CONFIRM_PASSWORD, ['email' => $email]);
             }
             if (in_array('account_email', $result))
-                Lib::view('views/login_register_system/confirm_account.php', ['email' => $email]);
+                View::run(View::CONFIRM_ACCOUNT, ['email' => $email]);
             if (in_array('password_email', $result))
-                Lib::view('views/login_register_system/confirm_password.php', ['email' => $email]);
+                View::run(View::CONFIRM_PASSWORD, ['email' => $email]);
             $errors = $result;
         }
-        Lib::view('views/login_register_system/forgot_password.php',
-            ['errors' => $errors, 'email' => $email]);
+        View::run(View::FORGOT_PASSWORD, ['errors' => $errors, 'email' => $email]);
     }
 
     public function actionPasswordResetForm($token)
@@ -116,8 +114,7 @@ class UserController
         $email = PasswordReset::getEmailByToken($token);
 
         if (!$email)
-            Lib::view('views/error_pages/something_went_wrong.php',
-                ['error' => 'Unable to change password by this link']);
+            View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Unable to change password by this link']);
 
         $login = User::getLoginByEmail($email);
         $errors = null;
@@ -132,10 +129,9 @@ class UserController
             {
                 PasswordReset::deleteByEmail($email);
                 User::changePasswordByLogin($login, $password);
-                Lib::view('views/login_register_system/password_changed.php', ['login' => $login]);
+                View::run(View::PASSWORD_CHANGED, ['login' => $login]);
             }
         }
-        Lib::view('views/login_register_system/password_reset_form.php',
-            ['errors' => $errors, 'login' => $login, 'token' => $token]);
+        View::run(View::PASSWORD_RESET_FORM, ['errors' => $errors, 'login' => $login, 'token' => $token]);
     }
 }

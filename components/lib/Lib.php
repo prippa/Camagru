@@ -2,6 +2,8 @@
 
 namespace app\components\lib;
 
+use app\models\User;
+
 abstract class Lib
 {
     /**
@@ -14,18 +16,6 @@ abstract class Lib
 
         header("Location: $request://$host/$url");
         exit();
-    }
-
-    /**
-     * Call the View html
-     * @param $title - Title of page
-     * @param $path_to_page_view - Path to HTML file
-     */
-    public static function view(string $path_to_page_view, array $data=null, bool $is_exit=true) : void
-    {
-        require $path_to_page_view;
-        if ($is_exit)
-            exit();
     }
 
     public static function getUniqueToken(string $text) : string
