@@ -79,3 +79,12 @@ a:hover {
 .settings-btn {
     width: 400px;
 }
+
+/*Media*/
+
+/*SM*/
+@media (max-width: 575px) {
+    .settings-btn {
+        width: 240px;
+    }
+}
