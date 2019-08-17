@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <link rel="stylesheet" href="/template/css/register_and_login.css">
     <title>Register</title>
 </head>
 <body>
@@ -17,7 +16,7 @@
 
 <div class="container">
 
-    <div class="row mt-5 mr-2 ml-2 justify-content-center">
+    <div class="row mr-2 ml-2 justify-content-center">
 
         <div class="col-12 text-center">
             <h1>Register</h1>
@@ -27,7 +26,7 @@
 
             <?php require 'views/login_register_system/includes/print_errors.php' ?>
 
-            <form action="register" method="post">
+            <form action="/register" method="post">
                 <div class="form-row">
 
                     <div class="form-group col-12">

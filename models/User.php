@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\lib\DB;
+use app\components\lib\Lib;
 use app\components\lib\Modal;
 use PDO;
 
@@ -100,6 +101,24 @@ abstract class User extends Modal
         return $login['login'];
     }
 
+    public static function getLoginById(int $id) : ?string
+    {
+        $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
+
+        $result = DB::execute($sql, [':id' => $id]);
+        $login = $result->fetch(PDO::FETCH_ASSOC);
+        return $login['login'];
+    }
+
+    public static function getLoginAndEmailById(int $id) : ?array
+    {
+        $sql = 'SELECT login, email FROM user WHERE id = :id LIMIT 1';
+
+        $result = DB::execute($sql, [':id' => $id]);
+        $data = $result->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
     public static function login(string $id) : void
     {
         $_SESSION['user'] = $id;
@@ -110,10 +129,29 @@ abstract class User extends Modal
         unset($_SESSION['user']);
     }
 
-    public static function isLogged()
+    public static function isLogged() : bool
     {
         if (isset($_SESSION['user']))
             return true;
         return false;
+    }
+
+    public static function getId() : ?int
+    {
+        if (isset($_SESSION['user']))
+            return $_SESSION['user'];
+        return null;
+    }
+
+    public static function redirectToLoginCheck() : void
+    {
+        if (!self::isLogged())
+            Lib::redirect('login');
+    }
+
+    public static function redirectToHomeCheck() : void
+    {
+        if (self::isLogged())
+            Lib::redirect();
     }
 }

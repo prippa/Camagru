@@ -15,6 +15,9 @@ abstract class View
     public const FORGOT_PASSWORD = 1007;
     public const PASSWORD_CHANGED = 1008;
     public const PASSWORD_RESET_FORM = 1009;
+    public const PROFILE = 1010;
+
+    public const MAKE_PHOTO = 1011;
 
     public const ERROR_400 = 400;
     public const ERROR_404 = 404;
@@ -31,6 +34,10 @@ abstract class View
         self::CONFIRM_PASSWORD => 'views/login_register_system/confirm_password.php',
         self::PASSWORD_CHANGED => 'views/login_register_system/password_changed.php',
         self::PASSWORD_RESET_FORM => 'views/login_register_system/password_reset_form.php',
+        self::PROFILE => 'views/user/profile.php',
+
+        self::MAKE_PHOTO => 'views/photo/make_photo.php',
+
         self::ERROR_SOMETHING_WENT_WRONG => 'views/error_pages/something_went_wrong.php',
         self::ERROR_400 => 'views/error_pages/400.php',
         self::ERROR_404 => 'views/error_pages/404.php',
@@ -41,6 +48,8 @@ abstract class View
     {
         $base_date = [ 'is_logged' => User::isLogged(), 'current_year' => date("Y")];
 
+        if ($base_date['is_logged'])
+            $base_date['login'] = User::getLoginById(User::getId());
         return $base_date;
     }
 

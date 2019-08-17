@@ -36,11 +36,11 @@ header a.active {
     color: white;
 }
 
-.header-right {
+nav {
     float: right;
 }
 
-header .header-right a {
+header nav a {
     margin-top: 12px;
     margin-right: 8px;
 }
@@ -52,11 +52,11 @@ header .header-right a {
         text-align: left;
     }
 
-    .header-right {
+    nav {
         float: none;
     }
 
-    header .header-right a {
+    header nav a {
         margin: 0;
     }
 }

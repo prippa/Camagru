@@ -18,7 +18,7 @@ abstract class Mail
 
         // Set mail header
         $header = "Content-type: text/html; charset=".$encoding." \r\n";
-        $header .= "From: <".HOST_NAME."> \r\n";
+        $header .= "From: <prippa@student.42.fr> \r\n";
         $header .= "MIME-Version: 1.0 \r\n";
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: ".date("r (T)")." \r\n";

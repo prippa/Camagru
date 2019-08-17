@@ -10,10 +10,10 @@ use app\components\lib\View;
 
 class UserController
 {
+    // ****************************************** Register and Login system ******************************************
     public function actionRegister()
     {
-        if (User::isLogged())
-            Lib::redirect();
+        User::redirectToHomeCheck();
 
         $errors = null;
         $login = '';
@@ -49,8 +49,7 @@ class UserController
 
     public function actionLogin()
     {
-        if (User::isLogged())
-            Lib::redirect();
+        User::redirectToHomeCheck();
 
         $errors = null;
         $login = '';
@@ -81,8 +80,7 @@ class UserController
 
     public function actionPasswordReset()
     {
-        if (User::isLogged())
-            Lib::redirect();
+        User::redirectToHomeCheck();
 
         $errors = null;
         $email = '';
@@ -133,5 +131,20 @@ class UserController
             }
         }
         View::run(View::PASSWORD_RESET_FORM, ['errors' => $errors, 'login' => $login, 'token' => $token]);
+    }
+    // ***************************************************************************************************************
+
+    public function actionProfile()
+    {
+        User::redirectToLoginCheck();
+
+        $errors = null;
+        $user_data = User::getLoginAndEmailById(User::getId());
+
+        if (!empty($_POST))
+        {
+            Lib::debug($_POST);
+        }
+        View::run(View::PROFILE, ['errors' => $errors, 'user_data' => $user_data]);
     }
 }

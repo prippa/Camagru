@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <link rel="stylesheet" href="/template/css/register_and_login.css">
     <title>Register</title>
     <style>
         p {
@@ -22,7 +21,7 @@
 
 <div class="container text-center">
 
-    <p class="mt-5">Your account has been confirmed!</p>
+    <p>Your account has been confirmed!</p>
     <p class="text">You may now <a href="/login">Login</a></p>
 
 </div>

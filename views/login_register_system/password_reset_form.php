@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <link rel="stylesheet" href="/template/css/register_and_login.css">
     <title>Change your password</title>
 </head>
 <body>

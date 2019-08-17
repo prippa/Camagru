@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon"/>
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <link rel="stylesheet" href="/template/css/register_and_login.css">
     <title>Forgot your password?</title>
 </head>
 <body>
@@ -27,7 +26,7 @@
 
             <?php require 'views/login_register_system/includes/print_errors.php' ?>
 
-            <form action="password_reset" method="post">
+            <form action="/password_reset" method="post">
                 <div class="form-row">
 
                     <div class="form-group col-12">
