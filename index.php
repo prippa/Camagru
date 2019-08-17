@@ -32,7 +32,7 @@ try
         'Controller');
 
     if (!$router->run())
-        app\components\lib\View::run(app\components\lib\View::ERROR_400);
+        app\components\lib\View::run(app\components\lib\View::ERROR_404);
 }
 catch (Exception $e)
 {

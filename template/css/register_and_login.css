@@ -1,12 +1,14 @@
 .col-radius-form {
     background-color: unset;
     border-radius: 6px;
+    border: 1px solid #919191;
     padding: 20px;
     max-width: 400px;
 }
 
 .col-radius-reg {
     border-radius: 6px;
+    border: 1px solid #919191;
     max-width: 400px;
     background-color: unset;
 }

@@ -17,7 +17,7 @@
 
 <div class="container">
 
-    <div class="row mt-5 mr-2 ml-2 justify-content-center">
+    <div class="row mr-2 ml-2 justify-content-center">
 
         <div class="col-12 text-center">
             <h1>Change password for @<?= $data['login'] ?></h1>
