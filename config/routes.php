@@ -9,7 +9,9 @@ return array(
     'logout' => 'User/Logout',
     'password_reset' => 'User/PasswordReset',
     'password_reset/(.+)' => 'User/PasswordResetForm/$1',
-    'profile' => 'User/Profile',
+    'profile' => 'User/ProfileSettings',
+    'profile/settings' => 'User/ProfileSettings',
+    'profile/my_photos' => 'User/ProfileMyPhotos',
 
     'make_photo' => 'Photo/MakePhoto',
 );

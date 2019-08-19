@@ -110,9 +110,9 @@ abstract class User extends Modal
         return $login['login'];
     }
 
-    public static function getLoginAndEmailById(int $id) : ?array
+    public static function getUserByID(int $id) : ?array
     {
-        $sql = 'SELECT login, email FROM user WHERE id = :id LIMIT 1';
+        $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
         $data = $result->fetch(PDO::FETCH_ASSOC);

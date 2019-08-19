@@ -134,17 +134,24 @@ class UserController
     }
     // ***************************************************************************************************************
 
-    public function actionProfile()
+    public function actionProfileSettings()
     {
         User::redirectToLoginCheck();
 
         $errors = null;
-        $user_data = User::getLoginAndEmailById(User::getId());
+        $user_data = User::getUserByID(User::getId());
 
         if (!empty($_POST))
         {
             Lib::debug($_POST);
         }
-        View::run(View::PROFILE, ['errors' => $errors, 'user_data' => $user_data]);
+        View::run(View::PROFILE_SETTINGS, ['errors' => $errors, 'user_data' => $user_data]);
+    }
+
+    public function actionProfileMyPhotos()
+    {
+        User::redirectToLoginCheck();
+
+        View::run(View::PROFILE_MY_PHOTOS);
     }
 }

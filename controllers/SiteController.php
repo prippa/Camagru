@@ -8,6 +8,6 @@ class SiteController
 {
     public function actionIndex()
     {
-        View::run(View::INDEX);
+        View::run();
     }
 }

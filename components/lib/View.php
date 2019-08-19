@@ -15,9 +15,12 @@ abstract class View
     public const FORGOT_PASSWORD = 1007;
     public const PASSWORD_CHANGED = 1008;
     public const PASSWORD_RESET_FORM = 1009;
-    public const PROFILE = 1010;
+    public const MAKE_PHOTO = 1010;
+    public const PROFILE = 1011;
+    public const PROFILE_SETTINGS = 1012;
+    public const PROFILE_MY_PHOTOS = 1013;
+    public const PROFILE_END = 1014;
 
-    public const MAKE_PHOTO = 1011;
 
     public const ERROR_400 = 400;
     public const ERROR_404 = 404;
@@ -34,7 +37,9 @@ abstract class View
         self::CONFIRM_PASSWORD => 'views/login_register_system/confirm_password.php',
         self::PASSWORD_CHANGED => 'views/login_register_system/password_changed.php',
         self::PASSWORD_RESET_FORM => 'views/login_register_system/password_reset_form.php',
-        self::PROFILE => 'views/user/profile.php',
+        self::PROFILE => 'views/user/profile/settings.php',
+        self::PROFILE_SETTINGS => 'views/user/profile/settings.php',
+        self::PROFILE_MY_PHOTOS => 'views/user/profile/my_photos.php',
 
         self::MAKE_PHOTO => 'views/photo/make_photo.php',
 
@@ -58,7 +63,7 @@ abstract class View
      * @param array|null $data
      * @param bool $is_exit
      */
-    public static function run(int $view_id, array $data=[], bool $is_exit=true) : void
+    public static function run(int $view_id=self::INDEX, array $data=[], bool $is_exit=true) : void
     {
         $data += self::getAdditionalData();
         require self::VIEWS_PATH_MAP[$view_id];
