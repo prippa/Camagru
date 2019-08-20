@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <title><?= $data['login'] ?> • Photos</title>
+    <title><?= $data['header_login'] ?> • Photos</title>
 </head>
 <body>
 

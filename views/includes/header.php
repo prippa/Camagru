@@ -1,3 +1,10 @@
+<?php
+
+if (isset($data['header_login']) && strlen($data['header_login']) > 12)
+    $data['header_login'] = substr($data['header_login'], 0, 11) . '.';
+
+?>
+
 <header>
     <a href="/" class="logo"><img class="logo-img" src="/template/images/logo.png" alt=""> Camagru</a>
     <nav>
@@ -5,7 +12,7 @@
         <?php if ($data['is_logged']): ?>
             <a class="<?= $view_id == self::MAKE_PHOTO ? 'active' : '' ?>" href="/make_photo">Make Photo</a>
             <a class="<?= $view_id >= self::PROFILE && $view_id <= self::PROFILE_END ? 'active' : '' ?>"
-               href="/profile"><b><?= $data['login'] ?></b> • Profile</a>
+               href="/profile"><b><?= $data['header_login'] ?></b> • Profile</a>
             <a href="/logout">Logout</a>
         <?php else: ?>
             <a class="<?= $view_id == self::LOGIN ? 'active' : '' ?>" href="/login">Login</a>

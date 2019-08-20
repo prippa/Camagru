@@ -9,10 +9,10 @@ return array(
     'logout' => 'UserLoginRegister/Logout',
     'password_reset' => 'UserLoginRegister/PasswordReset',
     'password_reset/(.+)' => 'UserLoginRegister/PasswordResetForm/$1',
-    'profile' => 'UserLoginRegister/ProfileSettings',
 
+    'profile' => 'UserProfile/ProfileSettings',
     'profile/settings' => 'UserProfile/ProfileSettings',
-    'profile/settings/email_reset/(.+)' => 'UserProfile/ConfirmNewMail',
+    'profile/settings/email_reset/(.+)' => 'UserProfile/ConfirmNewMail/$1',
     'profile/my_photos' => 'UserProfile/ProfileMyPhotos',
 
     'make_photo' => 'Photo/MakePhoto',

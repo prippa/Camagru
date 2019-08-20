@@ -54,7 +54,7 @@ abstract class View
         $base_date = [ 'is_logged' => User::isLogged(), 'current_year' => date("Y")];
 
         if ($base_date['is_logged'])
-            $base_date['login'] = User::getLoginById(User::getId());
+            $base_date['header_login'] = User::getLoginById(User::getId());
         return $base_date;
     }
 

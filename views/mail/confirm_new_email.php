@@ -25,7 +25,7 @@ return "
         </p>
         <a href='$link'>$link</a>
         <p>
-            If you don’t use this link within 24 hours, it will expire.
+            If you don’t use this link within 3 hours, it will expire.
         </p>
     </body>
 </html>

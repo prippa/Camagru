@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
-    <title><?= $data['login'] ?> • Settings</title>
+    <title><?= $data['header_login'] ?> • Settings</title>
 </head>
 <body>
 
@@ -23,6 +23,16 @@
         <div class="col-md-8">
             <h1 class="text-center mb-5">Settings</h1>
 
+            <?php if (isset($data['messages']['success'])): ?>
+                <div class="message-box">
+                    <ul class="success-list">
+                        <?php foreach ($data['messages']['success'] as $item): ?>
+                            <li class="success-item"><?= $item ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php endif ?>
+
             <form action="/profile/settings" method="post">
                 <div class="row mr-2 ml-2 justify-content-center">
                     <div class="col-12">
@@ -30,10 +40,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['errors']['username'])): ?>
-                            <div class="error-box">
+                        <?php if (isset($data['messages']['errors']['login'])): ?>
+                            <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['errors']['username'] as $item): ?>
+                                    <?php foreach ($data['messages']['errors']['login'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>
@@ -52,10 +62,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['errors']['email'])): ?>
-                            <div class="error-box">
+                        <?php if (isset($data['messages']['errors']['email'])): ?>
+                            <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['errors']['email'] as $item): ?>
+                                    <?php foreach ($data['messages']['errors']['email'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>
@@ -74,10 +84,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['errors']['password'])): ?>
-                            <div class="error-box">
+                        <?php if (isset($data['messages']['errors']['password'])): ?>
+                            <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['errors']['password'] as $item): ?>
+                                    <?php foreach ($data['messages']['errors']['password'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>

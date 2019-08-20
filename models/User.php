@@ -37,6 +37,20 @@ abstract class User extends Modal
         DB::execute($sql, [':email' => $email, ':id' => $id]);
     }
 
+    public static function updatePassword(string $password, int $id) : void
+    {
+        $password = password_hash($password, self::PASSWORD_HASH_TYPE);
+
+        $sql = "UPDATE user SET password = :password WHERE id = :id LIMIT 1";
+        DB::execute($sql, [':password' => $password, ':id' => $id]);
+    }
+
+    public static function updateNotifications(string $notification, int $id) : void
+    {
+        $sql = "UPDATE user SET notifications = :notification WHERE id = :id LIMIT 1";
+        DB::execute($sql, [':notification' => $notification, ':id' => $id]);
+    }
+
     public static function confirmMail(string $vkey) : bool
     {
         $db = DB::getConnection();
