@@ -8,9 +8,8 @@ use app\models\PasswordReset;
 use app\models\User;
 use app\components\lib\View;
 
-class UserController
+class UserLoginRegisterController
 {
-    // ****************************************** Register and Login system ******************************************
     public function actionRegister()
     {
         User::redirectToHomeCheck();
@@ -32,7 +31,7 @@ class UserController
                 $vkey = Lib::getUniqueToken($login);
 
                 User::add($login, $email, $password, $vkey);
-                Mail::ConfirmAccount($login, $email, $vkey);
+                Mail::confirmAccount($login, $email, $vkey);
                 View::run(View::CONFIRM_ACCOUNT, ['email' => $email]);
             }
         }
@@ -95,7 +94,7 @@ class UserController
                 $vkey = Lib::getUniqueToken($email);
 
                 PasswordReset::add($email, $vkey);
-                Mail::ConfirmPassword($email, $vkey);
+                Mail::confirmPassword(User::getLoginByEmail($email), $email, $vkey);
                 View::run(View::CONFIRM_PASSWORD, ['email' => $email]);
             }
             if (in_array('account_email', $result))
@@ -126,32 +125,10 @@ class UserController
             if (!$errors)
             {
                 PasswordReset::deleteByEmail($email);
-                User::changePasswordByLogin($login, $password);
+                User::updatePasswordByLogin($login, $password);
                 View::run(View::PASSWORD_CHANGED, ['login' => $login]);
             }
         }
         View::run(View::PASSWORD_RESET_FORM, ['errors' => $errors, 'login' => $login, 'token' => $token]);
-    }
-    // ***************************************************************************************************************
-
-    public function actionProfileSettings()
-    {
-        User::redirectToLoginCheck();
-
-        $errors = null;
-        $user_data = User::getUserByID(User::getId());
-
-        if (!empty($_POST))
-        {
-            Lib::debug($_POST);
-        }
-        View::run(View::PROFILE_SETTINGS, ['errors' => $errors, 'user_data' => $user_data]);
-    }
-
-    public function actionProfileMyPhotos()
-    {
-        User::redirectToLoginCheck();
-
-        View::run(View::PROFILE_MY_PHOTOS);
     }
 }

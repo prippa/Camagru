@@ -107,3 +107,10 @@ CREATE EVENT delete_unconfirmed_password_reset
             STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
     DO
     DELETE FROM password_reset WHERE `create_date` < NOW() - INTERVAL 3 HOUR;
+
+CREATE EVENT delete_unconfirmed_email_reset
+    ON SCHEDULE
+        EVERY 3 HOUR
+            STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY + INTERVAL 1 HOUR)
+    DO
+    DELETE FROM email_reset WHERE `create_date` < NOW() - INTERVAL 3 HOUR;

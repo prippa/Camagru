@@ -28,20 +28,29 @@ abstract class Mail
         mail($to, $subject, $message, $header);
     }
 
-    public static function ConfirmAccount(string $login, string $email, string $vkey) : void
+    public static function confirmAccount(string $login, string $email, string $token) : void
     {
-        $link = HOST_NAME . "/register/confirm/$vkey";
+        $link = HOST_NAME . "/register/confirm/$token";
         $subject = 'Camagru: confirm your email address';
         $message = require 'views/login_register_system/mail/confirm_account.php';
 
         self::send($email, $subject, $message);
     }
 
-    public static function ConfirmPassword(string $email, string $vkey) : void
+    public static function confirmPassword(string $login, string $email, string $token) : void
     {
-        $link = HOST_NAME . "/password_reset/$vkey";
+        $link = HOST_NAME . "/password_reset/$token";
         $subject = 'Camagru: please reset your password';
         $message = require 'views/login_register_system/mail/password_reset.php';
+
+        self::send($email, $subject, $message);
+    }
+
+    public static function changeEmailConfirm(string $login, string $email, string $token) : void
+    {
+        $link = HOST_NAME . "/profile/settings/email_reset/$token";
+        $subject = 'Camagru: confirm your new email address';
+        $message = require 'views/mail/confirm_new_email.php';
 
         self::send($email, $subject, $message);
     }

@@ -1,0 +1,108 @@
+<?php
+
+namespace app\controllers;
+
+use app\components\lib\Lib;
+use app\components\lib\Mail;
+use app\components\lib\View;
+use app\models\EmailReset;
+use app\models\User;
+
+class UserProfileController
+{
+    //********************************************* Profile Settings ***************************************************
+    private function psProcessLogin(array $db_data, array $form_data, array &$messages) : void
+    {
+        if ($db_data['login'] != $form_data['login'])
+        {
+            if (User::checkLogin($form_data['login']))
+            {
+                User::updateLogin($db_data['id'], $form_data['login']);
+                $db_data['login'] = $form_data['login'];
+                $messages['success'][] = 'Login has been changed';
+            }
+            else
+                $messages['errors']['login'][] = 'Invalid login';
+        }
+    }
+
+    private function psProcessEmail(array $db_data, array $form_data, array &$messages) : void
+    {
+        if ($db_data['email'] != $form_data['email'])
+        {
+            if (User::checkEmail($form_data['email']))
+            {
+                $token = Lib::getUniqueToken($form_data['email']);
+
+                EmailReset::add($form_data['email'], $token);
+                Mail::changeEmailConfirm($db_data['login'], $form_data['email'], $token);
+                $messages['success'][] = 'Please confirm your new email address to change old.'.
+                                         "We just emailed you at <b>{$form_data['email']}</b>.".
+                                         'Click the link in your email to confirm your new email.'.
+                                         "If you can't find the email check your spam folder.";
+            }
+            else
+                $messages['errors']['email'][] = 'Invalid Email';
+        }
+    }
+
+    private function psProcessPassword(array $db_data, array $form_data, array &$messages) : void
+    {
+        if ($form_data['old_password'] != '')
+        {
+            if (password_verify($form_data['old_password'], $db_data['password']))
+            {
+                if (User::checkPassword($form_data['password']))
+                    $messages['errors']['password'][] = 'New password is invalid';
+                if ($form_data['password'] != $form_data['password_confirm'])
+                    $messages['errors']['password'][] = 'Passwords are not equal';
+                if (!isset($messages['errors']['password']))
+                {
+                    $messages['success'][] = 'Old password has been changed successfully.';
+                }
+            }
+            else
+                $messages['errors']['password'][] = 'Wrong password old password';
+        }
+    }
+
+    public function actionProfileSettings()
+    {
+        User::redirectToLoginCheck();
+
+        $messages = [];
+        $user_data = User::getUserByID(User::getId());
+
+        if (!empty($_POST))
+        {
+            $this->psProcessLogin($user_data, $_POST, $messages);
+            $this->psProcessEmail($user_data, $_POST, $messages);
+        }
+        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data]);
+    }
+
+    public function actionConfirmNewMail($token)
+    {
+        $email = EmailReset::getEmailByToken($token);
+
+        if (!$email)
+            View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Unable to change email by this link']);
+
+        $user_data = User::getUserByID(User::getId());
+        $messages['success'][] = "Your old email - <b>{$user_data['email']}</b> ".
+                                 "has been changed to the new one - <b>$email</b>";
+
+        $user_data['email'] = $email;
+        User::updateEmail($email, User::getId());
+        EmailReset::deleteByEmail($email);
+        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data]);
+    }
+    //******************************************************************************************************************
+
+    public function actionProfileMyPhotos()
+    {
+        User::redirectToLoginCheck();
+
+        View::run(View::PROFILE_MY_PHOTOS);
+    }
+}

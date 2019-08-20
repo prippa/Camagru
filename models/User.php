@@ -17,12 +17,24 @@ abstract class User extends Modal
         DB::execute($sql, [':login' => $login, ':password' => $password, ':email' => $email, ':vkey' => $vkey]);
     }
 
-    public static function changePasswordByLogin(string $login, string $password) : void
+    public static function updatePasswordByLogin(string $login, string $password) : void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
         $sql = "UPDATE user SET password = :password WHERE login = :login LIMIT 1";
         DB::execute($sql, [':password' => $password, ':login' => $login]);
+    }
+
+    public static function updateLogin(int $id, string $login) : void
+    {
+        $sql = "UPDATE user SET login = :login WHERE id = :id LIMIT 1";
+        DB::execute($sql, [':login' => $login, ':id' => $id]);
+    }
+
+    public static function updateEmail(string $email, int $id) : void
+    {
+        $sql = "UPDATE user SET email = :email WHERE id = :id LIMIT 1";
+        DB::execute($sql, [':email' => $email, ':id' => $id]);
     }
 
     public static function confirmMail(string $vkey) : bool
@@ -39,14 +51,38 @@ abstract class User extends Modal
         return true;
     }
 
+    public static function checkLogin(string $login) : bool
+    {
+        $regex_rule = require self::FVR_PATH;
+
+        if (preg_match($regex_rule['login'], $login))
+            return true;
+        return false;
+    }
+
+    public static function checkPassword(string $password) : bool
+    {
+        $regex_rule = require self::FVR_PATH;
+
+        if (preg_match($regex_rule['password'], $password))
+            return true;
+        return false;
+    }
+
+    public static function checkEmail(string $email) : bool
+    {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL))
+            return true;
+        return false;
+    }
+
     private static function baseValidation($login, $password) : ?array
     {
         $errors = null;
-        $dvr = require self::FVR_PATH;
 
-        if (!preg_match($dvr['login'], $login))
+        if (!self::checkLogin($login))
             $errors[] = 'Invalid login';
-        if (!preg_match($dvr['password'], $password))
+        if (!self::checkPassword($password))
             $errors[] = 'Invalid password';
         return $errors;
     }
@@ -76,7 +112,7 @@ abstract class User extends Modal
     {
         $errors = self::baseValidation($login, $password);
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        if (!self::checkEmail($email))
             $errors[] = 'Invalid email';
         if ($password != $password_confirm)
             $errors[] = 'Passwords are not equal';

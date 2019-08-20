@@ -3,7 +3,7 @@
 return "
 <html>
     <head>
-        <title>Verify your email</title>
+        <title>Verify your new email</title>
         <style>
             a {
                 color: #008cfb;
@@ -18,14 +18,14 @@ return "
     </head>
     <body>
         <p>Hi $login!</p>
-        <p>Please <a href='$link'>Click this link</a> to reset your password.</p>
+        <p>Please <a href='$link'>Click this link</a> to confirm your new email address.</p>
         <p>
             If you can't click the link from your email program,
             please copy this URL and paste it into your web browser:
         </p>
         <a href='$link'>$link</a>
         <p>
-            If you don’t use this link within 3 hours, it will expire.
+            If you don’t use this link within 24 hours, it will expire.
         </p>
     </body>
 </html>
