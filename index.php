@@ -22,6 +22,7 @@ try
     error_reporting(E_ALL);
     define('DEBUG', true);
     define('HOST_NAME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}");
+    define('UPLOADS_DIR', __DIR__ . '/uploads/');
     session_start();
 
     // Call the Router
@@ -37,7 +38,9 @@ try
 catch (Exception $e)
 {
     if (DEBUG)
-        echo "<pre>$e</pre>";
+        echo "<pre style='color: red; font-size: 16px;'>".
+                $e.
+             "</pre>";
     else
         app\components\lib\View::run(app\components\lib\View::ERROR_500);
 }

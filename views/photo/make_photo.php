@@ -16,7 +16,20 @@
 
 <div class="container">
 
-    <h1>Make Photo</h1>
+    <div class="row">
+        <div class="col">
+            <?php require 'views/includes/success_message.php' ?>
+
+            <form action="/make_photo" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="user_file">Pick a photo from your device</label>
+                    <input name="image" type="file" class="form-control-file"
+                           id="user_file" accept="image/*" tabindex="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" tabindex="2">Upload</button>
+            </form>
+        </div>
+    </div>
 
 </div>
 

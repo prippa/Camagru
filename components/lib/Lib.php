@@ -20,7 +20,10 @@ abstract class Lib
 
     public static function getUniqueToken(string $text) : string
     {
-        return md5(time() . $text);
+        $s = 'My super secret token';
+        $token = md5(time() . $text . $s);
+
+        return $token;
     }
 
     public static function debug($data, bool $is_exit=true) : void

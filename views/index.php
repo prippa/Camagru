@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/template/css/bootstrap.min.css">
     <link rel="stylesheet" href="/template/css/style.css">
     <title>Camagru</title>
+    <style>
+        .test {
+            border: 1px solid #919191;
+        }
+    </style>
 </head>
 <body>
 
@@ -16,23 +21,14 @@
 
 <div class="container">
 
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
-    <h1>Content</h1>
+    <div class="row">
+        <?php foreach ($data['posts'] as $item): ?>
+            <div class="col-lg-6 test">
+                <p>By: <?= $item['login'] ?></p>
+                <img src="<?= $item['image_src'] ?>" alt="">
+            </div>
+        <?php endforeach ?>
+    </div>
 
 </div>
 

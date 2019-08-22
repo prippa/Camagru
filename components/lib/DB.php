@@ -38,7 +38,7 @@ abstract class DB
      * @param PDO|null $db
      * @return bool|PDOStatement
      */
-    public static function execute(string $sql, array $params=null, PDO $db=null)
+    public static function execute(string $sql, array $params=[], PDO $db=null)
     {
         if (!$db)
             $db = self::getConnection();

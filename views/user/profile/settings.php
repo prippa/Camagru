@@ -23,15 +23,7 @@
         <div class="col-md-8">
             <h1 class="text-center mb-5">Settings</h1>
 
-            <?php if (isset($data['messages']['success'])): ?>
-                <div class="message-box">
-                    <ul class="success-list">
-                        <?php foreach ($data['messages']['success'] as $item): ?>
-                            <li class="success-item"><?= $item ?></li>
-                        <?php endforeach ?>
-                    </ul>
-                </div>
-            <?php endif ?>
+            <?php require 'views/includes/success_message.php' ?>
 
             <form action="/profile/settings" method="post">
                 <div class="row mr-2 ml-2 justify-content-center">
