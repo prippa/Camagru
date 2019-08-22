@@ -24,8 +24,8 @@
     <div class="row">
         <?php foreach ($data['posts'] as $item): ?>
             <div class="col-lg-6 test">
-                <p>By: <?= $item['login'] ?></p>
-                <img src="<?= $item['image_src'] ?>" alt="">
+                <p>By: <?=  $item['login'] ?></p>
+                <img class="img-fluid" src="/uploads/<?= $item['filename'] ?>" alt="">
             </div>
         <?php endforeach ?>
     </div>

@@ -11,7 +11,7 @@ class SiteController
     public function actionIndex()
     {
         $posts = Photo::getLast6();
-        Lib::debug($posts);
+//        Lib::debug($posts);
         View::run(View::INDEX, ['posts' => $posts]);
     }
 }
