@@ -1,38 +1,28 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="/template/images/icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="/template/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/template/css/style.css">
-    <title>Camagru</title>
-    <style>
-        .test {
-            border: 1px solid #919191;
-        }
-    </style>
-</head>
-<body>
-
-<?php require 'views/includes/header.php' ?>
-
 <div class="container">
 
-    <div class="row">
+    <div class="row no-gutters">
         <?php foreach ($data['posts'] as $item): ?>
-            <div class="col-lg-6 test">
-                <p>By: <?=  $item['login'] ?></p>
-                <img class="img-fluid" src="/uploads/<?= $item['filename'] ?>" alt="">
+            <div class="col-lg-6 col-main-block">
+                <div class="post-block-content">
+                    <p class="post-title">By: <i class="post-login"><?= $item['login'] ?></i></p>
+                    <div class="main-img-block">
+                        <img class="img-fluid main-img" src="/uploads/<?= $item['filename'] ?>" alt="">
+                    </div>
+                </div>
+                <div class="row no-gutters mt-1">
+                    <div class="col-6">
+                        <div class="post-like">
+                            <img class="likes-img" src="/template/images/like.png" alt=""> <?= $item['likes'] ?>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="post-dislike">
+                            <img class="likes-img" src="/template/images/dislike.png" alt=""> <?= $item['dislikes'] ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         <?php endforeach ?>
     </div>
 
 </div>
-
-<?php require 'views/includes/footer.php' ?>
-
-</body>
-</html>

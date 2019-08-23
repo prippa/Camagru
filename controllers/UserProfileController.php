@@ -100,7 +100,9 @@ class UserProfileController
             $this->psProcessPassword($user_data, $_POST, $messages);
             $this->psProcessNotifications($user_data, $_POST, $messages);
         }
-        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data]);
+
+        $view_title = $user_data['login'] . ' • Settings';
+        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data], $view_title);
     }
 
     public function actionConfirmNewMail($token)
@@ -125,6 +127,7 @@ class UserProfileController
     {
         User::redirectToLoginCheck();
 
-        View::run(View::PROFILE_MY_PHOTOS);
+        $view_title = User::getLoginById(User::getId()) . ' • Photos';
+        View::run(View::PROFILE_MY_PHOTOS, [], $view_title);
     }
 }

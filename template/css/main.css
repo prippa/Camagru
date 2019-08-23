@@ -1,0 +1,63 @@
+.col-main-block {
+    padding: 15px !important;
+}
+
+.post-block-content {
+    cursor: pointer;
+}
+
+.post-title {
+    margin: 0;
+    padding: 4px;
+}
+
+.post-login {
+    transition: .3s;
+}
+
+.post-block-content:hover .post-login {
+    color: #F35B5B;
+    transition: .3s;
+}
+
+.main-img-block {
+    overflow: hidden;
+}
+
+.main-img {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+.post-block-content:hover .main-img {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.post-like {
+    text-align: center;
+    cursor: pointer;
+    word-break: break-word;
+    padding: 4px;
+}
+
+.post-like:hover {
+    background-color: rgba(25, 199, 0, 0.5);
+}
+
+.post-dislike {
+    text-align: center;
+    cursor: pointer;
+    word-break: break-word;
+    padding: 4px;
+}
+
+.post-dislike:hover {
+    background-color: rgba(255, 40, 0, 0.5);
+}
+
+.likes-img {
+    margin-top: -4px;
+}

@@ -28,25 +28,42 @@ abstract class View
     public const ERROR_SOMETHING_WENT_WRONG = 42;
 
     private const VIEWS_PATH_MAP = [
-        self::INDEX => 'views/index.php',
-        self::LOGIN => 'views/login_register_system/login.php',
-        self::REGISTER => 'views/login_register_system/register.php',
-        self::CONFIRM_ACCOUNT => 'views/login_register_system/confirm_account.php',
-        self::ACCOUNT_CONFIRMED => 'views/login_register_system/account_confirmed.php',
-        self::FORGOT_PASSWORD => 'views/login_register_system/forgot_password.php',
-        self::CONFIRM_PASSWORD => 'views/login_register_system/confirm_password.php',
-        self::PASSWORD_CHANGED => 'views/login_register_system/password_changed.php',
-        self::PASSWORD_RESET_FORM => 'views/login_register_system/password_reset_form.php',
-        self::PROFILE => 'views/user/profile/settings.php',
-        self::PROFILE_SETTINGS => 'views/user/profile/settings.php',
-        self::PROFILE_MY_PHOTOS => 'views/user/profile/my_photos.php',
+        self::INDEX => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/index.php', 'title' => 'Camagru'],
+        self::LOGIN => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/login.php', 'title' => 'Login'],
+        self::REGISTER => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/register.php', 'title' => 'Register'],
+        self::CONFIRM_ACCOUNT => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/confirm_account.php', 'title' => 'Confirm Email'],
+        self::ACCOUNT_CONFIRMED => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/account_confirmed.php', 'title' => 'Account confirmed'],
+        self::FORGOT_PASSWORD => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/forgot_password.php', 'title' => 'Forgot your password?'],
+        self::CONFIRM_PASSWORD => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/confirm_password.php', 'title' => 'Confirm Email'],
+        self::PASSWORD_CHANGED => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/password_changed.php', 'title' => 'Password has been changed'],
+        self::PASSWORD_RESET_FORM => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/login_register_system/password_reset_form.php', 'title' => 'Change your password'],
+        self::PROFILE => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/user/profile/settings.php', 'title' => 'Profile'],
+        self::PROFILE_SETTINGS => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/user/profile/settings.php', 'title' => 'Settings'],
+        self::PROFILE_MY_PHOTOS => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/user/profile/my_photos.php', 'title' => 'My Photos'],
 
-        self::MAKE_PHOTO => 'views/photo/make_photo.php',
+        self::MAKE_PHOTO => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/photo/make_photo.php', 'title' => 'Make Photo'],
 
-        self::ERROR_SOMETHING_WENT_WRONG => 'views/error_pages/something_went_wrong.php',
-        self::ERROR_400 => 'views/error_pages/400.php',
-        self::ERROR_404 => 'views/error_pages/404.php',
-        self::ERROR_500 => 'views/error_pages/500.php',
+        self::ERROR_SOMETHING_WENT_WRONG => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/error_pages/something_went_wrong.php', 'title' => 'Oops :('],
+        self::ERROR_400 => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/error_pages/400.php', 'title' => '400'],
+        self::ERROR_404 => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/error_pages/404.php', 'title' => '404'],
+        self::ERROR_500 => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/error_pages/500.php', 'title' => '500'],
     ];
 
     private static function getAdditionalData() : array
@@ -60,13 +77,20 @@ abstract class View
 
     /**
      * @param int $view_id
-     * @param array|null $data
+     * @param array $data
+     * @param string|null $title
      * @param bool $is_exit
      */
-    public static function run(int $view_id=self::INDEX, array $data=[], bool $is_exit=true) : void
+    public static function run(int $view_id, array $data=[], string $title=null, bool $is_exit=true) : void
     {
         $data += self::getAdditionalData();
-        require self::VIEWS_PATH_MAP[$view_id];
+        $view_elem = self::VIEWS_PATH_MAP[$view_id];
+        $page = $view_elem['page'];
+        if (!$title)
+            $title = $view_elem['title'];
+
+        require $view_elem['layout'];
+
         if ($is_exit)
             exit();
     }
