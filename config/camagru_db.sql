@@ -51,46 +51,38 @@ CREATE TABLE `likes` (
 --
 -- Тригери `likes`
 --
--- DELIMITER $$
--- CREATE TRIGGER `decrement_likes_count` AFTER DELETE ON `likes` FOR EACH ROW BEGIN
+CREATE TRIGGER increment_likes_count AFTER INSERT ON likes FOR EACH ROW
+BEGIN
+    IF NEW.like_status = TRUE THEN
+        UPDATE photo SET likes = likes + 1 WHERE id = NEW.photo_id;
+    ELSE
+        UPDATE photo SET dislikes = dislikes + 1 WHERE id = NEW.photo_id;
+    END IF;
+END;
 
--- IF OLD.like_status = TRUE THEN
--- 	UPDATE photo SET likes = likes - 1 WHERE id = OLD.photo_id;
--- ELSE
--- 	UPDATE photo SET dislikes = dislikes - 1 WHERE id = OLD.photo_id;
--- END IF;
 
--- END
--- $$
--- DELIMITER ;
--- DELIMITER $$
--- CREATE TRIGGER `increment_likes_count` AFTER INSERT ON `likes` FOR EACH ROW BEGIN
+CREATE TRIGGER update_likes_count AFTER UPDATE ON likes FOR EACH ROW
+BEGIN
+    IF NEW.like_status = TRUE THEN
+        UPDATE photo
+        SET likes = likes + 1, dislikes = dislikes - 1
+        WHERE id = NEW.photo_id;
+    ELSE
+        UPDATE photo
+        SET likes = likes - 1, dislikes = dislikes + 1
+        WHERE id = NEW.photo_id;
+    END IF;
+END;
 
--- IF NEW.like_status = TRUE THEN
--- 	UPDATE photo SET likes = likes + 1 WHERE id = NEW.photo_id;
--- ELSE
--- 	UPDATE photo SET dislikes = dislikes + 1 WHERE id = NEW.photo_id;
--- END IF;
 
--- END
--- $$
--- DELIMITER ;
--- DELIMITER $$
--- CREATE TRIGGER `update_likes_count` AFTER UPDATE ON `likes` FOR EACH ROW BEGIN
-
--- IF NEW.like_status = TRUE THEN
--- 	UPDATE photo
---     SET likes = likes + 1, dislikes = dislikes - 1
---     WHERE id = NEW.photo_id;
--- ELSE
--- 	UPDATE photo
---     SET likes = likes - 1, dislikes = dislikes + 1
---     WHERE id = NEW.photo_id;
--- END IF;
-
--- END
--- $$
--- DELIMITER ;
+CREATE TRIGGER decrement_likes_count AFTER DELETE ON likes FOR EACH ROW
+BEGIN
+    IF OLD.like_status = TRUE THEN
+        UPDATE photo SET likes = likes - 1 WHERE id = OLD.photo_id;
+    ELSE
+        UPDATE photo SET dislikes = dislikes - 1 WHERE id = OLD.photo_id;
+    END IF;
+END;
 
 -- --------------------------------------------------------
 
@@ -125,14 +117,7 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `user_id`, `filename`, `likes`, `dislikes`) VALUES
-(3, 10, '5d5e9689dff9e.png', 0, 0),
-(4, 10, '5d5e99bc71e99.jpg', 0, 0),
-(6, 10, '5d5e9a305b865.png', 0, 0),
-(7, 10, '5d5e9a76a9c5a.png', 0, 0),
 (8, 10, '5d5e9aa02ac92.png', 0, 0),
-(9, 10, '5d5e9aa71301a.png', 0, 0),
-(10, 10, '5d5e9aabb93a6.png', 0, 0),
-(11, 10, '5d5e9ab16a1e0.jpg', 0, 0),
 (13, 10, '5d5edd19a1f8a.jpg', 0, 0),
 (14, 10, '5d5ede63d66bd.jpg', 0, 0),
 (15, 10, '5d5ffd8d17a2d.png', 0, 0),
