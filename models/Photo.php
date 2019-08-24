@@ -15,11 +15,17 @@ abstract class Photo
 
     public static function getLast6() : array
     {
-        $sql = 'SELECT user.login, photo.filename, photo.likes, photo.dislikes
+        $sql = 'SELECT
+                    likes.like_status,
+                    user.login,
+                    photo.filename,
+                    photo.likes,
+                    photo.dislikes
                 FROM photo
-                INNER JOIN user ON photo.user_id = user.id
-                ORDER BY photo.create_date
-                DESC limit 6';
+                LEFT JOIN user ON photo.user_id = user.id
+                LEFT JOIN likes ON photo.user_id = likes.user_id AND photo.id = likes.photo_id
+                ORDER BY
+                    photo.create_date DESC limit 6';
 
         $result = DB::execute($sql);
 
