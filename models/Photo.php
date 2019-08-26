@@ -13,7 +13,7 @@ abstract class Photo
         DB::execute($sql, [':user_id' => $user_id, ':filename' => $filename]);
     }
 
-    public static function getLast6() : array
+    public static function getLastNPhotos(int $size) : array
     {
         $sql = 'SELECT
                     likes.like_status,
@@ -25,7 +25,7 @@ abstract class Photo
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON photo.user_id = likes.user_id AND photo.id = likes.photo_id
                 ORDER BY
-                    photo.create_date DESC limit 6';
+                    photo.id DESC limit ' . $size;
 
         $result = DB::execute($sql);
 

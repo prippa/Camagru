@@ -9,7 +9,7 @@ class SiteController
 {
     public function actionIndex()
     {
-        $posts = Photo::getLast6();
+        $posts = Photo::getLastNPhotos(6);
 
         View::run(View::INDEX, ['posts' => $posts]);
     }
