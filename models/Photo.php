@@ -20,12 +20,13 @@ abstract class Photo
                     user.login,
                     photo.filename,
                     photo.likes,
-                    photo.dislikes
+                    photo.dislikes,
+                    photo.id
                 FROM photo
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON photo.user_id = likes.user_id AND photo.id = likes.photo_id
                 ORDER BY
-                    photo.id DESC limit ' . $size;
+                    photo.create_date DESC limit ' . $size;
 
         $result = DB::execute($sql);
 

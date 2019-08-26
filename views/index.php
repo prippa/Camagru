@@ -9,12 +9,16 @@
                 </div>
                 <div class="row no-gutters mt-1">
                     <div class="col-6">
-                        <div class="post-like <?= $item['like_status'] == '1' ? 'like' : '' ?>">
+                        <div id="like-<?= $item['id'] ?>"
+                             class="post-like <?= $item['like_status'] == '1' ? 'like' : '' ?>"
+                             onclick="like('<?= $item['id'] ?>', '<?= $item['like_status'] ?>')">
                             <img class="likes-img" src="/template/images/like.png" alt=""> <?= $item['likes'] ?>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="post-dislike <?= $item['like_status'] == '0' ? 'dislike' : '' ?>">
+                        <div id="dislike-<?= $item['id'] ?>"
+                             class="post-dislike <?= $item['like_status'] == '0' ? 'dislike' : '' ?>"
+                             onclick="dislike('<?= $item['id'] ?>', '<?= $item['like_status'] ?>')">
                             <img class="likes-img" src="/template/images/dislike.png" alt=""> <?= $item['dislikes'] ?>
                         </div>
                     </div>
@@ -24,4 +28,5 @@
     </div>
 
 </div>
-<script type="text/javascript" src="/template/js/likes.js"></script>
+<script src="/template/js/lib.js" type="text/javascript"></script>
+<script src="/template/js/likes.js" type="text/javascript"></script>
