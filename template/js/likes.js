@@ -1,6 +1,7 @@
 // document.addEventListener("DOMContentLoaded", function()
 // {
 // });
+
 function like(id, like_status)
 {
     const element_id = 'like-' + id;
