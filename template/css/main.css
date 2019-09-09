@@ -21,14 +21,13 @@
 }
 
 .main-img {
-    box-shadow: 0 0 8px rgb(33, 33, 33);
-    /*transition: .3s;*/
+    transition: .3s;
 }
 
-/*.post-block-content:hover .main-img {*/
-/*    transition: .3s;*/
-/*    border-radius: 12px;*/
-/*}*/
+.post-block-content:hover .main-img {
+    transition: .3s;
+    box-shadow: 0 0 8px rgb(33, 33, 33);
+}
 
 .post-like {
     text-align: center;

@@ -13,4 +13,11 @@ class SiteController
 
         View::run(View::INDEX, ['posts' => $posts]);
     }
+
+    public function actionLikeDislikePOST()
+    {
+        if (empty($_POST))
+            View::run(View::ERROR_404);
+        var_dump($_POST);
+    }
 }

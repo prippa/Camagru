@@ -1,17 +1,23 @@
-// document.addEventListener("DOMContentLoaded", function()
-// {
-// });
+import {$} from './lib.js';
 
-function like(id, like_status)
+function ajaxSendDataByPOST(url, data)
+{
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url, true);
+    xhr.send(data);
+}
+
+window.like = function(id, like_status)
 {
     const element_id = 'like-' + id;
 
     console.log($(element_id));
-}
+};
 
-function dislike(id, like_status)
+window.dislike = function(id, like_status)
 {
     const element_id = 'dislike-' + id;
 
     console.log($(element_id));
-}
+};

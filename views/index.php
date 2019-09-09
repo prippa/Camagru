@@ -28,5 +28,5 @@
     </div>
 
 </div>
-<script src="/template/js/lib.js" type="text/javascript"></script>
-<script src="/template/js/likes.js" type="text/javascript"></script>
+
+<script src="/template/js/likes.js" type="module"></script>

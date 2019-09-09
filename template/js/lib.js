@@ -1,1 +1,1 @@
-function $(name) { return document.getElementById(name); }
+export function $(name) { return document.getElementById(name); }
