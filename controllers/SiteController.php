@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\lib\View;
 use app\models\Photo;
+use app\models\User;
 
 class SiteController
 {
@@ -18,6 +19,11 @@ class SiteController
     {
         if (empty($_POST))
             View::run(View::ERROR_404);
-        var_dump($_POST);
+
+        $user_id = User::getId();
+        $photo_id = $_POST['id'];
+        $like_status = $_POST['like_status'];
+
+        Photo::like($user_id, $photo_id, $like_status);
     }
 }
