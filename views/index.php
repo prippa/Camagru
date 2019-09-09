@@ -11,7 +11,7 @@
                     <div class="col-6">
                         <div id="like-<?= $item['id'] ?>"
                              class="post-like <?= $item['like_status'] == '1' ? 'like' : '' ?>"
-                             onclick="like('<?= $item['id'] ?>', '<?= $item['like_status'] ?>')">
+                             onclick="like('<?= $item['id'] ?>')">
                             <img class="like-img" src="/template/images/like.png" alt="">
                             <span id="like-count-<?= $item['id'] ?>"><?= $item['likes'] ?></span>
                         </div>
@@ -19,9 +19,9 @@
                     <div class="col-6">
                         <div id="dislike-<?= $item['id'] ?>"
                              class="post-dislike <?= $item['like_status'] == '0' ? 'dislike' : '' ?>"
-                             onclick="dislike('<?= $item['id'] ?>', '<?= $item['like_status'] ?>')">
+                             onclick="dislike('<?= $item['id'] ?>')">
                             <img src="/template/images/dislike.png" alt="">
-                            <span id="dislikes-count-<?= $item['id'] ?>"><?= $item['dislikes'] ?></span>
+                            <span id="dislike-count-<?= $item['id'] ?>"><?= $item['dislikes'] ?></span>
                         </div>
                     </div>
                 </div>

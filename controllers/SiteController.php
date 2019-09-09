@@ -20,6 +20,8 @@ class SiteController
         if (empty($_POST))
             View::run(View::ERROR_404);
 
+        User::redirectToLoginCheck();
+
         $user_id = User::getId();
         $photo_id = $_POST['id'];
         $like_status = $_POST['like_status'];

@@ -1,8 +1,10 @@
 export function $(name) { return document.getElementById(name); }
 
-export function switchLogic(number)
+export function ajaxSendDataByPOST(url, data)
 {
-    if (number)
-        return 0;
-    return 1;
+    let xhr = new XMLHttpRequest();
+
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(data);
 }
