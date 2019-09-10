@@ -11,10 +11,10 @@ class PhotoController
     private function uploadImage(array $image) : string
     {
         $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
-        $filename = uniqid() . "." . $extension;
-        move_uploaded_file($image['tmp_name'], UPLOADS_DIR . $filename);
+        $img = uniqid() . "." . $extension;
+        move_uploaded_file($image['tmp_name'], UPLOADS_DIR . $img);
 
-        return $filename;
+        return UPLOADS . $img;
     }
 
     public function actionMakePhoto()
@@ -25,8 +25,8 @@ class PhotoController
 
         if (!empty($_FILES))
         {
-            $filename = $this->uploadImage($_FILES['image']);
-            Photo::add($filename, User::getId());
+            $img = $this->uploadImage($_FILES['image']);
+            Photo::add($img, User::getId());
             $messages['success'][] = "{$_FILES['image']['name']} was uploaded successful!";
         }
         View::run(View::MAKE_PHOTO, ['messages' => $messages]);

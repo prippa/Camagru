@@ -3,9 +3,10 @@
     <div class="row no-gutters">
         <?php foreach ($data['posts'] as $item): ?>
             <div class="col-lg-6 col-main-block">
-                <div class="post-block-content">
+                <div class="post-block-content"
+                     onclick="test('<?= $item['img'] ?>')">
                     <p class="post-title">By: <i class="post-login"><?= $item['login'] ?></i></p>
-                    <img class="img-fluid main-img" src="/uploads/<?= $item['filename'] ?>" alt="">
+                    <img class="img-fluid main-img" src="<?= $item['img'] ?>" alt="">
                 </div>
                 <div class="row no-gutters mt-1">
                     <div class="col-6">
@@ -32,3 +33,4 @@
 </div>
 
 <script src="/template/js/likes.js" type="module"></script>
+<script src="/template/js/photo_modal.js" type="module"></script>

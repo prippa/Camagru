@@ -22,7 +22,8 @@ try
     error_reporting(E_ALL);
     define('DEBUG', true);
     define('HOST_NAME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}");
-    define('UPLOADS_DIR', __DIR__ . '/uploads/');
+    define('UPLOADS', '/uploads/');
+    define('UPLOADS_DIR', __DIR__ . UPLOADS);
     session_start();
 
     // Call the Router

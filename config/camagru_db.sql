@@ -106,7 +106,7 @@ CREATE TABLE `password_reset` (
 CREATE TABLE `photo` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `filename` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `likes` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `dislikes` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -116,7 +116,7 @@ CREATE TABLE `photo` (
 -- Дамп даних таблиці `photo`
 --
 
-INSERT INTO `photo` (`id`, `user_id`, `filename`, `likes`, `dislikes`) VALUES
+INSERT INTO `photo` (`id`, `user_id`, `img`, `likes`, `dislikes`) VALUES
 (8, 10, '5d5e9aa02ac92.png', 0, 0),
 (13, 10, '5d5edd19a1f8a.jpg', 0, 0),
 (14, 10, '5d5ede63d66bd.jpg', 0, 0),
