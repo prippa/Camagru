@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\lib\Lib;
 use app\components\lib\View;
 use app\models\Photo;
 use app\models\User;
@@ -10,7 +11,7 @@ class SiteController
 {
     public function actionIndex()
     {
-        $posts = Photo::getLastNPhotos(6);
+        $posts = Photo::getLastNPhotos(6, User::getId());
 
         View::run(View::INDEX, ['posts' => $posts]);
     }
