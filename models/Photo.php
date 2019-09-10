@@ -33,7 +33,7 @@ abstract class Photo
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function like(int $user_id, int $photo_id, int $like_status)
+    public static function like(int $user_id, int $photo_id, int $like_status) : void
     {
         $db = DB::getConnection();
         $sql_postfix = 'user_id = :user_id AND photo_id = :photo_id LIMIT 1';

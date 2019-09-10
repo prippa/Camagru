@@ -20,12 +20,18 @@ class SiteController
         if (empty($_POST))
             View::run(View::ERROR_404);
 
-        User::redirectToLoginCheck();
+        if (!User::isLogged())
+        {
+            echo 'redirect: login';
+            exit();
+        }
 
         $user_id = User::getId();
         $photo_id = $_POST['id'];
         $like_status = $_POST['like_status'];
 
         Photo::like($user_id, $photo_id, $like_status);
+
+        echo 'OK';
     }
 }

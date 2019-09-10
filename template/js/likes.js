@@ -1,11 +1,29 @@
-import {$, ajaxSendDataByPOST} from './lib.js';
+import {$} from './lib.js';
 
-window.like = function(id)
+
+function ajaxSendDataByPOST(url, data, callback_function, callback_function_data)
 {
-    const data = 'id=' + id + '&like_status=1';
+    let xhr = new XMLHttpRequest();
 
-    ajaxSendDataByPOST('LikeDislikePOST', data);
+    xhr.open('POST', url, true);
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState === 4 && xhr.status === 200)
+        {
+            if (!xhr.responseText.search('redirect'))
+            {
+                window.location.href = /redirect: (.*)/.exec(xhr.responseText)[1];
+                return;
+            }
+            callback_function(callback_function_data);
+        }
+    };
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(data);
+}
 
+function like_logic(id)
+{
     const dislike_elem = $('dislike-' + id);
     const like_elem = $('like-' + id);
     const like_count_elem = $('like-count-' + id);
@@ -29,14 +47,10 @@ window.like = function(id)
         like_count_elem.innerText = (parseInt(like_count_elem.innerText, 10) + 1).toString();
         like_elem.classList.add('like');
     }
-};
+}
 
-window.dislike = function(id)
+function dislike_logic(id)
 {
-    const data = 'id=' + id + '&like_status=0';
-
-    ajaxSendDataByPOST('LikeDislikePOST', data);
-
     const like_elem = $('like-' + id);
     const dislike_elem = $('dislike-' + id);
     const dislike_count_elem = $('dislike-count-' + id);
@@ -60,4 +74,20 @@ window.dislike = function(id)
         dislike_count_elem.innerText = (parseInt(dislike_count_elem.innerText, 10) + 1).toString();
         dislike_elem.classList.add('dislike');
     }
+}
+
+const POST_REQUEST_URL = 'LikeDislikePOST';
+
+window.like = function(id)
+{
+    const data = 'id=' + id + '&like_status=1';
+
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, id);
+};
+
+window.dislike = function(id)
+{
+    const data = 'id=' + id + '&like_status=0';
+
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, id);
 };
