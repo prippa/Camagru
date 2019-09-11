@@ -2,7 +2,7 @@
     padding: 15px !important;
 }
 
-.post-block-content {
+.post-block {
     cursor: pointer;
 }
 
@@ -18,7 +18,7 @@
     transition: .3s;
 }
 
-.post-block-content:hover .post-login {
+.post-block:hover .post-login {
     color: #F35B5B;
     transition: .3s;
 }
@@ -27,7 +27,7 @@
     transition: .3s;
 }
 
-.post-block-content:hover .main-img {
+.post-block:hover .main-img {
     transition: .3s;
     box-shadow: 0 0 8px rgb(33, 33, 33);
 }

@@ -78,16 +78,16 @@ function dislike_logic(id)
 
 const POST_REQUEST_URL = 'LikeDislikePOST';
 
-window.like = function(id)
+export function like(id)
 {
     const data = 'id=' + id + '&like_status=1';
 
     ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, id);
-};
+}
 
-window.dislike = function(id)
+export function dislike(id)
 {
     const data = 'id=' + id + '&like_status=0';
 
     ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, id);
-};
+}
