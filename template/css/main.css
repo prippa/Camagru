@@ -38,9 +38,6 @@
     cursor: pointer;
     word-break: break-word;
     padding: 4px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
 }
 
 .post-like:hover {
@@ -53,9 +50,6 @@
     cursor: pointer;
     word-break: break-word;
     padding: 4px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
 }
 
 .post-dislike:hover {
