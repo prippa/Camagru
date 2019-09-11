@@ -4,8 +4,19 @@
         <?php foreach ($data['posts'] as $item): ?>
             <div class="col-lg-6 col-main-block">
                 <div class="post-block-content"
-                     onclick="test('<?= $item['img'] ?>')">
-                    <p class="post-title">By: <i class="post-login"><?= $item['login'] ?></i></p>
+                     onclick="runPhotoModal('<?= $item['img'] ?>')">
+                    <div class="row no-gutters">
+                        <div class="col-auto mr-auto">
+                            <div class="post-head-elem">
+                                By: <i class="post-login"><?= $item['login'] ?></i>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="post-head-elem">
+                                <div class="post-create-date"><?= $item['create_date'] ?></div>
+                            </div>
+                        </div>
+                    </div>
                     <img class="img-fluid main-img" src="<?= $item['img'] ?>" alt="">
                 </div>
                 <div class="row no-gutters mt-1">

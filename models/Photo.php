@@ -18,6 +18,7 @@ abstract class Photo
         $sql = 'SELECT
                     likes.like_status,
                     user.login,
+                    photo.create_date,
                     photo.img,
                     photo.likes,
                     photo.dislikes,

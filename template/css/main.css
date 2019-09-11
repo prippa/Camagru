@@ -6,9 +6,12 @@
     cursor: pointer;
 }
 
-.post-title {
-    margin: 0;
+.post-head-elem {
     padding: 8px;
+}
+
+.post-create-date {
+    color: #7B7B7B;
 }
 
 .post-login {

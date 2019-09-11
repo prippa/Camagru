@@ -1,4 +1,4 @@
-window.test = function(img)
+window.runPhotoModal = function(img)
 {
     alert(img);
 };
