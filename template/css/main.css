@@ -33,6 +33,7 @@
 }
 
 .post-like {
+    margin-right: 4px;
     text-align: center;
     cursor: pointer;
     word-break: break-word;
@@ -47,6 +48,7 @@
 }
 
 .post-dislike {
+    margin-left: 4px;
     text-align: center;
     cursor: pointer;
     word-break: break-word;
@@ -70,4 +72,21 @@
 
 .like-img {
     margin-top: -4px;
+}
+
+.descriptions-block {
+    background-color: #F5F5F5;
+}
+
+.comments-block {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.likes-and-text-input-block {
+    background-color: #F5F5F5;
+}
+
+.modal-textarea {
+    resize: none;
 }
