@@ -17,7 +17,8 @@ class SiteController
         foreach ($posts as &$post)
             $post['create_date'] = (new DateTime($post['create_date']))->format('d M Y H:i');
 
-        View::run(View::INDEX, ['posts' => $posts]);
+        Lib::debug($posts);
+//        View::run(View::INDEX, ['posts' => $posts]);
     }
 
     public function actionLikeDislikePOST()
@@ -33,6 +34,23 @@ class SiteController
         $like_status = $_POST['like_status'];
 
         Photo::like($user_id, $photo_id, $like_status);
+
+        exit('OK');
+    }
+
+    public function actionAddNewComment()
+    {
+        if (empty($_POST))
+            View::run(View::ERROR_404);
+
+        if (!User::isLogged())
+            exit('redirect');
+
+        $user_id = User::getId();
+        $photo_id = $_POST['id'];
+        $comment = $_POST['comment'];
+
+        Photo::comment($user_id, $photo_id, $comment);
 
         exit('OK');
     }

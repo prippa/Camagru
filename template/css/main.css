@@ -68,15 +68,26 @@
     background-color: #F5F5F5;
 }
 
+.likes-block {
+    background-color: #F5F5F5;
+}
+
 .comments-block {
     max-height: 300px;
     overflow: auto;
 }
 
-.likes-and-text-input-block {
+.comment-error {
+    padding: 2px;
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
+.leave-comment-block {
     background-color: #F5F5F5;
 }
 
-.modal-textarea {
+.modal-input {
     resize: none;
 }

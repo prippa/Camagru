@@ -3,6 +3,7 @@
 return array(
     '' => 'Site/Index',
     'LikeDislikePOST' => 'Site/LikeDislikePOST',
+    'AddNewComment' => 'Site/AddNewComment',
 
     'register' => 'UserLoginRegister/Register',
     'register/confirm/(.+)' => 'UserLoginRegister/ConfirmMail/$1',

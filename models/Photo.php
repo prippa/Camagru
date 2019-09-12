@@ -26,6 +26,7 @@ abstract class Photo
                 FROM photo
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
+                LEFT JOIN photo_comment ON photo_comment.comment WHERE photo.id = photo_comment.photo_id
                 ORDER BY
                     photo.create_date DESC limit ' . $size;
 
@@ -63,5 +64,11 @@ abstract class Photo
             DB::execute($sql,
                 [':user_id' => $user_id, ':photo_id' => $photo_id, ':like_status' => $like_status], $db);
         }
+    }
+
+    public static function comment(int $user_id, int $photo_id, string $comment) : void
+    {
+        $sql = 'INSERT INTO photo_comment (user_id, photo_id, comment) VALUES (:user_id, :photo_id, :comment)';
+        DB::execute($sql, [':user_id' => $user_id, ':photo_id' => $photo_id, ':comment' => $comment]);
     }
 }

@@ -12,8 +12,6 @@
                             <span class="close-modal" id="close-modal-<?= $item['id'] ?>">&times;</span>
                         </div>
 
-                        <img class="img-fluid" src="<?= $item['img'] ?>" alt="">
-
                         <div class="descriptions-block p-2">
                             <div class="row no-gutters">
                                 <div class="col-auto mr-auto">
@@ -25,36 +23,10 @@
                             </div>
                         </div>
 
-                        <div class="comments-block p-2">
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                            <h2>comments</h2>
-                        </div>
+                        <img class="img-fluid" src="<?= $item['img'] ?>" alt="">
 
-                        <div class="likes-and-text-input-block">
-                            <div class="row no-gutters p-2">
+                        <div class="likes-block p-2">
+                            <div class="row no-gutters">
                                 <div class="col-6">
                                     <div class="post-like" id="like-<?= $item['id'] ?>">
                                         <img class="like-img" src="/template/images/like.png" alt="">
@@ -68,13 +40,23 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="comments-block p-2">
+
+                        </div>
+
+                        <div class="leave-comment-block">
                             <div class="row no-gutters p-2">
-                                <div class="col-9 pr-2">
-                                    <textarea class="form-control modal-textarea"
-                                              rows="2" placeholder="Write comment..."
-                                              id="comment-textarea-<?= $item['id'] ?>"></textarea>
+                                <div class="col-12">
+                                    <div class="comment-error" id="comment-error-<?= $item['id'] ?>"></div>
                                 </div>
-                                <div class="col-3 align-self-center">
+                                <div class="col-9 pr-2">
+                                    <input class="form-control modal-input"
+                                           placeholder="Write comment..."
+                                           id="comment-input-<?= $item['id'] ?>"/>
+                                </div>
+                                <div class="col-3">
                                     <button class="btn btn-primary btn-block"
                                             id="comment-btn-<?= $item['id'] ?>">Send</button>
                                 </div>

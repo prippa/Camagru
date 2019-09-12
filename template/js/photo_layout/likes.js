@@ -1,22 +1,4 @@
-import {$, redirect} from '../lib.js';
-
-function ajaxSendDataByPOST(url, data, callback_function, callback_function_data)
-{
-    let xhr = new XMLHttpRequest();
-
-    xhr.open('POST', url, true);
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState === 4 && xhr.status === 200)
-        {
-            if (xhr.responseText === 'redirect')
-                redirect('login');
-            callback_function(callback_function_data);
-        }
-    };
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(data);
-}
+import {$, ajaxSendDataByPOST} from '../lib.js';
 
 function like_logic(id)
 {
@@ -76,14 +58,14 @@ const POST_REQUEST_URL = 'LikeDislikePOST';
 
 export function like(id)
 {
-    const data = 'id=' + id + '&like_status=1';
+    const data = `id=${id}&like_status=1`;
 
     ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, id);
 }
 
 export function dislike(id)
 {
-    const data = 'id=' + id + '&like_status=0';
+    const data = `id=${id}&like_status=0`;
 
     ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, id);
 }

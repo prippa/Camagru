@@ -32,8 +32,15 @@ function init_like_system(id, like_status)
 function init_comment_system(id)
 {
     const comment_btn_elem = $('comment-btn-' + id);
+    const text_input_elem = $('comment-input-' + id);
 
     comment_btn_elem.onclick = function () { send_comment(id) };
+    text_input_elem.onkeyup = function(event)
+    {
+        event.preventDefault();
+        if (event.key === 'Enter')
+            comment_btn_elem.click();
+    };
 }
 
 window.posts.forEach(function(post)
