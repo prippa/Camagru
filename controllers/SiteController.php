@@ -26,10 +26,7 @@ class SiteController
             View::run(View::ERROR_404);
 
         if (!User::isLogged())
-        {
-            echo 'redirect: login';
-            exit();
-        }
+            exit('redirect');
 
         $user_id = User::getId();
         $photo_id = $_POST['id'];
@@ -37,6 +34,6 @@ class SiteController
 
         Photo::like($user_id, $photo_id, $like_status);
 
-        echo 'OK';
+        exit('OK');
     }
 }

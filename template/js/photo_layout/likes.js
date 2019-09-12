@@ -1,5 +1,4 @@
-import {$} from './lib.js';
-
+import {$, redirect} from '../lib.js';
 
 function ajaxSendDataByPOST(url, data, callback_function, callback_function_data)
 {
@@ -10,11 +9,8 @@ function ajaxSendDataByPOST(url, data, callback_function, callback_function_data
     {
         if (xhr.readyState === 4 && xhr.status === 200)
         {
-            if (!xhr.responseText.search('redirect'))
-            {
-                window.location.href = /redirect: (.*)/.exec(xhr.responseText)[1];
-                return;
-            }
+            if (xhr.responseText === 'redirect')
+                redirect('login');
             callback_function(callback_function_data);
         }
     };

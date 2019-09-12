@@ -14,17 +14,13 @@
 
                         <img class="img-fluid" src="<?= $item['img'] ?>" alt="">
 
-                        <div class="descriptions-block">
+                        <div class="descriptions-block p-2">
                             <div class="row no-gutters">
                                 <div class="col-auto mr-auto">
-                                    <div class="post-head-elem">
-                                        By: <i class="post-login"><?= $item['login'] ?></i>
-                                    </div>
+                                    <div>By: <i class="post-login"><?= $item['login'] ?></i></div>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="post-head-elem">
-                                        <div class="post-create-date"><?= $item['create_date'] ?></div>
-                                    </div>
+                                    <div class="post-create-date"><?= $item['create_date'] ?></div>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +71,12 @@
                             <div class="row no-gutters p-2">
                                 <div class="col-9 pr-2">
                                     <textarea class="form-control modal-textarea"
-                                              rows="2" placeholder="Write comment..."></textarea>
+                                              rows="2" placeholder="Write comment..."
+                                              id="comment-textarea-<?= $item['id'] ?>"></textarea>
                                 </div>
                                 <div class="col-3 align-self-center">
-                                    <button class="btn btn-primary btn-block">Send</button>
+                                    <button class="btn btn-primary btn-block"
+                                            id="comment-btn-<?= $item['id'] ?>">Send</button>
                                 </div>
                             </div>
                         </div>
@@ -112,4 +110,4 @@
 <script type="module">
     window.posts = <?= json_encode($data['posts']) ?>;
 </script>
-<script src="/template/js/main.js" type="module"></script>
+<script src="/template/js/photo_layout/main.js" type="module"></script>

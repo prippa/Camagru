@@ -23,7 +23,7 @@ catch (PDOException $e)
 
 echo 'Database IS ALIVE!!!' . '<br>';
 
-//if (mkdir(ROOT . '../uploads'))
-//    echo 'uploads dir is created!' . '<br>';
-//else
-//    echo 'uploads creation failed!' . '<br>';
+if (mkdir(ROOT . '../uploads'))
+    echo 'uploads dir is created!' . '<br>';
+else
+    echo 'uploads creation failed!' . '<br>';

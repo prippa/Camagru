@@ -117,13 +117,13 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `user_id`, `img`, `likes`, `dislikes`) VALUES
-(8, 10, '5d5e9aa02ac92.png', 0, 0),
-(13, 10, '5d5edd19a1f8a.jpg', 0, 0),
-(14, 10, '5d5ede63d66bd.jpg', 0, 0),
-(15, 10, '5d5ffd8d17a2d.png', 0, 0),
-(16, 10, '5d5ffd9d14448.jpg', 0, 0),
-(17, 10, '5d5ffda69beea.jpg', 0, 0),
-(18, 10, '5d5ffdba6fc5d.png', 0, 0);
+(8, 10, '/uploads/5d5e9aa02ac92.png', 0, 0),
+(13, 10, '/uploads/5d5edd19a1f8a.jpg', 0, 0),
+(14, 10, '/uploads/5d5ede63d66bd.jpg', 0, 0),
+(15, 10, '/uploads/5d5ffd8d17a2d.png', 0, 0),
+(16, 10, '/uploads/5d5ffd9d14448.jpg', 0, 0),
+(17, 10, '/uploads/5d5ffda69beea.jpg', 0, 0),
+(18, 10, '/uploads/5d5ffdba6fc5d.png', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -161,7 +161,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `email`, `verified`, `vkey`, `notifications`) VALUES
-(10, 'prippa', '$2y$10$XlN2kydW4nbVqDdNTcDtj.YXmBMUx/b9t5OmElnt38FS7ucCLtzBO', 'pavelrippa@gmail.com', 1, '1a1566c986796727b6e6025d6b0960cd', 1);
+(10, 'prippa', '$2y$10$gvc4Pv5ZokxNrAiKqBKkFu3mRxd0iBO/dvGa.nFC/f7tOP6HcyvZy', 'pavelrippa@gmail.com', 1, '1a1566c986796727b6e6025d6b0960cd', 1);
 
 --
 -- Індекси збережених таблиць
