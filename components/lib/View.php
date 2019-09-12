@@ -70,8 +70,17 @@ abstract class View
     {
         $base_date = [ 'is_logged' => User::isLogged(), 'current_year' => date("Y")];
 
+        $base_date['login'] = '';
         if ($base_date['is_logged'])
-            $base_date['header_login'] = User::getLoginById(User::getId());
+        {
+            $login = User::getLoginById(User::getId());
+
+            if (strlen($login) > 12)
+                $base_date['header_login'] = substr($login, 0, 11) . '.';
+            else
+                $base_date['header_login'] = $login;
+            $base_date['login'] = $login;
+        }
         return $base_date;
     }
 

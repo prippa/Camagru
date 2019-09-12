@@ -15,10 +15,12 @@ class SiteController
         $posts = Photo::getLastNPhotos(6, User::getId());
 
         foreach ($posts as &$post)
+        {
             $post['create_date'] = (new DateTime($post['create_date']))->format('d M Y H:i');
+            $post['comments'] = Photo::getPhotoComments($post['id']);
+        }
 
-        Lib::debug($posts);
-//        View::run(View::INDEX, ['posts' => $posts]);
+        View::run(View::INDEX, ['posts' => $posts]);
     }
 
     public function actionLikeDislikePOST()

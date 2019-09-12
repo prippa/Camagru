@@ -39,21 +39,18 @@
     to {top:0; opacity:1}
 }
 
-.close-modal-block {
-    margin-top: -57px;
-}
-
 /* The Close Button */
 .close-modal {
-    color: black;
-    float: right;
+    margin-top: -57px;
+    color: grey;
+    text-align: right;
     font-size: 38px;
     font-weight: bold;
 }
 
 .close-modal:hover,
 .close-modal:focus {
-    color: rgb(59, 56, 56);
+    color: rgb(155, 148, 148);
     text-decoration: none;
     cursor: pointer;
 }

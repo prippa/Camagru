@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.post-head-elem {
+    padding: 8px;
+}
+
 .post-create-date {
     color: #7B7B7B;
 }
@@ -73,8 +77,13 @@
 }
 
 .comments-block {
+    word-break: break-word;
     max-height: 300px;
     overflow: auto;
+}
+
+.comment-block {
+    padding: 4px;
 }
 
 .comment-error {

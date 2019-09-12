@@ -13,7 +13,22 @@ abstract class Photo
         DB::execute($sql, [':user_id' => $user_id, ':img' => $img]);
     }
 
-    public static function getLastNPhotos(int $size, ?int $user_id) : array
+    public static function getPhotoComments(int $photo_id) : ?array
+    {
+        $sql = 'SELECT
+                    photo_comment.comment,
+                    user.login
+                FROM photo_comment
+                LEFT JOIN user ON photo_comment.user_id = user.id
+                WHERE photo_comment.photo_id = :photo_id
+                ORDER BY photo_comment.create_date';
+
+        $result = DB::execute($sql, [':photo_id' => $photo_id]);
+
+        return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getLastNPhotos(int $size, ?int $user_id) : ?array
     {
         $sql = 'SELECT
                     likes.like_status,
@@ -26,9 +41,7 @@ abstract class Photo
                 FROM photo
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
-                LEFT JOIN photo_comment ON photo_comment.comment WHERE photo.id = photo_comment.photo_id
-                ORDER BY
-                    photo.create_date DESC limit ' . $size;
+                ORDER BY photo.create_date DESC limit ' . $size;
 
         $result = DB::execute($sql, [':user_id' => $user_id]);
 

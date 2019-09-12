@@ -1,10 +1,3 @@
-<?php
-
-if (isset($data['header_login']) && strlen($data['header_login']) > 12)
-    $data['header_login'] = substr($data['header_login'], 0, 11) . '.';
-
-?>
-
 <header>
     <a href="/" class="logo"><img class="logo-img" src="/template/images/logo.png" alt=""> Camagru</a>
     <nav>
