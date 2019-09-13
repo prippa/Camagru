@@ -105,3 +105,17 @@
 .modal-input {
     resize: none;
 }
+
+.show-more-block {
+    text-align: center;
+    padding: 8px;
+}
+
+.show-more {
+    font-size: 24px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #919191;
+    color: deepskyblue;
+    cursor: pointer;
+}
