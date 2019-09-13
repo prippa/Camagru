@@ -1,12 +1,9 @@
 <div class="container">
     <div class="row no-gutters">
-        <?php foreach ($data['posts'] as $item): ?>
+        <?php foreach ($data['photos'] as $item): ?>
             <div class="col-lg-6 col-main-block">
 
-                <!-- Render Modal -->
-                <?php require 'views/includes/modal.php' ?>
-
-                <div class="post-block" id="post-block-<?= $item['id'] ?>">
+                <a class="post-block" href="<?= $item['link'] ?>">
                     <div class="row no-gutters">
                         <div class="col-auto mr-auto">
                             <div class="post-head-elem">
@@ -20,6 +17,21 @@
                         </div>
                     </div>
                     <img class="img-fluid main-img" src="<?= $item['img'] ?>" alt="">
+                </a>
+
+                <div class="row no-gutters pt-2">
+                    <div class="col-6">
+                        <div class="post-like" id="like<?= $item['id'] ?>">
+                            <img class="like-img" src="/template/images/like.png" alt="">
+                            <span id="like-count<?= $item['id'] ?>"><?= $item['likes'] ?></span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="post-dislike" id="dislike<?= $item['id'] ?>">
+                            <img src="/template/images/dislike.png" alt="">
+                            <span id="dislike-count<?= $item['id'] ?>"><?= $item['dislikes'] ?></span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -29,7 +41,6 @@
 </div>
 
 <script type="module">
-    window.posts = <?= json_encode($data['posts']) ?>;
-    window.login = '<?= $data['login'] ?>';
+    window.photos = <?= json_encode($data['photos']) ?>;
 </script>
-<script src="/template/js/photo_layout/main.js" type="module"></script>
+<script src="/template/js/photo_layout/index.js" type="module"></script>

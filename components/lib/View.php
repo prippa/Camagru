@@ -20,6 +20,7 @@ abstract class View
     public const PROFILE_SETTINGS = 1012;
     public const PROFILE_MY_PHOTOS = 1013;
     public const PROFILE_END = 1014;
+    public const SINGLE_PHOTO = 1015;
 
 
     public const ERROR_400 = 400;
@@ -47,14 +48,16 @@ abstract class View
         self::PASSWORD_RESET_FORM => ['layout' => 'views/layouts/default.php',
             'page' => 'views/login_register_system/password_reset_form.php', 'title' => 'Change your password'],
         self::PROFILE => ['layout' => 'views/layouts/default.php',
-            'page' => 'views/user/profile/settings.php', 'title' => 'Profile'],
+            'page' => 'views/profile/settings.php', 'title' => 'Profile'],
         self::PROFILE_SETTINGS => ['layout' => 'views/layouts/default.php',
-            'page' => 'views/user/profile/settings.php', 'title' => 'Settings'],
+            'page' => 'views/profile/settings.php', 'title' => 'Settings'],
         self::PROFILE_MY_PHOTOS => ['layout' => 'views/layouts/default.php',
-            'page' => 'views/user/profile/my_photos.php', 'title' => 'My Photos'],
+            'page' => 'views/profile/my_photos.php', 'title' => 'My Photos'],
 
         self::MAKE_PHOTO => ['layout' => 'views/layouts/default.php',
             'page' => 'views/photo/make_photo.php', 'title' => 'Make Photo'],
+        self::SINGLE_PHOTO => ['layout' => 'views/layouts/default.php',
+            'page' => 'views/photo/single_photo.php', 'title' => 'Single Photo'],
 
         self::ERROR_SOMETHING_WENT_WRONG => ['layout' => 'views/layouts/default.php',
             'page' => 'views/error_pages/something_went_wrong.php', 'title' => 'Oops :('],

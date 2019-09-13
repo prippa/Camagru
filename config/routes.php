@@ -2,8 +2,6 @@
 
 return array(
     '' => 'Site/Index',
-    'LikeDislikePOST' => 'Site/LikeDislikePOST',
-    'AddNewComment' => 'Site/AddNewComment',
 
     'register' => 'UserLoginRegister/Register',
     'register/confirm/(.+)' => 'UserLoginRegister/ConfirmMail/$1',
@@ -18,4 +16,7 @@ return array(
     'profile/my_photos' => 'UserProfile/ProfileMyPhotos',
 
     'make_photo' => 'Photo/MakePhoto',
+    'LikeDislikePOST' => 'Photo/LikeDislikePOST',
+    'AddNewComment' => 'Photo/AddNewComment',
+    'photo/(.+)' => 'Photo/SinglePhoto/$1'
 );

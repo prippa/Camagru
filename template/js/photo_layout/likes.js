@@ -1,71 +1,72 @@
 import {$, ajaxSendDataByPOST} from '../lib.js';
 
-function like_logic(id)
+const POST_REQUEST_URL = '/LikeDislikePOST';
+
+function like_logic(elem)
 {
-    const dislike_elem = $('dislike-' + id);
-    const like_elem = $('like-' + id);
-    const like_count_elem = $('like-count-' + id);
-    const like_status = like_elem.classList.contains('like') ? 1 : 0;
+    const like_status = elem.like.classList.contains('like') ? 1 : 0;
 
-    if (dislike_elem.classList.contains('dislike'))
+    if (elem.dislike.classList.contains('dislike'))
     {
-        const dislike_count_elem = $('dislike-count-' + id);
 
-        dislike_count_elem.innerText = (parseInt(dislike_count_elem.innerText, 10) - 1).toString();
-        dislike_elem.classList.remove('dislike');
+        elem.dislike_count.innerText = (parseInt(elem.dislike_count.innerText, 10) - 1).toString();
+        elem.dislike.classList.remove('dislike');
     }
-
     if (like_status === 1)
     {
-        like_count_elem.innerText = (parseInt(like_count_elem.innerText, 10) - 1).toString();
-        like_elem.classList.remove('like');
+        elem.like_count.innerText = (parseInt(elem.like_count.innerText, 10) - 1).toString();
+        elem.like.classList.remove('like');
     }
     else
     {
-        like_count_elem.innerText = (parseInt(like_count_elem.innerText, 10) + 1).toString();
-        like_elem.classList.add('like');
+        elem.like_count.innerText = (parseInt(elem.like_count.innerText, 10) + 1).toString();
+        elem.like.classList.add('like');
     }
 }
 
-function dislike_logic(id)
+function dislike_logic(elem)
 {
-    const like_elem = $('like-' + id);
-    const dislike_elem = $('dislike-' + id);
-    const dislike_count_elem = $('dislike-count-' + id);
-    const like_status = dislike_elem.classList.contains('dislike') ? 0 : 1;
+    const like_status = elem.dislike.classList.contains('dislike') ? 0 : 1;
 
-    if (like_elem.classList.contains('like'))
+    if (elem.like.classList.contains('like'))
     {
-        const like_count_elem = $('like-count-' + id);
-
-        like_count_elem.innerText = (parseInt(like_count_elem.innerText, 10) - 1).toString();
-        like_elem.classList.remove('like');
+        elem.like_count.innerText = (parseInt(elem.like_count.innerText, 10) - 1).toString();
+        elem.like.classList.remove('like');
     }
-
     if (like_status === 0)
     {
-        dislike_count_elem.innerText = (parseInt(dislike_count_elem.innerText, 10) - 1).toString();
-        dislike_elem.classList.remove('dislike');
+        elem.dislike_count.innerText = (parseInt(elem.dislike_count.innerText, 10) - 1).toString();
+        elem.dislike.classList.remove('dislike');
     }
     else
     {
-        dislike_count_elem.innerText = (parseInt(dislike_count_elem.innerText, 10) + 1).toString();
-        dislike_elem.classList.add('dislike');
+        elem.dislike_count.innerText = (parseInt(elem.dislike_count.innerText, 10) + 1).toString();
+        elem.dislike.classList.add('dislike');
     }
 }
 
-const POST_REQUEST_URL = 'LikeDislikePOST';
+function getElements(id)
+{
+    if (!id) id = '';
 
-export function like(id)
+    return {
+        like: $('like' + id),
+        dislike: $('dislike' + id),
+        dislike_count: $('dislike-count' + id),
+        like_count: $('like-count' + id)
+    };
+}
+
+export function like(id, elem_id)
 {
     const data = `id=${id}&like_status=1`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, id);
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, getElements(elem_id));
 }
 
-export function dislike(id)
+export function dislike(id, elem_id)
 {
     const data = `id=${id}&like_status=0`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, id);
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, getElements(elem_id));
 }

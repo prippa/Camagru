@@ -3,7 +3,22 @@
 }
 
 .post-block {
-    cursor: pointer;
+    text-decoration: none;
+    color: unset;
+}
+
+.post-block:hover {
+    color: unset;
+}
+
+.post-block:hover .main-img {
+    transition: .3s;
+    box-shadow: 0 0 8px rgb(33, 33, 33);
+}
+
+.post-block:hover .post-login {
+    color: #F35B5B;
+    transition: .3s;
 }
 
 .post-head-elem {
@@ -18,18 +33,8 @@
     transition: .3s;
 }
 
-.post-block:hover .post-login {
-    color: #F35B5B;
-    transition: .3s;
-}
-
 .main-img {
     transition: .3s;
-}
-
-.post-block:hover .main-img {
-    transition: .3s;
-    box-shadow: 0 0 8px rgb(33, 33, 33);
 }
 
 .post-like {
