@@ -162,7 +162,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `login`, `password`, `email`, `verified`, `vkey`, `notifications`) VALUES
 (10, 'prippa', '$2y$10$gvc4Pv5ZokxNrAiKqBKkFu3mRxd0iBO/dvGa.nFC/f7tOP6HcyvZy', 'pavelrippa@gmail.com', 1, '1a1566c986796727b6e6025d6b0960cd', 1),
-(11, 'admin', '$2y$10$FTDrMQuTB8x/KpRbAH2LWOGEGUtTFouQ3JcDFe2HuGdfidG7.r8te%', 'pavelrippa@gmail.com', 1, '1a1566c986796727b6e6025d6b0960cd', 1);
+(11, 'katya', '$2y$10$cjGDcK2qgrKnYBQTDN05I.K6h84MzMzuFOn9zUdk1i.53CDyzo0F2', 'katya.osadchuk@gmail.com', 1, '37664b3c699fa039a277c807bf6e641b', 1);
 
 --
 -- Індекси збережених таблиць

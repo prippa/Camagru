@@ -35,4 +35,11 @@ abstract class Lib
         if ($is_exit)
             exit();
     }
+
+    public static function fwrite(string $message, string $filename='test.txt', string $rights='a+')
+    {
+        $fd = fopen($filename, $rights);
+        fwrite($fd, $message);
+        fclose($fd);
+    }
 }

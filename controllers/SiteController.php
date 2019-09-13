@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\components\lib\Lib;
 use app\components\lib\View;
+use app\models\Comment;
+use app\models\Like;
 use app\models\Photo;
 use app\models\User;
 use DateTime;
@@ -17,7 +19,7 @@ class SiteController
         foreach ($posts as &$post)
         {
             $post['create_date'] = (new DateTime($post['create_date']))->format('d M Y H:i');
-            $post['comments'] = Photo::getPhotoComments($post['id']);
+            $post['comments'] = Comment::getAllCommentsByPhotoId($post['id']);
         }
 
         View::run(View::INDEX, ['posts' => $posts]);
@@ -35,7 +37,7 @@ class SiteController
         $photo_id = $_POST['id'];
         $like_status = $_POST['like_status'];
 
-        Photo::like($user_id, $photo_id, $like_status);
+        Like::action($user_id, $photo_id, $like_status);
 
         exit('OK');
     }
@@ -52,7 +54,13 @@ class SiteController
         $photo_id = $_POST['id'];
         $comment = $_POST['comment'];
 
-        Photo::comment($user_id, $photo_id, $comment);
+        Comment::add($user_id, $photo_id, $comment);
+
+        $photo_user_id = Photo::getUserIdById($photo_id);
+
+        if ($user_id != $photo_user_id)
+
+
 
         exit('OK');
     }
