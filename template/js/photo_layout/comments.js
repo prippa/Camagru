@@ -57,7 +57,7 @@ export function send_comment(id)
     if (error_validation(id, input_elem))
         return true;
 
-    const data = `id=${id}&comment=${input_elem.value}`;
+    const data = `id=${id}&comment=${encodeURIComponent(input_elem.value)}`;
     ajaxSendDataByPOST(POST_URL, data, send_success, {'id': id, 'comment': input_elem.value});
     
     return false;

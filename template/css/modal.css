@@ -42,7 +42,7 @@
 /* The Close Button */
 .close-modal {
     margin-top: -57px;
-    color: grey;
+    color: #d7d7d7;
     text-align: right;
     font-size: 38px;
     font-weight: bold;
@@ -50,7 +50,7 @@
 
 .close-modal:hover,
 .close-modal:focus {
-    color: rgb(155, 148, 148);
+    color: #afafaf;
     text-decoration: none;
     cursor: pointer;
 }
