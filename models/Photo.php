@@ -33,7 +33,7 @@ abstract class Photo
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getPhotoById(int $id) : ?array
+    public static function getPhotoById(int $id, ?int $user_id) : ?array
     {
         $sql = 'SELECT
                     likes.like_status,
@@ -45,10 +45,10 @@ abstract class Photo
                     photo.id
                 FROM photo
                 LEFT JOIN user ON photo.user_id = user.id
-                LEFT JOIN likes ON user.id = likes.user_id AND photo.id = likes.photo_id
+                LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
                 WHERE photo.id = :id LIMIT 1';
 
-        $result = DB::execute($sql, [':id' => $id]);
+        $result = DB::execute($sql, [':user_id' => $user_id, ':id' => $id]);
 
         return $result->fetch(PDO::FETCH_ASSOC);
     }

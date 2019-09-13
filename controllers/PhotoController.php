@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\lib\Lib;
+use app\components\lib\Mail;
 use app\components\lib\View;
 use app\models\Comment;
 use app\models\Like;
@@ -52,6 +53,23 @@ class PhotoController
         exit('OK');
     }
 
+    private function sendNotification(int $user_id, int $photo_id) : void
+    {
+        $photo_user_id = Photo::getUserIdById($photo_id);
+
+        if ($user_id != $photo_user_id)
+        {
+            $photo_user = User::getUserByID($photo_user_id);
+
+            if ($photo_user['notifications'] === '1')
+            {
+                $login = User::getLoginById($user_id);
+                $email = $photo_user['email'];
+                Mail::notification($login, $email, $photo_id);
+            }
+        }
+    }
+
     public function actionAddNewComment()
     {
         if (empty($_POST))
@@ -66,17 +84,14 @@ class PhotoController
 
         Comment::add($user_id, $photo_id, $comment);
 
-//        $photo_user_id = Photo::getUserIdById($photo_id);
-//
-//        if ($user_id != $photo_user_id)
-//            ;
+        $this->sendNotification($user_id, $photo_id);
 
         exit('OK');
     }
 
     public function actionSinglePhoto(int $id)
     {
-        $photo = Photo::getPhotoById($id);
+        $photo = Photo::getPhotoById($id, User::getId());
 
         if (!$photo)
             View::run(View::ERROR_404);

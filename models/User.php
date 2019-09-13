@@ -156,8 +156,7 @@ abstract class User extends Modal
         $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
-        $login = $result->fetch(PDO::FETCH_ASSOC);
-        return $login['login'];
+        return $result->fetch(PDO::FETCH_ASSOC)['login'];
     }
 
     public static function getUserByID(int $id) : ?array
@@ -165,8 +164,7 @@ abstract class User extends Modal
         $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
-        $data = $result->fetch(PDO::FETCH_ASSOC);
-        return $data;
+        return $result->fetch(PDO::FETCH_ASSOC);
     }
 
     public static function login(string $id) : void
