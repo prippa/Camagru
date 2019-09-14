@@ -39,7 +39,7 @@
     </div>
 
     <div class="show-more-block">
-        <span class="show-more" id="show-more">Show more</span>
+        <span class="show-more" id="show-more">show more</span>
     </div>
 
 </div>

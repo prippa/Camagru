@@ -50,7 +50,8 @@ abstract class Photo
 
         $result = DB::execute($sql, [':user_id' => $user_id, ':id' => $id]);
 
-        return $result->fetch(PDO::FETCH_ASSOC);
+        $data = $result->fetch(PDO::FETCH_ASSOC);
+        return $data ? $data : null;
     }
 
     public static function getUserIdById(int $id) : ?string
