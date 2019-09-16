@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\lib\DB;
+use DateTime;
 use PDO;
 
 abstract class Photo
@@ -13,9 +14,10 @@ abstract class Photo
         DB::execute($sql, [':user_id' => $user_id, ':img' => $img]);
     }
 
-    public static function getLastNPhotos(int $size, ?int $user_id) : ?array
+    public static function getLastNPhotos(int $size, ?int $user_id, int $start_from=0) : ?array
     {
-        $sql = 'SELECT
+        $start_from *= $size;
+        $sql = "SELECT
                     likes.like_status,
                     user.login,
                     photo.create_date,
@@ -26,11 +28,20 @@ abstract class Photo
                 FROM photo
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
-                ORDER BY photo.create_date DESC LIMIT ' . $size;
+                ORDER BY photo.create_date DESC LIMIT $size OFFSET $start_from";
 
         $result = DB::execute($sql, [':user_id' => $user_id]);
 
         return $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function preparePhotos(?array & $photos) : void
+    {
+        foreach ($photos as &$photo)
+        {
+            $photo['create_date'] = (new DateTime($photo['create_date']))->format('d M Y H:i');
+            $photo['link'] = "photo/{$photo['id']}";
+        }
     }
 
     public static function getPhotoById(int $id, ?int $user_id) : ?array

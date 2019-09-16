@@ -89,6 +89,19 @@ class PhotoController
         exit('OK');
     }
 
+    public function actionGetMorePhotos()
+    {
+        if (empty($_POST))
+            View::run(View::ERROR_404);
+
+        $photo_count = $_POST['photo_count'];
+        $cycle = $_POST['cycle'];
+
+        $photos = Photo::getLastNPhotos($photo_count, User::getId(), $cycle);
+        Photo::preparePhotos($photos);
+        echo json_encode($photos);
+    }
+
     public function actionSinglePhoto(int $id)
     {
         $photo = Photo::getPhotoById($id, User::getId());

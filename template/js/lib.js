@@ -39,3 +39,11 @@ export function ajaxSendDataByPOST(url, data, callback_function, callback_functi
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(data);
 }
+
+export function setNewElementToDOM(insert_block_elem, new_elem)
+{
+    const fragment = document.createDocumentFragment();
+
+    fragment.appendChild(new_elem);
+    insert_block_elem.appendChild(fragment);
+}

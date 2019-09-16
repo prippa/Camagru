@@ -2,7 +2,7 @@ import {$, ajaxSendDataByPOST} from '../lib.js';
 
 const POST_REQUEST_URL = '/LikeDislikePOST';
 
-function like_logic(elem)
+function likeLogic(elem)
 {
     const like_status = elem.like.classList.contains('like') ? 1 : 0;
 
@@ -24,7 +24,7 @@ function like_logic(elem)
     }
 }
 
-function dislike_logic(elem)
+function dislikeLogic(elem)
 {
     const like_status = elem.dislike.classList.contains('dislike') ? 0 : 1;
 
@@ -47,8 +47,6 @@ function dislike_logic(elem)
 
 function getElements(id)
 {
-    if (!id) id = '';
-
     return {
         like: $('like' + id),
         dislike: $('dislike' + id),
@@ -57,16 +55,30 @@ function getElements(id)
     };
 }
 
-export function like(id, elem_id)
+function like(id, elem_id)
 {
     const data = `id=${id}&like_status=1`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, like_logic, getElements(elem_id));
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, likeLogic, getElements(elem_id));
 }
 
-export function dislike(id, elem_id)
+function dislike(id, elem_id)
 {
     const data = `id=${id}&like_status=0`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislike_logic, getElements(elem_id));
+    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislikeLogic, getElements(elem_id));
+}
+
+export function initLikeSystem(photo_id, like_status, id='')
+{
+    const like_elem = $('like' + id);
+    const dislike_elem = $('dislike' + id);
+
+    if (like_status === '1')
+        like_elem.classList.add('like');
+    else if (like_status === '0')
+        dislike_elem.classList.add('dislike');
+
+    like_elem.onclick = function() { like(id, photo_id) };
+    dislike_elem.onclick = function() { dislike(id, photo_id) };
 }

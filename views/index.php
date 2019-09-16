@@ -1,9 +1,9 @@
 <div class="container">
-    <div class="row no-gutters">
+    <div class="row no-gutters" id="photo-container">
         <?php foreach ($data['photos'] as $item): ?>
             <div class="col-lg-6 col-main-block">
 
-                <a class="post-block" href="<?= $item['link'] ?>">
+                <a target="_blank" class="post-block" href="<?= $item['link'] ?>">
                     <div class="row no-gutters">
                         <div class="col-auto mr-auto">
                             <div class="post-head-elem">
@@ -46,5 +46,7 @@
 
 <script type="module">
     window.photos = <?= json_encode($data['photos']) ?>;
+    window.ld_photo_count = 6;
+    window.ld_cycle = 1;
 </script>
 <script src="/template/js/photo_layout/index.js" type="module"></script>

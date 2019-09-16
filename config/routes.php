@@ -18,5 +18,6 @@ return array(
     'make_photo' => 'Photo/MakePhoto',
     'LikeDislikePOST' => 'Photo/LikeDislikePOST',
     'AddNewComment' => 'Photo/AddNewComment',
+    'GetMorePhotos' => 'Photo/GetMorePhotos',
     'photo/(.+)' => 'Photo/SinglePhoto/$1'
 );
