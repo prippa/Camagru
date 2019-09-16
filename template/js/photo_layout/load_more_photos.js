@@ -40,12 +40,12 @@ function getNewPhotoBlock(photo)
 }
 
 
-function setNewPhotosOMP(data, photo_count)
+function setNewPhotosOnMainPage(photos, photo_count)
 {
-    if (data.length < photo_count)
-        $('show-more').style.display = 'none';
+    if (photos.length < photo_count)
+        $('show-more-block').style.display = 'none';
 
-    data.forEach(function(photo)
+    photos.forEach(function(photo)
     {
         const photo_container_elem = $('photo-container');
         const div = document.createElement('div');
@@ -57,19 +57,46 @@ function setNewPhotosOMP(data, photo_count)
     });
 }
 
-export function loadMorePhotosOnMainPage(photo_count, cycle)
+function setNewPhotosOnMyPhotos(photos, photo_count)
+{
+    if (photos.length < photo_count)
+        $('show-more').style.display = 'none';
+
+    photos.forEach(function(photo)
+    {
+        const photo_container_elem = $('photo-container');
+        const div = document.createElement('div');
+
+        div.classList.add('col-12', 'col-main-block');
+        div.innerHTML = getNewPhotoBlock(photo);
+        setNewElementToDOM(photo_container_elem, div);
+        initLikeSystem(photo.id, photo.like_status, photo.id);
+    });
+}
+
+function ajaxSend(func, photo_count, cycle, query_type)
 {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'GetMorePhotos', true);
+    xhr.open('POST', '/GetMorePhotos', true);
     xhr.onreadystatechange = function()
     {
         if (xhr.readyState === 4 && xhr.status === 200)
         {
-            let data = JSON.parse(xhr.responseText);
-            setNewPhotosOMP(data, photo_count);
+            let photos = JSON.parse(xhr.responseText);
+            func(photos, photo_count);
         }
     };
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(`photo_count=${photo_count}&cycle=${cycle}`);
+    xhr.send(`photo_count=${photo_count}&cycle=${cycle}&query_type=${query_type}`);
+}
+
+export function loadMorePhotosOnMainPage(photo_count, cycle)
+{
+    ajaxSend(setNewPhotosOnMainPage, photo_count, cycle, 1);
+}
+
+export function loadMorePhotosOnMyPhotos(photo_count, cycle)
+{
+    ajaxSend(setNewPhotosOnMyPhotos, photo_count, cycle, 2);
 }

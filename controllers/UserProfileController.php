@@ -6,6 +6,7 @@ use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\components\lib\View;
 use app\models\EmailReset;
+use app\models\Photo;
 use app\models\User;
 
 class UserProfileController
@@ -127,7 +128,10 @@ class UserProfileController
     {
         User::redirectToLoginCheck();
 
+        $photos = Photo::getLastNUserPhotos(3, User::getId());
+        Photo::preparePhotos($photos);
+
         $view_title = User::getLoginById(User::getId()) . ' • Photos';
-        View::run(View::PROFILE_MY_PHOTOS, [], $view_title);
+        View::run(View::PROFILE_MY_PHOTOS, ['photos' => $photos], $view_title);
     }
 }

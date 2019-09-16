@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\components\lib\View;
 use app\models\Comment;
@@ -96,8 +95,12 @@ class PhotoController
 
         $photo_count = $_POST['photo_count'];
         $cycle = $_POST['cycle'];
+        $query_type = $_POST['query_type'];
 
-        $photos = Photo::getLastNPhotos($photo_count, User::getId(), $cycle);
+        if ($query_type == '1')
+            $photos = Photo::getLastNPhotos($photo_count, User::getId(), $cycle);
+        else
+            $photos = Photo::getLastNUserPhotos($photo_count, User::getId(), $cycle);
         Photo::preparePhotos($photos);
         echo json_encode($photos);
     }

@@ -109,6 +109,7 @@
 .show-more-block {
     text-align: center;
     padding: 8px;
+    display: none;
 }
 
 .show-more {

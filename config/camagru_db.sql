@@ -124,6 +124,7 @@ INSERT INTO `photo` (`id`, `user_id`, `img`, `likes`, `dislikes`) VALUES
 (16, 10, '/uploads/5d5ffd9d14448.jpg', 0, 0),
 (17, 10, '/uploads/5d5ffda69beea.jpg', 0, 0),
 (18, 10, '/uploads/5d5ffdba6fc5d.png', 0, 0);
+(19, 12, '/uploads/5d7f83c15f269.png', 0, 0);
 
 -- --------------------------------------------------------
 
