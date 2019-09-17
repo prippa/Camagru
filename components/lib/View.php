@@ -71,9 +71,11 @@ abstract class View
 
     private static function getAdditionalData() : array
     {
-        $base_date = [ 'is_logged' => User::isLogged(), 'current_year' => date("Y")];
-
+        $base_date = [];
+        $base_date['is_logged'] = User::isLogged();
+        $base_date['current_year'] = date("Y");
         $base_date['login'] = '';
+
         if ($base_date['is_logged'])
         {
             $login = User::getLoginById(User::getId());
@@ -84,6 +86,7 @@ abstract class View
                 $base_date['header_login'] = $login;
             $base_date['login'] = $login;
         }
+
         return $base_date;
     }
 

@@ -1,5 +1,5 @@
 export function $(name) { return document.getElementById(name); }
-export function redirect(url) { window.location.href = url; exit(); }
+export function redirect(url) { window.location.href = '/' + url; exit(); }
 export function exit()
 {
     window.addEventListener('error', function(e) { e.preventDefault(); e.stopPropagation(); }, false);

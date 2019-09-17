@@ -38,6 +38,7 @@ function addNewComment(comment)
 
     div.classList.add('comment-block');
     b.innerText = window.login;
+    span.classList.add('comment');
     span.innerText = comment;
     div.appendChild(b);
     div.innerHTML += ': ';

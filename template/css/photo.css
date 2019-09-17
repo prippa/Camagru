@@ -74,9 +74,7 @@
 }
 
 .comment {
-    margin: 0;
-    display: inline;
-    font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .comments-block {

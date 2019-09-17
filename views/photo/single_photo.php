@@ -46,7 +46,7 @@
                 <?php foreach ($data['photo']['comments'] as $value): ?>
                     <div class="comment-block">
                         <b><?= $value['login'] ?></b>:
-                        <span><?= htmlspecialchars($value['comment']) ?></span>
+                        <span class="comment"><?= htmlspecialchars($value['comment']) ?></span>
                     </div>
                 <?php endforeach ?>
             </div>
@@ -73,7 +73,7 @@
 
 <script type="module">
     window.photo = <?= json_encode($data['photo']) ?>;
-    window.is_logged = <?= $data['is_logged'] ?>;
+    window.is_logged = <?= $data['is_logged'] ? 1 : 0 ?>;
     window.login = '<?= $data['login'] ?>';
 </script>
 <script src="/template/js/photo/single_photo.js" type="module"></script>
