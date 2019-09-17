@@ -1,4 +1,4 @@
-import {$, ajaxSendDataByPOST} from '../lib.js';
+import {$, ajaxSendDataByPOST, redirect} from '../lib.js';
 
 const POST_REQUEST_URL = '/LikeDislikePOST';
 
@@ -57,16 +57,24 @@ function getElements(id)
 
 function like(id, elem_id)
 {
+    if (!window.is_logged)
+        redirect('login');
+
     const data = `id=${id}&like_status=1`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, likeLogic, getElements(elem_id));
+    likeLogic(getElements(elem_id));
+    ajaxSendDataByPOST(POST_REQUEST_URL, data);
 }
 
 function dislike(id, elem_id)
 {
+    if (!window.is_logged)
+        redirect('login');
+
     const data = `id=${id}&like_status=0`;
 
-    ajaxSendDataByPOST(POST_REQUEST_URL, data, dislikeLogic, getElements(elem_id));
+    dislikeLogic(getElements(elem_id));
+    ajaxSendDataByPOST(POST_REQUEST_URL, data);
 }
 
 export function initLikeSystem(photo_id, like_status, id='')

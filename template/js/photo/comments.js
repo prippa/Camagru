@@ -1,4 +1,4 @@
-import {$, ajaxSendDataByPOST, setNewElementToDOM} from '../lib.js';
+import {$, ajaxSendDataByPOST, setNewElementToDOM, redirect} from '../lib.js';
 
 const MESSAGE_MAX = 1024;
 const POST_URL = '/AddNewComment';
@@ -23,7 +23,7 @@ function errorValidation(input_elem)
     return true;
 }
 
-function sendSuccess(comment)
+function addNewComment(comment)
 {
     const input_elem = $('comment-input');
     const comment_error_elem = $('comment-error');
@@ -31,7 +31,6 @@ function sendSuccess(comment)
 
     comment_error_elem.style.display = 'none';
     input_elem.classList.remove('is-invalid');
-    input_elem.value = '';
 
     const div = document.createElement('div');
     const b = document.createElement('b');
@@ -49,14 +48,20 @@ function sendSuccess(comment)
 
 export function sendComment(photo_id)
 {
+    if (!window.is_logged)
+        redirect('login');
+
     const input_elem = $('comment-input');
 
     input_elem.value = input_elem.value.trim();
     if (errorValidation(input_elem))
         return true;
 
+    addNewComment(input_elem.value);
+
     const data = `id=${photo_id}&comment=${encodeURIComponent(input_elem.value)}`;
-    ajaxSendDataByPOST(POST_URL, data, sendSuccess, input_elem.value);
-    
+    ajaxSendDataByPOST(POST_URL, data);
+
+    input_elem.value = '';
     return false;
 }

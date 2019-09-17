@@ -1,13 +1,22 @@
 import {$} from "../lib.js";
 import {initLikeSystem} from './likes.js';
+import {initDeleteSystem} from './delete.js';
 
 export function initPhotos(photos)
 {
-    window.ld_cycle = 1;
+    window.ld_cycle = photos.length;
 
     photos.forEach(function(photo)
     {
         initLikeSystem(photo.id, photo.like_status, photo.id);
+    });
+}
+
+export function initPhotosDelete(photos)
+{
+    photos.forEach(function(photo)
+    {
+        initDeleteSystem(photo.id);
     });
 }
 

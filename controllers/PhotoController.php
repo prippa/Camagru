@@ -40,9 +40,6 @@ class PhotoController
         if (empty($_POST))
             View::run(View::ERROR_404);
 
-        if (!User::isLogged())
-            exit('redirect');
-
         $user_id = User::getId();
         $photo_id = $_POST['id'];
         $like_status = $_POST['like_status'];
@@ -74,9 +71,6 @@ class PhotoController
         if (empty($_POST))
             View::run(View::ERROR_404);
 
-        if (!User::isLogged())
-            exit('redirect');
-
         $user_id = User::getId();
         $photo_id = $_POST['id'];
         $comment = $_POST['comment'];
@@ -103,6 +97,17 @@ class PhotoController
             $photos = Photo::getLastNUserPhotos($photo_count, User::getId(), $cycle);
         Photo::preparePhotos($photos);
         echo json_encode($photos);
+    }
+
+    public function actionDeletePhotoById()
+    {
+        if (empty($_POST))
+            View::run(View::ERROR_404);
+
+        $id = $_POST['id'];
+
+        Photo::deleteById($id);
+        echo 'OK';
     }
 
     public function actionSinglePhoto(int $id)

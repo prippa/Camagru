@@ -16,21 +16,13 @@
     box-shadow: 0 0 8px rgb(33, 33, 33);
 }
 
-.post-block:hover .post-login {
-    color: #F35B5B;
-    transition: .3s;
-}
-
 .post-head-elem {
     padding: 8px;
+    word-break: break-word;
 }
 
 .post-create-date {
     color: #7B7B7B;
-}
-
-.post-login {
-    transition: .3s;
 }
 
 .main-img {
@@ -81,6 +73,12 @@
     background-color: #F5F5F5;
 }
 
+.comment {
+    margin: 0;
+    display: inline;
+    font-size: 16px;
+}
+
 .comments-block {
     word-break: break-word;
     max-height: 300px;
@@ -125,4 +123,15 @@
     color: var(--a-color-hover);
     text-decoration: none;
     transition: .3s;
+}
+
+.delete {
+    color: #F35B5B;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.delete:hover {
+    color: red;
+    text-decoration: none;
 }

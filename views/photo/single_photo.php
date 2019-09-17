@@ -59,7 +59,7 @@
                         <div class="comment-error" id="comment-error"></div>
                     </div>
                     <div class="col-9 pr-2">
-                        <input class="form-control modal-input" placeholder="Write comment..." id="comment-input"/>
+                        <input class="form-control modal-input" placeholder="Write comment..." id="comment-input">
                     </div>
                     <div class="col-3">
                         <button class="btn btn-primary btn-block" id="comment-btn">Send</button>
@@ -73,6 +73,7 @@
 
 <script type="module">
     window.photo = <?= json_encode($data['photo']) ?>;
+    window.is_logged = <?= $data['is_logged'] ?>;
     window.login = '<?= $data['login'] ?>';
 </script>
-<script src="/template/js/photo_layout/single_photo.js" type="module"></script>
+<script src="/template/js/photo/single_photo.js" type="module"></script>

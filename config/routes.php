@@ -19,5 +19,6 @@ return array(
     'LikeDislikePOST' => 'Photo/LikeDislikePOST',
     'AddNewComment' => 'Photo/AddNewComment',
     'GetMorePhotos' => 'Photo/GetMorePhotos',
+    'DeletePhotoById' => 'Photo/DeletePhotoById',
     'photo/(.+)' => 'Photo/SinglePhoto/$1'
 );

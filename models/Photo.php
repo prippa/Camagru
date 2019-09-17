@@ -14,9 +14,14 @@ abstract class Photo
         DB::execute($sql, [':user_id' => $user_id, ':img' => $img]);
     }
 
+    public static function deleteById(int $id) : void
+    {
+        $sql = 'DELETE FROM photo WHERE id = :id LIMIT 1';
+        DB::execute($sql, [':id' => $id]);
+    }
+
     public static function getLastNPhotos(int $size, ?int $user_id, int $start_from=0) : ?array
     {
-        $start_from *= $size;
         $sql = "SELECT
                     likes.like_status,
                     user.login,
@@ -37,7 +42,6 @@ abstract class Photo
 
     public static function getLastNUserPhotos(int $size, int $user_id, int $start_from=0) : ?array
     {
-        $start_from *= $size;
         $sql = "SELECT
                     likes.like_status,
                     user.login,
