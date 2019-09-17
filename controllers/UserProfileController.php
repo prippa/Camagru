@@ -128,7 +128,7 @@ class UserProfileController
     {
         User::redirectToLoginCheck();
 
-        $photos = Photo::getLastNUserPhotos(3, User::getId());
+        $photos = Photo::getLastNUserPhotos(4, User::getId());
         Photo::preparePhotos($photos);
 
         $view_title = User::getLoginById(User::getId()) . ' • Photos';

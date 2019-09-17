@@ -79,6 +79,6 @@ export function initLikeSystem(photo_id, like_status, id='')
     else if (like_status === '0')
         dislike_elem.classList.add('dislike');
 
-    like_elem.onclick = function() { like(id, photo_id) };
-    dislike_elem.onclick = function() { dislike(id, photo_id) };
+    like_elem.onclick = function() { like(photo_id, id) };
+    dislike_elem.onclick = function() { dislike(photo_id, id) };
 }

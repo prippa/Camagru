@@ -8,7 +8,7 @@
         <div class="col-md-8">
             <div class="row no-gutters" id="photo-container">
                 <?php foreach ($data['photos'] as $item): ?>
-                    <div class="col-12 col-main-block">
+                    <div class="col-lg-6 col-main-block">
                         <?php require 'views/includes/photo_block.php' ?>
                     </div>
                 <?php endforeach ?>
@@ -25,6 +25,6 @@
 
 <script type="module">
     window.photos = <?= json_encode($data['photos']) ?>;
-    window.ld_photo_count = 3;
+    window.ld_photo_count = 4;
 </script>
 <script src="/template/js/photo_layout/my_photos.js" type="module"></script>

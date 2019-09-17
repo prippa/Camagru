@@ -123,7 +123,7 @@ INSERT INTO `photo` (`id`, `user_id`, `img`, `likes`, `dislikes`) VALUES
 (15, 10, '/uploads/5d5ffd8d17a2d.png', 0, 0),
 (16, 10, '/uploads/5d5ffd9d14448.jpg', 0, 0),
 (17, 10, '/uploads/5d5ffda69beea.jpg', 0, 0),
-(18, 10, '/uploads/5d5ffdba6fc5d.png', 0, 0);
+(18, 10, '/uploads/5d5ffdba6fc5d.png', 0, 0),
 (19, 12, '/uploads/5d7f83c15f269.png', 0, 0);
 
 -- --------------------------------------------------------
@@ -163,7 +163,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `login`, `password`, `email`, `verified`, `vkey`, `notifications`) VALUES
 (10, 'prippa', '$2y$10$gvc4Pv5ZokxNrAiKqBKkFu3mRxd0iBO/dvGa.nFC/f7tOP6HcyvZy', 'pavelrippa@gmail.com', 1, '1a1566c986796727b6e6025d6b0960cd', 1),
-(11, 'katya', '$2y$10$cjGDcK2qgrKnYBQTDN05I.K6h84MzMzuFOn9zUdk1i.53CDyzo0F2', 'katya.osadchuk@gmail.com', 1, '37664b3c699fa039a277c807bf6e641b', 1);
+(12, 'katya', '$2y$10$cjGDcK2qgrKnYBQTDN05I.K6h84MzMzuFOn9zUdk1i.53CDyzo0F2', 'katya.osadchuk@gmail.com', 1, '37664b3c699fa039a277c807bf6e641b', 1);
 
 --
 -- Індекси збережених таблиць

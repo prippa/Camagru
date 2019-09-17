@@ -40,14 +40,12 @@ function getNewPhotoBlock(photo)
 }
 
 
-function setNewPhotosOnMainPage(photos, photo_count)
+function setNewPhotosOnMainPage(photos)
 {
-    if (photos.length < photo_count)
-        $('show-more-block').style.display = 'none';
+    const photo_container_elem = $('photo-container');
 
     photos.forEach(function(photo)
     {
-        const photo_container_elem = $('photo-container');
         const div = document.createElement('div');
 
         div.classList.add('col-lg-6', 'col-main-block');
@@ -57,17 +55,15 @@ function setNewPhotosOnMainPage(photos, photo_count)
     });
 }
 
-function setNewPhotosOnMyPhotos(photos, photo_count)
+function setNewPhotosOnMyPhotos(photos)
 {
-    if (photos.length < photo_count)
-        $('show-more').style.display = 'none';
+    const photo_container_elem = $('photo-container');
 
     photos.forEach(function(photo)
     {
-        const photo_container_elem = $('photo-container');
         const div = document.createElement('div');
 
-        div.classList.add('col-12', 'col-main-block');
+        div.classList.add('col-lg-6', 'col-main-block');
         div.innerHTML = getNewPhotoBlock(photo);
         setNewElementToDOM(photo_container_elem, div);
         initLikeSystem(photo.id, photo.like_status, photo.id);
@@ -84,7 +80,9 @@ function ajaxSend(func, photo_count, cycle, query_type)
         if (xhr.readyState === 4 && xhr.status === 200)
         {
             let photos = JSON.parse(xhr.responseText);
-            func(photos, photo_count);
+            if (photos.length < photo_count)
+                $('show-more-block').style.display = 'none';
+            func(photos);
         }
     };
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
