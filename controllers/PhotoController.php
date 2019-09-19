@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\components\lib\View;
 use app\models\Comment;
@@ -11,6 +12,7 @@ use app\models\User;
 
 class PhotoController
 {
+    //********************************************* Make Photo *********************************************************
     private function uploadImage(array $image) : string
     {
         $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
@@ -25,15 +27,17 @@ class PhotoController
         User::redirectToLoginCheck();
 
         $messages = [];
-
+//
         if (!empty($_FILES))
         {
-            $img = $this->uploadImage($_FILES['image']);
-            Photo::add($img, User::getId());
-            $messages['success'][] = "{$_FILES['image']['name']} was uploaded successful!";
+//            $img = $this->uploadImage($_FILES['image']);
+//            Photo::add($img, User::getId());
+//            $messages['success'][] = "{$_FILES['image']['name']} was uploaded successful!";
+            Lib::debug($_FILES);
         }
         View::run(View::MAKE_PHOTO, ['messages' => $messages]);
     }
+    //******************************************************************************************************************
 
     public function actionLikeDislikePOST()
     {

@@ -7,8 +7,8 @@
             <form action="/make_photo" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="user_file">Pick a photo from your device</label>
-                    <input name="image" type="file" class="form-control-file"
-                           id="user_file" accept="image/*" tabindex="1" required>
+                    <input name="file[]" type="file" class="form-control-file"
+                           id="user_file" accept="image/*" tabindex="1" required multiple>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" tabindex="2">Upload</button>
             </form>
