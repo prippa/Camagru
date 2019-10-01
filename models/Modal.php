@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\lib;
+namespace app\models;
 
 abstract class Modal
 {

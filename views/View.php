@@ -1,6 +1,6 @@
 <?php
 
-namespace app\components\lib;
+namespace app\views;
 
 use app\models\User;
 
@@ -55,9 +55,9 @@ abstract class View
             'page' => 'views/profile/my_photos.php', 'title' => 'My Photos'],
 
         self::MAKE_PHOTO => ['layout' => 'views/layouts/default.php',
-            'page' => 'views/photo/make_photo.php', 'title' => 'Make Photo'],
+            'page' => 'views/make_photo.php', 'title' => 'Make Photo'],
         self::SINGLE_PHOTO => ['layout' => 'views/layouts/default.php',
-            'page' => 'views/photo/single_photo.php', 'title' => 'Single Photo'],
+            'page' => 'views/single_photo.php', 'title' => 'Single Photo'],
 
         self::ERROR_SOMETHING_WENT_WRONG => ['layout' => 'views/layouts/default.php',
             'page' => 'views/error_pages/something_went_wrong.php', 'title' => 'Oops :('],

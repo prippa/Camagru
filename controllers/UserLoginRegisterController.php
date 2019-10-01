@@ -6,7 +6,7 @@ use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\models\PasswordReset;
 use app\models\User;
-use app\components\lib\View;
+use app\views\View;
 
 class UserLoginRegisterController
 {

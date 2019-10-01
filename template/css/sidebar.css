@@ -1,5 +1,5 @@
 
-aside {
+.aside {
     padding: 12px 10px;
     border: 1px solid #00afaf;
     border-radius: 6px;
@@ -7,13 +7,13 @@ aside {
     margin: 8px 0 8px 0;
 }
 
-aside hr {
+.aside hr {
     background-color: #00afaf;
     margin-top: 8px;
     margin-bottom: 8px;
 }
 
-aside a {
+.aside a {
     float: none;
     display: block;
     text-align: left;
@@ -25,12 +25,20 @@ aside a {
     border-radius: 4px;
 }
 
-aside a:hover {
+.aside a:hover {
     background-color: orange;
     color: black;
 }
 
-aside a.active {
+.aside a.active {
     background-color: dodgerblue;
     color: white;
+}
+
+.aside-horizontal {
+    white-space: nowrap;
+    overflow: auto;
+    margin: 8px 0 8px 0;
+    border: 1px solid #00afaf;
+    background-color: rgba(249, 249, 249, 0.6);
 }

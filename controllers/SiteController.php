@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\components\lib\View;
+use app\views\View;
 use app\models\Photo;
 use app\models\User;
 

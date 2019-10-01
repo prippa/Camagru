@@ -14,6 +14,10 @@ return array(
         'path' => 'models'
     ],
     [
+        'namespace' => 'app\views',
+        'path' => 'views'
+    ],
+    [
         'namespace' => 'app\components\lib',
         'path' => 'components/lib'
     ],

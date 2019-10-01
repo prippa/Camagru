@@ -1,0 +1,5 @@
+• “AJAXify” exchanges with the server. [✓]
+• Do an infinite pagination of the gallery part of the site. [✓]
+• MVC. [✓]
+• Propose a live preview of the edited result, directly on the webcam preview. [x]
+• Form Validation on front-end. [x]

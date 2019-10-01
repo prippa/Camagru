@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\components\lib\Lib;
 use app\components\lib\Mail;
-use app\components\lib\View;
+use app\views\View;
 use app\models\Comment;
 use app\models\Like;
 use app\models\Photo;
