@@ -1,14 +1,13 @@
-
 .aside {
     padding: 12px 10px;
-    border: 1px solid #00afaf;
+    border: 1px solid var(--cyan-border);
     border-radius: 6px;
     background-color: rgba(249, 249, 249, 0.6);
     margin: 8px 0 8px 0;
 }
 
 .aside hr {
-    background-color: #00afaf;
+    background-color: var(--cyan-border);
     margin-top: 8px;
     margin-bottom: 8px;
 }
@@ -38,7 +37,13 @@
 .aside-horizontal {
     white-space: nowrap;
     overflow: auto;
-    margin: 8px 0 8px 0;
-    border: 1px solid #00afaf;
+    border: 1px solid var(--cyan-border);
+    background-color: rgba(249, 249, 249, 0.6);
+}
+
+.aside-vertical {
+    height: 520px;
+    overflow: auto;
+    border: 1px solid var(--cyan-border);
     background-color: rgba(249, 249, 249, 0.6);
 }

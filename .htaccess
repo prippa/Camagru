@@ -1,5 +1,3 @@
-AddDefaultCharset utf-8
-
 RewriteEngine on
 RewriteBase /
 
@@ -7,3 +5,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule ^(.*)$ index.php
+
+SetEnv TZ Europe/Kiev
+ErrorDocument 400 /views/error_pages/400.php
+
+<FilesMatch ".(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# disable directory browsing
+Options All -Indexes

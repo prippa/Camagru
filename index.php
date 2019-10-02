@@ -34,7 +34,7 @@ try
         'Controller');
 
     if (!$router->run())
-        app\components\lib\View::run(app\components\lib\View::ERROR_404);
+        app\views\View::run(app\views\View::ERROR_404);
 }
 catch (Exception $e)
 {
@@ -43,5 +43,5 @@ catch (Exception $e)
                 $e.
              "</pre>";
     else
-        app\components\lib\View::run(app\components\lib\View::ERROR_500);
+        app\views\View::run(app\views\View::ERROR_500);
 }

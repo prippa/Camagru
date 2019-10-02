@@ -124,7 +124,7 @@
 }
 
 .delete {
-    color: #F35B5B;
+    color: var(--delete-color);
     text-decoration: underline;
     cursor: pointer;
 }

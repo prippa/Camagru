@@ -1,0 +1,27 @@
+.super-img {
+    padding: 2px;
+    height: 100px;
+    cursor: pointer;
+}
+
+.made-img-block {
+    padding: 0 6px 0 6px !important;
+    text-align: end;
+}
+
+.delete-made-img-block {
+    color: var(--delete-color);
+    font-size: 24px;
+    cursor: pointer;
+    padding-right: 4px;
+}
+
+.delete-made-img-block:hover {
+    color: red;
+}
+
+@media (max-width: 1199px) {
+    .main-block {
+        padding-bottom: 15px;
+    }
+}
