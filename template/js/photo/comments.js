@@ -14,12 +14,14 @@ function setError(input_elem, message)
 
 function errorValidation(input_elem)
 {
-    if (input_elem.value.length > MESSAGE_MAX)
+    if (input_elem.value.length > MESSAGE_MAX) {
         setError(input_elem, `Message can't be more than ${MESSAGE_MAX} characters`);
-    else if (!input_elem.value.length)
+    } else if (!input_elem.value.length) {
         setError(input_elem, 'Please write some characters');
-    else
+    } else {
         return false;
+    }
+
     return true;
 }
 
@@ -49,14 +51,16 @@ function addNewComment(comment)
 
 export function sendComment(photo_id)
 {
-    if (!window.is_logged)
+    if (!window.is_logged) {
         redirect('login');
+    }
 
     const input_elem = $('comment-input');
 
     input_elem.value = input_elem.value.trim();
-    if (errorValidation(input_elem))
+    if (errorValidation(input_elem)) {
         return true;
+    }
 
     addNewComment(input_elem.value);
 
@@ -64,5 +68,6 @@ export function sendComment(photo_id)
     ajaxSendDataByPOST(POST_URL, data);
 
     input_elem.value = '';
+
     return false;
 }

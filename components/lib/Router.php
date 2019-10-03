@@ -59,10 +59,8 @@ class Router
     {
         $uri = $this->getURI();
 
-        foreach ($this->routes as $uri_pattern => $path)
-        {
-            if (preg_match("~^$uri_pattern$~", $uri))
-            {
+        foreach ($this->routes as $uri_pattern => $path) {
+            if (preg_match("~^$uri_pattern$~", $uri)) {
                 $internal_route = preg_replace("~$uri_pattern~", $path, $uri);
 
                 $segments = explode('/', $internal_route);
@@ -71,9 +69,11 @@ class Router
 
                 $controller_object = new $controller_name;
                 call_user_func_array(array($controller_object, $action_name), $segments);
+
                 return true;
             }
         }
+
         return false;
     }
 }

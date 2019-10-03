@@ -30,8 +30,10 @@ abstract class EmailReset
 
     public static function checkEmail(string $email) : bool
     {
-        if (DB::isArgExists('email_reset', 'email', $email))
+        if (DB::isArgExists('email_reset', 'email', $email)) {
             return true;
+        }
+
         return false;
     }
 }

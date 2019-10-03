@@ -2,4 +2,5 @@
 • Do an infinite pagination of the gallery part of the site. [✓]
 • MVC. [✓]
 • Propose a live preview of the edited result, directly on the webcam preview. [x]
+• Super image movable and resizable [x]
 • Form Validation on front-end. [x]

@@ -18,16 +18,14 @@ class UserLoginRegisterController
         $login = '';
         $email = '';
 
-        if (!empty($_POST))
-        {
+        if (!empty($_POST)) {
             $login = $_POST['login'];
             $email = $_POST['email'];
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
             $errors = User::registerValidate($login, $email, $password, $password_confirm);
-            if (!$errors)
-            {
+            if (!$errors) {
                 $vkey = Lib::getUniqueToken($login);
 
                 User::add($login, $email, $password, $vkey);
@@ -35,15 +33,17 @@ class UserLoginRegisterController
                 View::run(View::CONFIRM_ACCOUNT, ['email' => $email]);
             }
         }
+
         View::run(View::REGISTER, ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
     public function actionConfirmMail($vkey)
     {
-        if (User::confirmMail($vkey))
+        if (User::confirmMail($vkey)) {
             View::run(View::ACCOUNT_CONFIRMED);
-        else
+        } else {
             View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Invalid account']);
+        }
     }
 
     public function actionLogin()
@@ -53,21 +53,22 @@ class UserLoginRegisterController
         $errors = null;
         $login = '';
 
-        if (!empty($_POST))
-        {
+        if (!empty($_POST)) {
             $login = $_POST['login'];
             $password = $_POST['password'];
 
             $result = User::loginValidate($login, $password);
-            if (isset($result['email']))
+            if (isset($result['email'])) {
                 View::run(View::CONFIRM_ACCOUNT, ['email' => $result['email']]);
-            if (isset($result['id']))
-            {
+            }
+            if (isset($result['id'])) {
                 User::login($result['id']);
                 Lib::redirect();
             }
+
             $errors = $result;
         }
+
         View::run(View::LOGIN, ['errors' => $errors, 'login' => $login]);
     }
 
@@ -84,25 +85,27 @@ class UserLoginRegisterController
         $errors = null;
         $email = '';
 
-        if (!empty($_POST))
-        {
+        if (!empty($_POST)) {
             $email = $_POST['email'];
 
             $result = PasswordReset::validation($email);
-            if (!$result)
-            {
+            if (!$result) {
                 $vkey = Lib::getUniqueToken($email);
 
                 PasswordReset::add($email, $vkey);
                 Mail::confirmPassword(User::getLoginByEmail($email), $email, $vkey);
                 View::run(View::CONFIRM_PASSWORD, ['email' => $email]);
             }
-            if (in_array('account_email', $result))
+            if (in_array('account_email', $result)) {
                 View::run(View::CONFIRM_ACCOUNT, ['email' => $email]);
-            if (in_array('password_email', $result))
+            }
+            if (in_array('password_email', $result)) {
                 View::run(View::CONFIRM_PASSWORD, ['email' => $email]);
+            }
+
             $errors = $result;
         }
+
         View::run(View::FORGOT_PASSWORD, ['errors' => $errors, 'email' => $email]);
     }
 
@@ -110,25 +113,25 @@ class UserLoginRegisterController
     {
         $email = PasswordReset::getEmailByToken($token);
 
-        if (!$email)
+        if (!$email) {
             View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Unable to change password by this link']);
+        }
 
         $login = User::getLoginByEmail($email);
         $errors = null;
 
-        if (!empty($_POST))
-        {
+        if (!empty($_POST)) {
             $password = $_POST['password'];
             $password_confirm = $_POST['password_confirm'];
 
             $errors = PasswordReset::formValidation($password, $password_confirm);
-            if (!$errors)
-            {
+            if (!$errors) {
                 PasswordReset::deleteByEmail($email);
                 User::updatePasswordByLogin($login, $password);
                 View::run(View::PASSWORD_CHANGED, ['login' => $login]);
             }
         }
+
         View::run(View::PASSWORD_RESET_FORM, ['errors' => $errors, 'login' => $login, 'token' => $token]);
     }
 }

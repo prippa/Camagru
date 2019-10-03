@@ -15,16 +15,20 @@ abstract class PasswordReset extends Modal
         $result = DB::execute($sql, [':email' => $email], $db);
 
         $user = $result->fetch(PDO::FETCH_ASSOC);
-        if (!$user)
+        if (!$user) {
             return ["Can't find that email, sorry."];
-        if ($user['verified'] == '0')
+        }
+        if ($user['verified'] == '0') {
             return ['account_email'];
+        }
 
         $sql = 'SELECT email FROM password_reset WHERE email = :email LIMIT 1';
         $result = DB::execute($sql, [':email' => $email], $db);
 
-        if ($result->fetch())
+        if ($result->fetch()) {
             return ['password_email'];
+        }
+
         return null;
     }
 
@@ -33,10 +37,13 @@ abstract class PasswordReset extends Modal
         $errors = null;
         $dvr = require self::FVR_PATH;
 
-        if (!preg_match($dvr['password'], $password))
+        if (!preg_match($dvr['password'], $password)) {
             $errors[] = 'Invalid password';
-        if ($password != $password_confirm)
+        }
+        if ($password != $password_confirm) {
             $errors[] = 'Passwords are not equal';
+        }
+
         return $errors;
     }
 
@@ -52,6 +59,7 @@ abstract class PasswordReset extends Modal
         $result = DB::execute($sql, [':token' => $token]);
 
         $email = $result->fetch(PDO::FETCH_ASSOC);
+
         return $email['email'];
     }
 

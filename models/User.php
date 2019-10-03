@@ -56,11 +56,13 @@ abstract class User extends Modal
 
         $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = :vkey LIMIT 1";
         $result = DB::execute($sql, [':vkey' => $vkey], $db);
-        if ($result->rowCount() != 1)
+        if ($result->rowCount() != 1) {
             return false;
+        }
 
         $sql = "UPDATE user SET verified = 1 WHERE vkey = :vkey LIMIT 1";
         DB::execute($sql, [':vkey' => $vkey], $db);
+
         return true;
     }
 
@@ -68,8 +70,10 @@ abstract class User extends Modal
     {
         $regex_rule = require self::FVR_PATH;
 
-        if (preg_match($regex_rule['login'], $login))
+        if (preg_match($regex_rule['login'], $login)) {
             return true;
+        }
+
         return false;
     }
 
@@ -77,15 +81,19 @@ abstract class User extends Modal
     {
         $regex_rule = require self::FVR_PATH;
 
-        if (preg_match($regex_rule['password'], $password))
+        if (preg_match($regex_rule['password'], $password)) {
             return true;
+        }
+
         return false;
     }
 
     public static function checkEmail(string $email) : bool
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL))
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
+        }
+
         return false;
     }
 
@@ -93,10 +101,13 @@ abstract class User extends Modal
     {
         $errors = null;
 
-        if (!self::checkLogin($login))
+        if (!self::checkLogin($login)) {
             $errors[] = 'Invalid login';
-        if (!self::checkPassword($password))
+        }
+        if (!self::checkPassword($password)) {
             $errors[] = 'Invalid password';
+        }
+
         return $errors;
     }
 
@@ -104,19 +115,24 @@ abstract class User extends Modal
     {
         $errors = self::baseValidation($login, $password);
 
-        if ($errors)
+        if ($errors) {
             return $errors;
+        }
 
         $sql = 'SELECT id, password, verified, email FROM user WHERE login = :login LIMIT 1';
         $result = DB::execute($sql, [':login' => $login]);
 
         $user = $result->fetch(PDO::FETCH_ASSOC);
-        if (!$user)
+        if (!$user) {
             return ["<b>$login</b> is not registered"];
-        if (!password_verify($password, $user['password']))
+        }
+        if (!password_verify($password, $user['password'])) {
             return ['username or password is not correct'];
-        if ($user['verified'] == '0')
+        }
+        if ($user['verified'] == '0') {
             return ['email' => $user['email']];
+        }
+
         return ['id' => $user['id']];
     }
 
@@ -125,19 +141,24 @@ abstract class User extends Modal
     {
         $errors = self::baseValidation($login, $password);
 
-        if (!self::checkEmail($email))
+        if (!self::checkEmail($email)) {
             $errors[] = 'Invalid email';
-        if ($password != $password_confirm)
+        }
+        if ($password != $password_confirm) {
             $errors[] = 'Passwords are not equal';
-        if (!$errors)
-        {
+        }
+
+        if (!$errors) {
             $db = DB::getConnection();
 
-            if (DB::isArgExists('user', 'login', $login, $db))
+            if (DB::isArgExists('user', 'login', $login, $db)) {
                 $errors[] = "<b>$login</b> is already taken";
-            if (DB::isArgExists('user', 'email', $email, $db))
+            }
+            if (DB::isArgExists('user', 'email', $email, $db)) {
                 $errors[] = "<b>$email</b> is already registered";
+            }
         }
+
         return $errors;
     }
 
@@ -147,6 +168,7 @@ abstract class User extends Modal
 
         $result = DB::execute($sql, [':email' => $email]);
         $login = $result->fetch(PDO::FETCH_ASSOC);
+
         return $login['login'];
     }
 
@@ -155,6 +177,7 @@ abstract class User extends Modal
         $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
+
         return $result->fetch(PDO::FETCH_ASSOC)['login'];
     }
 
@@ -163,6 +186,7 @@ abstract class User extends Modal
         $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
+
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -178,27 +202,33 @@ abstract class User extends Modal
 
     public static function isLogged() : bool
     {
-        if (isset($_SESSION['user']))
+        if (isset($_SESSION['user'])) {
             return true;
+        }
+
         return false;
     }
 
     public static function getId() : ?int
     {
-        if (isset($_SESSION['user']))
+        if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
+        }
+
         return null;
     }
 
     public static function redirectToLoginCheck() : void
     {
-        if (!self::isLogged())
+        if (!self::isLogged()) {
             Lib::redirect('login');
+        }
     }
 
     public static function redirectToHomeCheck() : void
     {
-        if (self::isLogged())
+        if (self::isLogged()) {
             Lib::redirect();
+        }
     }
 }

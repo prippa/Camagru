@@ -27,8 +27,9 @@ abstract class DB
 
     public static function isArgExists(string $table, string $column, string $arg, PDO $db=null) : array
     {
-        if (!$db)
+        if (!$db) {
             $db = self::getConnection();
+        }
 
         $sql = "SELECT $column FROM $table WHERE $column = :arg LIMIT 1";
         $result = self::execute($sql, [':arg' => $arg], $db);
@@ -44,13 +45,16 @@ abstract class DB
      */
     public static function execute(string $sql, array $params=[], PDO $db=null)
     {
-        if (!$db)
+        if (!$db) {
             $db = self::getConnection();
+        }
 
         $result = $db->prepare($sql);
-        foreach ($params as $key => &$value)
+        foreach ($params as $key => &$value) {
             $result->bindParam($key, $value);
+        }
         $result->execute();
+
         return $result;
     }
 }

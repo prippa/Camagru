@@ -32,8 +32,9 @@ abstract class Lib
         var_dump($data);
         echo '</pre>';
 
-        if ($is_exit)
+        if ($is_exit) {
             exit();
+        }
     }
 
     public static function fwrite(string $message, string $filename='test.txt', string $rights='a+')

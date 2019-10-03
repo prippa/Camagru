@@ -63,8 +63,7 @@ abstract class Photo
 
     public static function preparePhotos(?array & $photos) : void
     {
-        foreach ($photos as &$photo)
-        {
+        foreach ($photos as &$photo) {
             $photo['create_date'] = (new DateTime($photo['create_date']))->format('d M Y H:i');
             $photo['link'] = "/photo/{$photo['id']}";
         }
@@ -96,6 +95,7 @@ abstract class Photo
         $sql = 'SELECT user_id FROM photo WHERE id = :id LIMIT 1';
 
         $result = DB::execute($sql, [':id' => $id]);
+
         return $result->fetch(PDO::FETCH_ASSOC)['user_id'];
     }
 }

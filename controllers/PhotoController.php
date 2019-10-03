@@ -28,21 +28,22 @@ class PhotoController
 
         $messages = [];
 //
-        if (!empty($_FILES))
-        {
+        if (!empty($_FILES)) {
 //            $img = $this->uploadImage($_FILES['image']);
 //            Photo::add($img, User::getId());
 //            $messages['success'][] = "{$_FILES['image']['name']} was uploaded successful!";
             Lib::debug($_FILES);
         }
+
         View::run(View::MAKE_PHOTO, ['messages' => $messages]);
     }
     //******************************************************************************************************************
 
     public function actionLikeDislikePOST()
     {
-        if (empty($_POST))
+        if (empty($_POST)) {
             View::run(View::ERROR_404);
+        }
 
         $user_id = User::getId();
         $photo_id = $_POST['id'];
@@ -57,12 +58,10 @@ class PhotoController
     {
         $photo_user_id = Photo::getUserIdById($photo_id);
 
-        if ($user_id != $photo_user_id)
-        {
+        if ($user_id != $photo_user_id) {
             $photo_user = User::getUserByID($photo_user_id);
 
-            if ($photo_user['notifications'] === '1')
-            {
+            if ($photo_user['notifications'] === '1') {
                 $login = User::getLoginById($user_id);
                 $email = $photo_user['email'];
                 Mail::notification($login, $email, $photo_id);
@@ -72,8 +71,9 @@ class PhotoController
 
     public function actionAddNewComment()
     {
-        if (empty($_POST))
+        if (empty($_POST)) {
             View::run(View::ERROR_404);
+        }
 
         $user_id = User::getId();
         $photo_id = $_POST['id'];
@@ -88,29 +88,35 @@ class PhotoController
 
     public function actionGetMorePhotos()
     {
-        if (empty($_POST))
+        if (empty($_POST)) {
             View::run(View::ERROR_404);
+        }
 
         $photo_count = $_POST['photo_count'];
         $cycle = $_POST['cycle'];
         $query_type = $_POST['query_type'];
 
-        if ($query_type == '1')
+        if ($query_type == '1') {
             $photos = Photo::getLastNPhotos($photo_count, User::getId(), $cycle);
-        else
+        } else {
             $photos = Photo::getLastNUserPhotos($photo_count, User::getId(), $cycle);
+        }
+
         Photo::preparePhotos($photos);
+
         echo json_encode($photos);
     }
 
     public function actionDeletePhotoById()
     {
-        if (empty($_POST))
+        if (empty($_POST)) {
             View::run(View::ERROR_404);
+        }
 
         $id = $_POST['id'];
 
         Photo::deleteById($id);
+
         echo 'OK';
     }
 
@@ -118,10 +124,12 @@ class PhotoController
     {
         $photo = Photo::getPhotoById($id, User::getId());
 
-        if (!$photo)
+        if (!$photo) {
             View::run(View::ERROR_404);
+        }
 
         $photo['comments'] = Comment::getAllCommentsByPhotoId($id);
+
         View::run(View::SINGLE_PHOTO, ['photo' => $photo]);
     }
 }

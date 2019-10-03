@@ -1,7 +1,6 @@
 import {$} from './lib.js';
 
-(function ()
-{
+(function () {
     function handleVideo(stream)
     {
         const videoElem = $('videoElement');
@@ -20,8 +19,7 @@ import {$} from './lib.js';
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia;
 
-    if (navigator.getMedia)
-    {
+    if (navigator.getMedia) {
         navigator.getMedia({video: true, audio: false}, handleVideo, videoError);
     }
 })();

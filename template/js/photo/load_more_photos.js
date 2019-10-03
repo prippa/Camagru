@@ -77,8 +77,7 @@ function setNewPhotosOnMainPage(photos)
 {
     const photo_container_elem = $('photo-container');
 
-    photos.forEach(function(photo)
-    {
+    photos.forEach(function(photo) {
         const div = document.createElement('div');
 
         div.classList.add('col-md-6', 'col-main-block');
@@ -92,8 +91,7 @@ function setNewPhotosOnMyPhotos(photos)
 {
     const photo_container_elem = $('photo-container');
 
-    photos.forEach(function(photo)
-    {
+    photos.forEach(function(photo) {
         const div = document.createElement('div');
 
         div.classList.add('col-lg-6', 'col-main-block');
@@ -110,17 +108,18 @@ function ajaxSend(func, photo_count, cycle, query_type)
     let xhr = new XMLHttpRequest();
 
     xhr.open('POST', '/GetMorePhotos', true);
-    xhr.onreadystatechange = function()
-    {
-        if (xhr.readyState === 4 && xhr.status === 200)
-        {
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
             let photos = JSON.parse(xhr.responseText);
-            if (photos.length < photo_count)
+
+            if (photos.length < photo_count) {
                 $('show-more-block').style.display = 'none';
+            }
             func(photos);
             window.ld_cycle += photos.length;
         }
     };
+
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.send(`photo_count=${photo_count}&cycle=${cycle}&query_type=${query_type}`);
 }

@@ -76,14 +76,15 @@ abstract class View
         $base_date['current_year'] = date("Y");
         $base_date['login'] = '';
 
-        if ($base_date['is_logged'])
-        {
+        if ($base_date['is_logged']) {
             $login = User::getLoginById(User::getId());
 
-            if (strlen($login) > 12)
+            if (strlen($login) > 12) {
                 $base_date['header_login'] = substr($login, 0, 11) . '.';
-            else
+            } else {
                 $base_date['header_login'] = $login;
+            }
+
             $base_date['login'] = $login;
         }
 
@@ -101,12 +102,15 @@ abstract class View
         $data += self::getAdditionalData();
         $view_elem = self::VIEWS_PATH_MAP[$view_id];
         $page = $view_elem['page'];
-        if (!$title)
+
+        if (!$title) {
             $title = $view_elem['title'];
+        }
 
         require $view_elem['layout'];
 
-        if ($is_exit)
+        if ($is_exit) {
             exit();
+        }
     }
 }
