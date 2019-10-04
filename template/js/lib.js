@@ -36,10 +36,19 @@ export function ajaxSendDataByPOST(url, data)
     xhr.send(data);
 }
 
-export function setNewElementToDOM(insert_block_elem, new_elem)
+export function insertAfter(insert_block_elem, new_elem)
 {
     const fragment = document.createDocumentFragment();
 
     fragment.appendChild(new_elem);
     insert_block_elem.appendChild(fragment);
+}
+
+export function insertBefore(insert_block_elem, new_elem)
+{
+    const fragment = document.createDocumentFragment(),
+          the_first_child = insert_block_elem.firstChild;
+
+    fragment.appendChild(new_elem);
+    insert_block_elem.insertBefore(fragment, the_first_child);
 }

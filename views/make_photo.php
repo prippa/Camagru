@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-xl-9 main-block">
+        <div class="col" id="main-col">
             <div class="row">
                 <div class="col-12 mb-3">
                     <aside class="aside-horizontal">
@@ -27,28 +27,38 @@
                     </video>
                     <canvas class="img-canvas" id="img-canvas"></canvas>
                 </div>
-                <div class="col-12 mb-2">
-                    <button type="submit" class="btn btn-primary btn-block" tabindex="2">Make</button>
+
+                <!-- Buttons -->
+                <div class="col-md mb-2 display-none" id="btn-confirm">
+                    <button class="btn btn-success btn-block">Confirm</button>
                 </div>
-                <div class="col text-center">
-                    <button class="btn btn-dark" id="load-img-from-device">Load image from device</button>
+                <div class="col-md mb-2 display-none" id="btn-cancel">
+                    <button class="btn btn-danger btn-block">Cancel</button>
                 </div>
+                <div class="col-md mb-2 display-none" id="btn-remove-super-img">
+                    <button class="btn btn-danger btn-block">Remove super images</button>
+                </div>
+                <div class="col-md mb-2 display-none" id="btn-make">
+                    <button class="btn btn-primary btn-block">Make Photo</button>
+                </div>
+                <div class="col-12" id="btn-load-mod">
+                    <button class="btn btn-dark btn-block" id="load-img-from-device">Load from device ...</button>
+                </div>
+                <!------------->
+
             </div>
         </div>
-        <div class="col-xl-3">
+        <div class="col-xl-3 made-img-col" id="made-img-col">
             <div class="row">
                 <div class="col-12 pb-3">
                     <aside class="aside-vertical">
-                        <div class="row no-gutters">
-                            <div class="col-xl-12 col-lg-3 col-md-4 col-sm-6 made-img-block">
-                                <span class="delete-made-img-block">&times;</span>
-                                <img id="photo" class="img-fluid" src="/uploads/5d5e9aa02ac92.png" alt="">
-                            </div>
+                        <div class="row no-gutters" id="made-img-container">
+                            <!-- Made Images -->
                         </div>
                     </aside>
                 </div>
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block" tabindex="3">Upload</button>
+                    <button class="btn btn-primary btn-block" tabindex="3">Upload</button>
                 </div>
             </div>
         </div>
@@ -56,4 +66,4 @@
 
 </div>
 
-<script src="/template/js/make_photo.js" type="module"></script>
+<script src="/template/js/make_photo/make_photo.js" type="module"></script>

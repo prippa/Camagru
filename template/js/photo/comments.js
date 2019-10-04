@@ -1,4 +1,4 @@
-import {$, ajaxSendDataByPOST, setNewElementToDOM, redirect} from '../lib.js';
+import {$, ajaxSendDataByPOST, insertAfter, redirect} from '../lib.js';
 
 const MESSAGE_MAX = 1024;
 const POST_URL = '/AddNewComment';
@@ -45,7 +45,7 @@ function addNewComment(comment)
     div.appendChild(b);
     div.innerHTML += ': ';
     div.appendChild(span);
-    setNewElementToDOM(comments_elem, div);
+    insertAfter(comments_elem, div);
     comments_elem.scrollTop = comments_elem.scrollHeight;
 }
 

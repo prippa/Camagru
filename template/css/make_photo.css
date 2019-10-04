@@ -20,10 +20,8 @@
     color: red;
 }
 
-@media (max-width: 1199px) {
-    .main-block {
-        padding-bottom: 15px;
-    }
+.made-img-col {
+    display: none;
 }
 
 .video {
@@ -34,4 +32,10 @@
     display: none;
     width: 1280px;
     height: 960px;
+}
+
+@media (max-width: 1199px) {
+    .made-img-col {
+        margin-top: 15px;
+    }
 }

@@ -1,4 +1,4 @@
-import {$, setNewElementToDOM} from '../lib.js';
+import {$, insertAfter} from '../lib.js';
 import {initLikeSystem} from './likes.js';
 import {initDeleteSystem} from './delete.js';
 
@@ -82,7 +82,7 @@ function setNewPhotosOnMainPage(photos)
 
         div.classList.add('col-md-6', 'col-main-block');
         div.innerHTML = getNewPhotoBlockForMainPage(photo);
-        setNewElementToDOM(photo_container_elem, div);
+        insertAfter(photo_container_elem, div);
         initLikeSystem(photo.id, photo.like_status, photo.id);
     });
 }
@@ -97,7 +97,7 @@ function setNewPhotosOnMyPhotos(photos)
         div.classList.add('col-lg-6', 'col-main-block');
         div.id = `photo-elem${photo['id']}`;
         div.innerHTML = getNewPhotoBlockForMyPhotos(photo);
-        setNewElementToDOM(photo_container_elem, div);
+        insertAfter(photo_container_elem, div);
         initLikeSystem(photo.id, photo.like_status, photo.id);
         initDeleteSystem(photo.id);
     });
