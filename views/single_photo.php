@@ -19,7 +19,7 @@
         </div>
 
         <div class="col-12">
-            <img class="img-fluid" src="<?= $data['photo']['img'] ?>" alt="">
+            <img class="img-fluid" src="/<?= $data['photo']['img'] ?>" alt="">
         </div>
 
         <div class="col-12">

@@ -18,7 +18,7 @@
                 </div>
 
                 <a target="_blank" class="post-block" href="<?= $item['link'] ?>">
-                    <img class="img-fluid main-img" src="<?= $item['img'] ?>" alt="">
+                    <img class="img-fluid main-img" src="/<?= $item['img'] ?>" alt="">
                 </a>
 
                 <div class="row no-gutters pt-2">

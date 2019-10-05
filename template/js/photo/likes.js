@@ -1,6 +1,6 @@
 import {$, ajaxSendDataByPOST, redirect} from '../lib.js';
 
-const POST_REQUEST_URL = '/LikeDislikePOST';
+const POST_REQUEST_URL = '/api/LikeDislikePOST';
 
 function likeLogic(elem)
 {

@@ -1,3 +1,11 @@
 .fz-22 { font-size: 22px }
 .display-none { display: none }
 .display-block { display: block }
+.disable-selection {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: 0;
+}

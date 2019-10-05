@@ -12,7 +12,7 @@ function deletePhotoById(id)
     const data = `id=${id}`;
 
     photo_elem.parentNode.removeChild(photo_elem);
-    ajaxSendDataByPOST('/DeletePhotoById', data);
+    ajaxSendDataByPOST('/api/DeletePhotoById', data);
     --window.ld_cycle;
 
     return true;

@@ -98,4 +98,13 @@ abstract class Photo
 
         return $result->fetch(PDO::FETCH_ASSOC)['user_id'];
     }
+
+    public static function getFileById(int $id) : ?string
+    {
+        $sql = 'SELECT img FROM photo WHERE id = :id LIMIT 1';
+
+        $result = DB::execute($sql, [':id' => $id]);
+
+        return $result->fetch(PDO::FETCH_ASSOC)['img'];
+    }
 }

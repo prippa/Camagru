@@ -15,10 +15,11 @@ return array(
     'profile/settings/email_reset/(.+)' => 'UserProfile/ConfirmNewMail/$1',
     'profile/my_photos' => 'UserProfile/ProfileMyPhotos',
 
+    'api/LikeDislikePOST' => 'Api/LikeDislikePOST',
+    'api/AddNewComment' => 'Api/AddNewComment',
+    'api/GetMorePhotos' => 'Api/GetMorePhotos',
+    'api/DeletePhotoById' => 'Api/DeletePhotoById',
+    'api/UploadPhotos' => 'Api/UploadPhotos',
     'make_photo' => 'Photo/MakePhoto',
-    'LikeDislikePOST' => 'Photo/LikeDislikePOST',
-    'AddNewComment' => 'Photo/AddNewComment',
-    'GetMorePhotos' => 'Photo/GetMorePhotos',
-    'DeletePhotoById' => 'Photo/DeletePhotoById',
     'photo/(.+)' => 'Photo/SinglePhoto/$1'
 );

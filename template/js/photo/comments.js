@@ -1,7 +1,7 @@
 import {$, ajaxSendDataByPOST, insertAfter, redirect} from '../lib.js';
 
 const MESSAGE_MAX = 1024;
-const POST_URL = '/AddNewComment';
+const POST_URL = '/api/AddNewComment';
 
 function setError(input_elem, message)
 {

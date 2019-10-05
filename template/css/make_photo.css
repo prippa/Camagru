@@ -28,10 +28,10 @@
     width: 100%;
 }
 
-.img-canvas {
-    display: none;
-    width: 1280px;
-    height: 960px;
+.super-img-canvas {
+    position: absolute;
+    top: 0;
+    left: 15px;
 }
 
 @media (max-width: 1199px) {

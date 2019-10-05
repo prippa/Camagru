@@ -18,7 +18,7 @@ function getNewPhotoBlockForMainPage(photo)
            `</div>` +
 
             `<a target="_blank" class="post-block" href="${photo['link']}">` +
-                `<img class="img-fluid main-img" src="${photo['img']}" alt="">` +
+                `<img class="img-fluid main-img" src="/${photo['img']}" alt="">` +
             `</a>` +
 
             `<div class="row no-gutters pt-2">` +
@@ -53,7 +53,7 @@ function getNewPhotoBlockForMyPhotos(photo)
            `</div>` +
 
             `<a target="_blank" class="post-block" href="${photo['link']}">` +
-                `<img class="img-fluid main-img" src="${photo['img']}" alt="">` +
+                `<img class="img-fluid main-img" src="/${photo['img']}" alt="">` +
             `</a>` +
 
             `<div class="row no-gutters pt-2">` +
@@ -107,7 +107,7 @@ function ajaxSend(func, photo_count, cycle, query_type)
 {
     let xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/GetMorePhotos', true);
+    xhr.open('POST', '/api/GetMorePhotos', true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let photos = JSON.parse(xhr.responseText);
@@ -116,7 +116,9 @@ function ajaxSend(func, photo_count, cycle, query_type)
                 $('show-more-block').style.display = 'none';
             }
             func(photos);
+            console.log(window.ld_cycle);
             window.ld_cycle += photos.length;
+            console.log(window.ld_cycle);
         }
     };
 

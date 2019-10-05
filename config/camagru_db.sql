@@ -117,15 +117,15 @@ CREATE TABLE `photo` (
 --
 
 INSERT INTO `photo` (`id`, `user_id`, `img`, `likes`, `dislikes`) VALUES
-(8, 10, '/uploads/5d5e9aa02ac92.png', 0, 0),
-(13, 10, '/uploads/5d5edd19a1f8a.jpg', 0, 0),
-(14, 10, '/uploads/5d5ede63d66bd.jpg', 0, 0),
-(15, 10, '/uploads/5d5ffd8d17a2d.png', 0, 0),
-(16, 10, '/uploads/5d5ffd9d14448.jpg', 0, 0),
-(17, 10, '/uploads/5d5ffda69beea.jpg', 0, 0),
-(18, 10, '/uploads/5d5ffdba6fc5d.png', 0, 0),
-(19, 12, '/uploads/5d7f83c15f269.png', 0, 0),
-(20, 11, '/uploads/5d80a270aa1d0.png', 0, 0);
+(8, 10, 'uploads/5d5e9aa02ac92.png', 0, 0),
+(13, 10, 'uploads/5d5edd19a1f8a.jpg', 0, 0),
+(14, 10, 'uploads/5d5ede63d66bd.jpg', 0, 0),
+(15, 10, 'uploads/5d5ffd8d17a2d.png', 0, 0),
+(16, 10, 'uploads/5d5ffd9d14448.jpg', 0, 0),
+(17, 10, 'uploads/5d5ffda69beea.jpg', 0, 0),
+(18, 10, 'uploads/5d5ffdba6fc5d.png', 0, 0),
+(19, 12, 'uploads/5d7f83c15f269.png', 0, 0),
+(20, 11, 'uploads/5d80a270aa1d0.png', 0, 0);
 
 -- --------------------------------------------------------
 
