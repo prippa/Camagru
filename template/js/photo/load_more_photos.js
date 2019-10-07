@@ -103,7 +103,7 @@ function setNewPhotosOnMyPhotos(photos)
     });
 }
 
-function ajaxSend(func, photo_count, cycle, query_type)
+function ajaxSend(func, photo_count, query_type)
 {
     let xhr = new XMLHttpRequest();
 
@@ -116,22 +116,20 @@ function ajaxSend(func, photo_count, cycle, query_type)
                 $('show-more-block').style.display = 'none';
             }
             func(photos);
-            console.log(window.ld_cycle);
             window.ld_cycle += photos.length;
-            console.log(window.ld_cycle);
         }
     };
 
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send(`photo_count=${photo_count}&cycle=${cycle}&query_type=${query_type}`);
+    xhr.send(`photo_count=${photo_count}&cycle=${window.ld_cycle}&query_type=${query_type}`);
 }
 
-export function loadMorePhotosOnMainPage(photo_count, cycle)
+export function loadMorePhotosOnMainPage(photo_count)
 {
-    ajaxSend(setNewPhotosOnMainPage, photo_count, cycle, 1);
+    ajaxSend(setNewPhotosOnMainPage, photo_count, 1);
 }
 
-export function loadMorePhotosOnMyPhotos(photo_count, cycle)
+export function loadMorePhotosOnMyPhotos(photo_count)
 {
-    ajaxSend(setNewPhotosOnMyPhotos, photo_count, cycle, 2);
+    ajaxSend(setNewPhotosOnMyPhotos, photo_count, 2);
 }

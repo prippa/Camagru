@@ -47,7 +47,7 @@ export class Photos
         div.innerHTML = this._getNewImageHTML(data);
 
         insertBefore(container_elem, div);
-        this._images.push(data);
+        this._images.unshift(data);
 
         if (this._images.length === 1) {
             this._made_img_col_elem.style.display = 'block';

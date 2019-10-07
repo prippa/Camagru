@@ -144,6 +144,34 @@ CREATE TABLE `photo_comment` (
 -- --------------------------------------------------------
 
 --
+-- Структура таблиці `super_images`
+--
+
+CREATE TABLE `super_images` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `file` char(255) NOT NULL,
+  `type` char(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп даних таблиці `super_images`
+--
+
+INSERT INTO `super_images` (`id`, `file`, `type`) VALUES
+(1, 'template/images/super_images/42.png', 'base'),
+(2, 'template/images/super_images/beach_umbrella.png', 'base'),
+(3, 'template/images/super_images/coco_drink_1.png', 'base'),
+(4, 'template/images/super_images/coco_drink_2.png', 'base'),
+(5, 'template/images/super_images/coco_drink_3.png', 'base'),
+(6, 'template/images/super_images/cowboy_hat.png', 'base'),
+(7, 'template/images/super_images/diving_glasses.png', 'base'),
+(8, 'template/images/super_images/straw_hat.png', 'base'),
+(9, 'template/images/super_images/swag_glasses.png', 'base'),
+(10, 'template/images/super_images/woman_hat.png', 'base'),
+(11, 'template/images/super_images/frame_beach_palm.png', 'frame'),
+(12, 'template/images/super_images/sea_frame.png', 'frame');
+
+--
 -- Структура таблиці `user`
 --
 
@@ -207,6 +235,12 @@ ALTER TABLE `photo_comment`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Індекси таблиці `super_images`
+--
+ALTER TABLE `super_images`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- Індекси таблиці `user`
 --
 ALTER TABLE `user`
@@ -245,6 +279,13 @@ ALTER TABLE `photo`
 --
 ALTER TABLE `photo_comment`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT для таблиці `super_images`
+--
+ALTER TABLE `super_images`
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
 
 --
 -- AUTO_INCREMENT для таблиці `user`

@@ -5,12 +5,16 @@
             <div class="row">
                 <div class="col-12 mb-3">
                     <aside class="aside-horizontal">
-                        <img class="img-fluid super-img" src="/template/images/superposable/42.png" alt="">
-                        <img class="img-fluid super-img" src="/template/images/superposable/swag_glasses.png" alt="">
-                        <img class="img-fluid super-img" src="/template/images/superposable/42.png" alt="">
-                        <img class="img-fluid super-img" src="/template/images/superposable/swag_glasses.png" alt="">
-                        <img class="img-fluid super-img" src="/template/images/superposable/42.png" alt="">
-                        <img class="img-fluid super-img" src="/template/images/superposable/swag_glasses.png" alt="">
+                        <?php foreach ($data['super_images']['base'] as $item): ?>
+                            <img alt="" class="img-fluid super-img"
+                                 src="/<?= $item['file'] ?>"
+                                 id="super-img-base<?= $item['id'] ?>">
+                        <?php endforeach ?>
+                        <?php foreach ($data['super_images']['frame'] as $item): ?>
+                            <img alt="" class="img-fluid super-img"
+                                 src="/<?= $item['file'] ?>"
+                                 id="super-img-frame<?= $item['id'] ?>">
+                        <?php endforeach ?>
                     </aside>
                 </div>
                 <div class="col-12 mb-3" id="video-col">
@@ -60,4 +64,7 @@
 
 <canvas class="display-none" id="img-canvas"></canvas>
 
+<script type="module">
+    window.super_images = <?= json_encode($data['super_images']) ?>;
+</script>
 <script src="/template/js/make_photo/make_photo.js" type="module"></script>

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\SuperImages;
 use app\views\View;
 use app\models\Comment;
 use app\models\Photo;
@@ -13,7 +14,12 @@ class PhotoController
     {
         User::redirectToLoginCheck();
 
-        View::run(View::MAKE_PHOTO);
+        $super_images = [
+            'base' => SuperImages::getImagesByType('base'),
+            'frame' => SuperImages::getImagesByType('frame')
+        ];
+
+        View::run(View::MAKE_PHOTO, ['super_images' => $super_images]);
     }
 
     public function actionSinglePhoto(int $id)

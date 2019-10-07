@@ -1,6 +1,7 @@
 import {$, ResizeSensor} from '../lib.js';
 import {colDNone, colDBlock} from './helpers.js';
-import {Photos} from './image.class.js';
+import {Photos} from './Photos.class.js';
+import {SuperImages} from './SuperImages.class.js'
 
 (function () {
     // Variables INIT
@@ -21,7 +22,8 @@ import {Photos} from './image.class.js';
         btn_confirm             = col_confirm.firstElementChild,
         btn_make                = col_make.firstElementChild,
         btn_upload              = $('btn-upload'),
-        photos                  = new Photos();
+        photos                  = new Photos(),
+        super_images            = new SuperImages(super_img_ctx);
 
     img_canvas.width = 1280;
     img_canvas.height = 720;
@@ -91,13 +93,18 @@ import {Photos} from './image.class.js';
         }
     }
 
-    function sicrDraw()
+    function sicrResetSuperImages()
     {
-        let base_image = new Image();
-        base_image.src = '/template/images/superposable/42.png';
-        base_image.onload = function() {
-            super_img_ctx.drawImage(base_image, 400, 400);
-        }
+        super_images.canv_x = video.clientWidth;
+        super_images.canv_y = video.clientHeight;
+        super_images.initSuperImages(window.super_images);
+        // let base_image = new Image();
+        // base_image.src = '/template/images/super_images/swag_glasses.png';
+        // base_image.onload = function() {
+        //     super_img_ctx.drawImage(base_image, 100, 100, 100, 100);
+        //
+        // }
+
     }
 
     function sicrResetSize()
@@ -109,7 +116,7 @@ import {Photos} from './image.class.js';
     function superImagesCanvasReset()
     {
         sicrResetSize();
-        sicrDraw();
+        sicrResetSuperImages();
     }
 
     /* -------------- Base Methods END -------------- */
@@ -126,6 +133,19 @@ import {Photos} from './image.class.js';
     new ResizeSensor(video_col, function () {
         superImagesCanvasReset();
     });
+
+    //Get Mouse Position
+    function getMousePos(canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: Math.ceil(evt.clientX - rect.left),
+            y: Math.ceil(evt.clientY - rect.top)
+        };
+    }
+    // super_img_canvas.onmousemove = function(evt) {
+    //     let mouse_pos = getMousePos(super_img_canvas, evt);
+    //     console.log(mouse_pos.x + ',' + mouse_pos.y);
+    // };
 
     startVideo();
     colDBlock(col_load_mod);
