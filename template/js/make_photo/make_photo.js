@@ -7,10 +7,6 @@ import {SuperImages} from './SuperImages.class.js'
     // Variables INIT
     let video                   = $('video-element'),
         video_col               = $('video-col'),
-        img_canvas              = $('img-canvas'),
-        img_ctx                 = img_canvas.getContext('2d'),
-        super_img_canvas        = $('super-img-canvas'),
-        super_img_ctx           = super_img_canvas.getContext('2d'),
         col_load_mod            = $('col-load-mod'),
         col_cancel              = $('col-cancel'),
         col_remove_super_img    = $('col-remove-super-img'),
@@ -23,10 +19,7 @@ import {SuperImages} from './SuperImages.class.js'
         btn_make                = col_make.firstElementChild,
         btn_upload              = $('btn-upload'),
         photos                  = new Photos(),
-        super_images            = new SuperImages(super_img_ctx);
-
-    img_canvas.width = 1280;
-    img_canvas.height = 720;
+        super_images            = new SuperImages();
 
     /* -------------- Events -------------- */
     // Make Photo Event
@@ -55,11 +48,7 @@ import {SuperImages} from './SuperImages.class.js'
         colDNone(col_confirm);
         colDNone(col_cancel);
 
-        img_ctx.drawImage(video, 0, 0, img_canvas.width, img_canvas.height);
-        img_ctx.drawImage(super_img_canvas, 0, 0, img_canvas.width, img_canvas.height);
-        const src = img_canvas.toDataURL('image/png');
-
-        photos.add($('made-img-container'), src);
+        photos.add($('made-img-container'), [video, super_images.canv]);
 
         video.play();
         colDBlock(col_make);
@@ -73,80 +62,47 @@ import {SuperImages} from './SuperImages.class.js'
     }
     /* ------------- Events END ------------ */
 
-    /* -------------- Base Methods -------------- */
-    function startVideo()
-    {
-        navigator.getMedia = navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia;
-
-        if (navigator.getMedia) {
-            navigator.getMedia({video: true, audio: false},
-                function (stream) {
-                    video.srcObject = stream;
-                    video.play();
-                },
-                function (e) {
-                    alert('There has some problems with video: ' + e);
-                });
-        }
-    }
-
-    function sicrResetSuperImages()
-    {
-        super_images.canv_x = video.clientWidth;
-        super_images.canv_y = video.clientHeight;
-        super_images.initSuperImages(window.super_images);
-        // let base_image = new Image();
-        // base_image.src = '/template/images/super_images/swag_glasses.png';
-        // base_image.onload = function() {
-        //     super_img_ctx.drawImage(base_image, 100, 100, 100, 100);
-        //
-        // }
-
-    }
-
-    function sicrResetSize()
-    {
-        super_img_canvas.width = video.clientWidth;
-        super_img_canvas.height = video.clientHeight;
-    }
-
-    function superImagesCanvasReset()
-    {
-        sicrResetSize();
-        sicrResetSuperImages();
-    }
-
-    /* -------------- Base Methods END -------------- */
-
     // Set Events
     btn_make.onclick = makePhotoEvent;
     btn_cancel.onclick = cancelEvent;
     btn_confirm.onclick = confirmEvent;
     btn_upload.onclick = uploadEvent;
     video.onloadeddata = function () {
-        superImagesCanvasReset();
+        super_images.initSuperImages(window.super_images);
+        super_images.resetSize(video.clientWidth, video.clientHeight);
         colDBlock(col_make);
     };
     new ResizeSensor(video_col, function () {
-        superImagesCanvasReset();
+        super_images.resetSize(video.clientWidth, video.clientHeight);
     });
 
     //Get Mouse Position
-    function getMousePos(canvas, evt) {
-        var rect = canvas.getBoundingClientRect();
-        return {
-            x: Math.ceil(evt.clientX - rect.left),
-            y: Math.ceil(evt.clientY - rect.top)
-        };
-    }
+    // function getMousePos(canvas, evt) {
+    //     var rect = canvas.getBoundingClientRect();
+    //     return {
+    //         x: Math.ceil(evt.clientX - rect.left),
+    //         y: Math.ceil(evt.clientY - rect.top)
+    //     };
+    // }
     // super_img_canvas.onmousemove = function(evt) {
     //     let mouse_pos = getMousePos(super_img_canvas, evt);
     //     console.log(mouse_pos.x + ',' + mouse_pos.y);
     // };
 
-    startVideo();
+    navigator.getMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia;
+
+    if (navigator.getMedia) {
+        navigator.getMedia({video: true, audio: false},
+            function (stream) {
+                video.srcObject = stream;
+                video.play();
+            },
+            function (e) {
+                alert('There has some problems with video: ' + e);
+            });
+    }
     colDBlock(col_load_mod);
 })();

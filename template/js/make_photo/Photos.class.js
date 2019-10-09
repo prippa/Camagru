@@ -8,6 +8,11 @@ export class Photos
         this._images = [];
         this._url = '/api/UploadPhotos';
         this._made_img_col_elem = $('made-img-col');
+        this._canv = $('img-canvas');
+        this._ctx = this._canv.getContext('2d');
+
+        this._canv.width = 1280;
+        this._canv.height = 720;
     }
 
     _getNewImageHTML(data)
@@ -37,8 +42,13 @@ export class Photos
         return true;
     }
 
-    add(container_elem, src)
+    add(container_elem, img_elements)
     {
+        for (let i = 0; i < img_elements.length; ++i) {
+            this._ctx.drawImage(img_elements[i], 0, 0, this._canv.width, this._canv.height);
+        }
+
+        const src = this._canv.toDataURL('image/png');
         const div = document.createElement('div');
         const data = {id: this._id, src: src};
 
