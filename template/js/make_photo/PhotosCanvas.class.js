@@ -1,17 +1,17 @@
 import {$, insertBefore} from '../lib.js';
 
-export class Photos
+export class PhotosCanvas
 {
     constructor()
     {
-        this._id = 0;
-        this._images = [];
-        this._url = '/api/UploadPhotos';
+        this._id                = 0;
+        this._images            = [];
+        this._url               = '/api/UploadPhotos';
         this._made_img_col_elem = $('made-img-col');
-        this._canv = $('img-canvas');
-        this._ctx = this._canv.getContext('2d');
+        this._canv              = $('img-canvas');
+        this._ctx               = this._canv.getContext('2d');
 
-        this._canv.width = 1280;
+        this._canv.width  = 1280;
         this._canv.height = 720;
     }
 

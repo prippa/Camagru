@@ -1,7 +1,7 @@
 import {$, ResizeSensor} from '../lib.js';
 import {colDNone, colDBlock} from './helpers.js';
-import {Photos} from './Photos.class.js';
-import {SuperImages} from './SuperImages.class.js'
+import {PhotosCanvas} from './PhotosCanvas.class.js';
+import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
 
 (function () {
     // Variables INIT
@@ -18,10 +18,10 @@ import {SuperImages} from './SuperImages.class.js'
         btn_confirm             = col_confirm.firstElementChild,
         btn_make                = col_make.firstElementChild,
         btn_upload              = $('btn-upload'),
-        photos                  = new Photos(),
-        super_images            = new SuperImages();
+        photos                  = new PhotosCanvas(),
+        super_images            = new SuperImagesCanvas();
 
-    /* -------------- Events -------------- */
+    /* --------------- Events Methods -------------- */
     // Make Photo Event
     function makePhotoEvent()
     {
@@ -60,34 +60,22 @@ import {SuperImages} from './SuperImages.class.js'
     {
         photos.upload();
     }
-    /* ------------- Events END ------------ */
+    /* ------------- Events Methods END ------------ */
 
-    // Set Events
+    /* ---------------- Set Events ----------------- */
     btn_make.onclick = makePhotoEvent;
     btn_cancel.onclick = cancelEvent;
     btn_confirm.onclick = confirmEvent;
     btn_upload.onclick = uploadEvent;
     video.onloadeddata = function () {
-        super_images.initSuperImages(window.super_images);
+        super_images.init(window.super_images);
         super_images.resetSize(video.clientWidth, video.clientHeight);
         colDBlock(col_make);
     };
     new ResizeSensor(video_col, function () {
         super_images.resetSize(video.clientWidth, video.clientHeight);
     });
-
-    //Get Mouse Position
-    // function getMousePos(canvas, evt) {
-    //     var rect = canvas.getBoundingClientRect();
-    //     return {
-    //         x: Math.ceil(evt.clientX - rect.left),
-    //         y: Math.ceil(evt.clientY - rect.top)
-    //     };
-    // }
-    // super_img_canvas.onmousemove = function(evt) {
-    //     let mouse_pos = getMousePos(super_img_canvas, evt);
-    //     console.log(mouse_pos.x + ',' + mouse_pos.y);
-    // };
+    /* --------------- Set Events END -------------- */
 
     navigator.getMedia = navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||

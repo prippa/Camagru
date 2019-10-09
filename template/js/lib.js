@@ -135,3 +135,24 @@ export function ResizeSensor(element, callback)
     expand.addEventListener('scroll', onScroll);
     shrink.addEventListener('scroll', onScroll);
 }
+
+export function matrixArray(x, y, default_number=0)
+{
+    let arr = new Array(y);
+
+    for (let i = 0; i < y; ++i) {
+        arr[i] = new Array(x);
+        arr[i].fill(default_number);
+    }
+
+    return arr;
+}
+
+export function getPercentage(number, percent, integer=false)
+{
+    let result = (number / 100) * percent;
+    if (integer) {
+        result = Math.round(result);
+    }
+    return result;
+}
