@@ -136,16 +136,22 @@ export function ResizeSensor(element, callback)
     shrink.addEventListener('scroll', onScroll);
 }
 
-export function matrixArray(x, y, default_number=0)
+export function matrixArray(x, y)
 {
     let arr = new Array(y);
 
     for (let i = 0; i < y; ++i) {
         arr[i] = new Array(x);
-        arr[i].fill(default_number);
     }
 
     return arr;
+}
+
+export function matrixFill(matrix, number=0)
+{
+    for (let i = 0; i < matrix.length; ++i) {
+        matrix[i].fill(number);
+    }
 }
 
 export function getPercentage(number, percent, integer=false)

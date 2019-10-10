@@ -9,12 +9,10 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         video_col               = $('video-col'),
         col_load_mod            = $('col-load-mod'),
         col_cancel              = $('col-cancel'),
-        col_remove_super_img    = $('col-remove-super-img'),
         col_confirm             = $('col-confirm'),
         col_make                = $('col-make'),
         btn_load_mod            = col_load_mod.firstElementChild,
         btn_cancel              = col_cancel.firstElementChild,
-        btn_remove_super_img    = col_remove_super_img.firstElementChild,
         btn_confirm             = col_confirm.firstElementChild,
         btn_make                = col_make.firstElementChild,
         btn_upload              = $('btn-upload'),
@@ -49,6 +47,7 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         colDNone(col_cancel);
 
         photos.add($('made-img-container'), [video, super_images.canv]);
+        super_images.clear();
 
         video.play();
         colDBlock(col_make);

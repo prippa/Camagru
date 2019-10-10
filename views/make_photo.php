@@ -31,9 +31,6 @@
                 <div class="col-md mb-2 display-none" id="col-cancel">
                     <button class="btn btn-danger btn-block">Cancel</button>
                 </div>
-                <div class="col-md mb-2 display-none" id="col-remove-super-img">
-                    <button class="btn btn-danger btn-block">Remove super images</button>
-                </div>
                 <div class="col-md mb-2 display-none" id="col-make">
                     <button class="btn btn-primary btn-block">Make Photo</button>
                 </div>
