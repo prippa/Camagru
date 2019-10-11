@@ -121,29 +121,6 @@ export class SuperImagesCanvas
 
     }
 
-    _getSizeFromImagePoint(point)
-    {
-        const number = this._map[point.y][point.x];
-        let size = {width: 0, height: 0};
-        let x = point.x, y = point.y;
-
-        while (number === this._map[point.y][x--]) {
-            ++size.width;
-            if (x === -1) {
-                break;
-            }
-        }
-
-        while (number === this._map[y--][point.x]) {
-            ++size.height;
-            if (y === -1) {
-                break;
-            }
-        }
-
-        return size;
-    }
-
     _mouseDown(evt)
     {
         const pos = this._getMousePos(evt);
@@ -156,9 +133,12 @@ export class SuperImagesCanvas
                 if (this._super_base[i].id === id) {
                     this._current_img = this._super_base[i];
                     this._super_base.push(this._super_base.splice(i, 1)[0]);
+                    this.pos_size = {
+                        width: pos.x - this._current_img.point.x,
+                        height: pos.y - this._current_img.point.y
+                    };
                 }
             }
-            this.pos_size = this._getSizeFromImagePoint(pos);
         }
     }
 
