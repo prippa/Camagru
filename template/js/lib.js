@@ -162,3 +162,7 @@ export function getPercentage(number, percent, integer=false)
     }
     return result;
 }
+
+export function dNone(elem) { elem.style.display = 'none'; }
+export function dBlock(elem) { elem.style.display = 'block'; }
+export function setCursor(elem, cursor='default') { elem.style.cursor = cursor; }

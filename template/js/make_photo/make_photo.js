@@ -1,5 +1,4 @@
-import {$, ResizeSensor} from '../lib.js';
-import {colDNone, colDBlock} from './helpers.js';
+import {$, ResizeSensor, dNone, dBlock} from '../lib.js';
 import {PhotosCanvas} from './PhotosCanvas.class.js';
 import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
 
@@ -24,34 +23,34 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
     function makePhotoEvent()
     {
         video.pause();
-        colDNone(col_make);
-        colDNone(col_load_mod);
-        colDBlock(col_confirm);
-        colDBlock(col_cancel);
+        dNone(col_make);
+        dNone(col_load_mod);
+        dBlock(col_confirm);
+        dBlock(col_cancel);
     }
 
     // Cancel Event
     function cancelEvent()
     {
         video.play();
-        colDBlock(col_make);
-        colDBlock(col_load_mod);
-        colDNone(col_confirm);
-        colDNone(col_cancel);
+        dBlock(col_make);
+        dBlock(col_load_mod);
+        dNone(col_confirm);
+        dNone(col_cancel);
     }
 
     // Confirm Event
     function confirmEvent()
     {
-        colDNone(col_confirm);
-        colDNone(col_cancel);
+        dNone(col_confirm);
+        dNone(col_cancel);
 
         photos.add($('made-img-container'), [video, super_images.canv]);
         super_images.clear();
 
         video.play();
-        colDBlock(col_make);
-        colDBlock(col_load_mod);
+        dBlock(col_make);
+        dBlock(col_load_mod);
     }
 
     // Upload Event
@@ -69,7 +68,7 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
     video.onloadeddata = function () {
         super_images.init(window.super_images);
         super_images.resetSize(video.clientWidth, video.clientHeight);
-        colDBlock(col_make);
+        dBlock(col_make);
     };
     new ResizeSensor(video_col, function () {
         super_images.resetSize(video.clientWidth, video.clientHeight);
@@ -91,5 +90,5 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
                 alert('There has some problems with video: ' + e);
             });
     }
-    colDBlock(col_load_mod);
+    dBlock(col_load_mod);
 })();

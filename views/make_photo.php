@@ -34,6 +34,12 @@
                 <div class="col-md mb-2 display-none" id="col-make">
                     <button class="btn btn-primary btn-block">Make Photo</button>
                 </div>
+                <div class="col-md mb-2 display-none" id="col-remove-img">
+                    <button class="btn btn-danger btn-block">Remove Image</button>
+                </div>
+                <div class="col-md mb-2 display-none" id="col-remove-frame">
+                    <button class="btn btn-danger btn-block">Remove Frame</button>
+                </div>
                 <div class="col-12 display-none" id="col-load-mod">
                     <button class="btn btn-dark btn-block" id="load-img-from-device">Load from device ...</button>
                 </div>

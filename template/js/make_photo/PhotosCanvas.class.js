@@ -1,4 +1,4 @@
-import {$, insertBefore} from '../lib.js';
+import {$, insertBefore, dNone} from '../lib.js';
 
 export class PhotosCanvas
 {
@@ -32,7 +32,7 @@ export class PhotosCanvas
                 this._images.splice(i, 1);
 
                 if (!this._images.length) {
-                    this._made_img_col_elem.style.display = 'none';
+                    dNone(this._made_img_col_elem);
                 }
 
                 return false;

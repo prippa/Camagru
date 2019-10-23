@@ -1,21 +1,25 @@
-import {$, matrixArray, matrixFill, getPercentage} from '../lib.js';
+import {$, matrixArray, matrixFill, getPercentage, dBlock, dNone, setCursor} from '../lib.js';
 import {Point} from './Point.class.js';
 
 export class SuperImagesCanvas
 {
     constructor()
     {
+        this._col_remove_img    = $('col-remove-img');
+        this._col_remove_frame  = $('col-remove-frame');
+        this._col_remove_img.firstElementChild.onclick = () => this._removeImage();
+        this._col_remove_frame.firstElementChild.onclick = () => this._removeFrame();
+
         this._canv         = $('super-img-canvas');
         this._ctx          = this._canv.getContext('2d');
         this._super_base   = [];
+        this._frame        = null;
         this._map          = null;
         this._id           = 1;
 
         this._is_image_in_focus = false;
-        this._current_img = null;
-        this.pos_size = null;
-        this.width = 100;
-        this.height = 100;
+        this._current_img       = null;
+        this.pos_size           = null;
     }
 
     get canv() { return this._canv; }
@@ -39,17 +43,30 @@ export class SuperImagesCanvas
         this._clearCanvas();
     }
 
-    _draw()
+    _drawImages()
     {
-        this._clearCanvas();
-        matrixFill(this._map);
-
         for (let i = 0; i < this._super_base.length; ++i) {
             const sb = this._super_base[i];
 
             this._drawOnMap(sb.point.x, sb.point.y, sb.width, sb.height, sb.id);
             this._ctx.drawImage(sb.img, sb.point.x, sb.point.y, sb.width, sb.height);
         }
+    }
+
+    _drawFrame()
+    {
+        if (!this._frame) {
+            return ;
+        }
+        this._ctx.drawImage(this._frame, 0, 0, this._canv.width, this._canv.height);
+    }
+
+    _draw()
+    {
+        this._clearCanvas();
+        matrixFill(this._map);
+        this._drawImages();
+        this._drawFrame();
     }
 
     resetSize(width, height)
@@ -86,39 +103,57 @@ export class SuperImagesCanvas
         }
     }
 
-    _addImage(src, x, y, width, height)
+    _removeImage()
     {
-        const base_image = new Image();
+        if (this._super_base.length) {
+            this._super_base.pop();
+            this._draw();
+            if (!this._super_base.length) {
+                dNone(this._col_remove_img);
+            }
+        }
+    }
 
-        base_image.src = src;
-        base_image.onload = () => {
-            this._super_base.push({
-                id: this._id,
-                img: base_image,
-                point: new Point(x, y),
-                width: width,
-                height: height
-            });
-            this._drawOnMap(x, y, width, height, this._id);
-            this._ctx.drawImage(base_image, x, y, width, height);
-            ++this._id;
-        };
+    _removeFrame()
+    {
+        this._frame = null;
+        this._draw();
+        dNone(this._col_remove_frame);
     }
 
     _addBaseImage(src)
     {
-        let width = this.width;
-        let height = this.height;
-        let x = this._getCenterX() - getPercentage(width, 50, true);
-        let y = this._getCenterY() - getPercentage(height, 50, true);
-        this._addImage(src, x, y, width, height);
-        this.height += 50;
-        this.width += 50;
+        const img = new Image();
+
+        img.src = src;
+        img.onload = () => {
+            const x = this._getCenterX() - getPercentage(img.width, 50, true),
+                  y = this._getCenterY() - getPercentage(img.height, 50, true);
+
+            this._super_base.push({
+                id: this._id,
+                img: img,
+                point: new Point(x, y),
+                width: img.width,
+                height: img.height
+            });
+
+            this._draw();
+            ++this._id;
+            if (this._super_base.length == 1) {
+                dBlock(this._col_remove_img);
+            }
+        };
     }
 
     _addFrameImage(src)
     {
-
+        this._frame = new Image();
+        this._frame.src = src;
+        this._frame.onload = () => {
+            this._draw();
+        };
+        dBlock(this._col_remove_frame);
     }
 
     _mouseDown(evt)
@@ -157,11 +192,16 @@ export class SuperImagesCanvas
 
     _mouseMove(evt)
     {
+        let cur_point = this._getMousePos(evt);
+
         if (!this._is_image_in_focus) {
+            if (this._map[cur_point.y][cur_point.x]) {
+                setCursor(this._canv, 'grab');
+            } else {
+                setCursor(this._canv, 'default');
+            }
             return ;
         }
-
-        let cur_point = this._getMousePos(evt);
 
         this._current_img.point.y += (cur_point.y - this._current_img.point.y) - this.pos_size.height;
         this._current_img.point.x += (cur_point.x - this._current_img.point.x) - this.pos_size.width;
@@ -171,21 +211,6 @@ export class SuperImagesCanvas
     _mouseLeave()
     {
         this._is_image_in_focus = false;
-    }
-
-    _doubleClick(evt)
-    {
-        const pos = this._getMousePos(evt);
-        const id = this._map[pos.y][pos.x];
-
-        if (id) {
-            for (let i = 0; i < this._super_base.length; ++i) {
-                if (this._super_base[i].id === id) {
-                    this._super_base.splice(i, 1);
-                }
-            }
-            this._draw();
-        }
     }
 
     init(super_images)
@@ -201,6 +226,5 @@ export class SuperImagesCanvas
         this._canv.onmouseup = (evt) => this._mouseUp(evt);
         this._canv.onmousemove = (evt) => this._mouseMove(evt);
         this._canv.onmouseleave = () => this._mouseLeave();
-        this._canv.ondblclick = (evt) => this._doubleClick(evt);
     }
 }
