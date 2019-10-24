@@ -34,8 +34,18 @@
                 <div class="col-md mb-2 display-none" id="col-make">
                     <button class="btn btn-primary btn-block">Make Photo</button>
                 </div>
-                <div class="col-md mb-2 display-none" id="col-remove-img">
-                    <button class="btn btn-danger btn-block">Remove Image</button>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md mb-2 display-none" id="col-remove-img">
+                            <button class="btn btn-danger btn-block">Remove Image</button>
+                        </div>
+                        <div class="col-md mb-2 display-none" id="col-zoom-in">
+                            <button class="btn btn-success btn-block">+</button>
+                        </div>
+                        <div class="col-md mb-2 display-none" id="col-zoom-out">
+                            <button class="btn btn-success btn-block">-</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md mb-2 display-none" id="col-remove-frame">
                     <button class="btn btn-danger btn-block">Remove Frame</button>

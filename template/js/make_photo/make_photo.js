@@ -1,11 +1,10 @@
-import {$, ResizeSensor, dNone, dBlock} from '../lib.js';
+import {$, dNone, dBlock} from '../lib.js';
 import {PhotosCanvas} from './PhotosCanvas.class.js';
 import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
 
 (function () {
     // Variables INIT
     let video                   = $('video-element'),
-        video_col               = $('video-col'),
         col_load_mod            = $('col-load-mod'),
         col_cancel              = $('col-cancel'),
         col_confirm             = $('col-confirm'),
@@ -70,9 +69,9 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         super_images.resetSize(video.clientWidth, video.clientHeight);
         dBlock(col_make);
     };
-    new ResizeSensor(video_col, function () {
+    window.onresize = function () {
         super_images.resetSize(video.clientWidth, video.clientHeight);
-    });
+    };
     /* --------------- Set Events END -------------- */
 
     navigator.getMedia = navigator.getUserMedia ||
