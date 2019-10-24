@@ -159,17 +159,18 @@ CREATE TABLE `super_images` (
 
 INSERT INTO `super_images` (`id`, `file`, `type`) VALUES
 (1, 'template/images/super_images/42.png', 'base'),
-(2, 'template/images/super_images/beach_umbrella.png', 'base'),
-(3, 'template/images/super_images/coco_drink_1.png', 'base'),
-(4, 'template/images/super_images/coco_drink_2.png', 'base'),
-(5, 'template/images/super_images/coco_drink_3.png', 'base'),
-(6, 'template/images/super_images/cowboy_hat.png', 'base'),
-(7, 'template/images/super_images/diving_glasses.png', 'base'),
-(8, 'template/images/super_images/straw_hat.png', 'base'),
-(9, 'template/images/super_images/swag_glasses.png', 'base'),
+(2, 'template/images/super_images/sun.png', 'base'),
+(3, 'template/images/super_images/beach_umbrella.png', 'base'),
+(4, 'template/images/super_images/coco_drink_1.png', 'base'),
+(5, 'template/images/super_images/coco_drink_2.png', 'base'),
+(6, 'template/images/super_images/coco_drink_3.png', 'base'),
+(7, 'template/images/super_images/swag_glasses.png', 'base'),
+(8, 'template/images/super_images/diving_glasses.png', 'base'),
+(9, 'template/images/super_images/straw_hat.png', 'base'),
 (10, 'template/images/super_images/woman_hat.png', 'base'),
-(11, 'template/images/super_images/frame_beach_palm.png', 'frame'),
-(12, 'template/images/super_images/sea_frame.png', 'frame');
+(11, 'template/images/super_images/sea_frame.png', 'frame'),
+(12, 'template/images/super_images/wave_frame.png', 'frame'),
+(13, 'template/images/super_images/sand_frame.png', 'frame');
 
 --
 -- Структура таблиці `user`

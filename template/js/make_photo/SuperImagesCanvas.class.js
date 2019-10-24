@@ -273,6 +273,8 @@ export class SuperImagesCanvas
                             width: pos.x - this._current_img.point.x,
                             height: pos.y - this._current_img.point.y
                         };
+                        this._draw();
+                        break;
                     }
                 }
             }
