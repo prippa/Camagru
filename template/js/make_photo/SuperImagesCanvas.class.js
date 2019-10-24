@@ -16,8 +16,7 @@ export class SuperImagesCanvas
 
         this._is_image_in_focus = false;
         this._current_img       = null;
-        this.pos_size           = null;
-        this.save_pos           = null;
+        this._pos_size          = null;
 
         this._image_size = new ImageSize();
 
@@ -71,11 +70,17 @@ export class SuperImagesCanvas
     _getMousePos(evt)
     {
         const rect = this._canv.getBoundingClientRect();
+        let x = Math.ceil(evt.clientX - rect.left);
+        let y = Math.ceil(evt.clientY - rect.top);
 
-        return new Point(
-            Math.ceil(evt.clientX - rect.left),
-            Math.ceil(evt.clientY - rect.top)
-        );
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = 0;
+        }
+
+        return new Point(x, y);
     }
     _hideSuperImageButtons()
     {
@@ -254,8 +259,8 @@ export class SuperImagesCanvas
 
         // Canvas onmousedown Event
         this._canv.onmousedown = (evt) => {
-            this.save_pos = this._getMousePos(evt);
-            const id = this._map[this.save_pos.y][this.save_pos.x];
+            const pos = this._getMousePos(evt);
+            const id = this._map[pos.y][pos.x];
 
             if (id) {
                 this._is_image_in_focus = true;
@@ -264,9 +269,9 @@ export class SuperImagesCanvas
                     if (this._super_base[i].id === id) {
                         this._current_img = this._super_base[i];
                         this._super_base.push(this._super_base.splice(i, 1)[0]);
-                        this.pos_size = {
-                            width: this.save_pos.x - this._current_img.point.x,
-                            height: this.save_pos.y - this._current_img.point.y
+                        this._pos_size = {
+                            width: pos.x - this._current_img.point.x,
+                            height: pos.y - this._current_img.point.y
                         };
                     }
                 }
@@ -291,8 +296,8 @@ export class SuperImagesCanvas
                 return ;
             }
 
-            this._current_img.point.y += (cur_point.y - this._current_img.point.y) - this.pos_size.height;
-            this._current_img.point.x += (cur_point.x - this._current_img.point.x) - this.pos_size.width;
+            this._current_img.point.y += (cur_point.y - this._current_img.point.y) - this._pos_size.height;
+            this._current_img.point.x += (cur_point.x - this._current_img.point.x) - this._pos_size.width;
             this._draw();
         };
 
