@@ -44,7 +44,7 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         dNone(col_confirm);
         dNone(col_cancel);
 
-        photos.add($('made-img-container'), [video, super_images.canv]);
+        photos.add($('made-img-container'), video, super_images);
 
         video.play();
         dBlock(col_make);

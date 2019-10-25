@@ -4,6 +4,12 @@
     cursor: pointer;
 }
 
+.super-img:hover {
+    border-radius: 6px;
+    border: 1px solid orange;
+    padding: 1px;
+}
+
 .made-img-block {
     padding: 0 6px 0 6px !important;
     text-align: end;
