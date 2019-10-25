@@ -1,4 +1,4 @@
-import {$, matrixArray, matrixFill, getPercentage,
+import {$, matrixArray, matrixFill, getPercentage, switchLogic,
     dBlock, dNone, setCursor, getPercentFromSumAndNumber} from '../lib.js';
 import {Point} from './Point.class.js';
 import {ImageSize} from './ImageSize.class.js';
@@ -11,6 +11,7 @@ export class SuperImagesCanvas
         this._ctx          = this._canv.getContext('2d');
         this._super_base   = [];
         this._frame        = null;
+        this._frame_mod    = 1;
         this._map          = null;
         this._id           = 1;
 
@@ -20,10 +21,12 @@ export class SuperImagesCanvas
 
         this._image_size = new ImageSize();
 
-        this._col_remove_img    = $('col-remove-img');
-        this._col_remove_frame  = $('col-remove-frame');
-        this._col_zoom_in       = $('col-zoom-in');
-        this._col_zoom_out      = $('col-zoom-out');
+        this._col_remove_img        = $('col-remove-img');
+        this._col_zoom_in_img       = $('col-zoom-in');
+        this._col_zoom_out_img      = $('col-zoom-out');
+        this._col_remove_frame      = $('col-remove-frame');
+        this._col_change_mod_frame  = $('col-change-mod');
+        this._col_clear_all         = $('col-clear-all');
 
         //Button Remove Image Event
         this._col_remove_img.firstElementChild.onclick = () => {
@@ -44,7 +47,7 @@ export class SuperImagesCanvas
         };
 
         // Button Zoom Image In
-        this._col_zoom_in.firstElementChild.onclick = () => {
+        this._col_zoom_in_img.firstElementChild.onclick = () => {
             const img = this._super_base[this._super_base.length - 1];
 
             img.size_index = this._image_size.incrementIndex(img.size_index);
@@ -53,13 +56,27 @@ export class SuperImagesCanvas
         };
 
         // Button Zoom Image Out
-        this._col_zoom_out.firstElementChild.onclick = () => {
+        this._col_zoom_out_img.firstElementChild.onclick = () => {
             const img = this._super_base[this._super_base.length - 1];
 
             img.size_index = this._image_size.decrementIndex(img.size_index);
             this._resizeImage(img);
             this._draw();
         };
+
+        this._col_change_mod_frame.firstElementChild.onclick = () => {
+            this._frame_mod = switchLogic(this._frame_mod);
+            if (this._frame_mod) {
+                this._col_change_mod_frame.firstElementChild.innerHTML = 'Under Image'
+            } else {
+                this._col_change_mod_frame.firstElementChild.innerHTML = 'Over Image';
+            }
+            this._draw();
+        };
+
+        this._col_clear_all.firstElementChild.onclick = () => {
+            this.clear();
+        }
     }
 
     get canv() { return this._canv; }
@@ -85,22 +102,28 @@ export class SuperImagesCanvas
     _hideSuperImageButtons()
     {
         dNone(this._col_remove_img);
-        dNone(this._col_zoom_in);
-        dNone(this._col_zoom_out);
+        dNone(this._col_zoom_in_img);
+        dNone(this._col_zoom_out_img);
+        dNone(this._col_clear_all);
     }
     _hideFrameImageButtons()
     {
         dNone(this._col_remove_frame);
+        dNone(this._col_change_mod_frame);
+        dNone(this._col_clear_all);
     }
     _showSuperImageButtons()
     {
         dBlock(this._col_remove_img);
-        dBlock(this._col_zoom_in);
-        dBlock(this._col_zoom_out);
+        dBlock(this._col_zoom_in_img);
+        dBlock(this._col_zoom_out_img);
+        dBlock(this._col_clear_all);
     }
     _showFrameImageButtons()
     {
         dBlock(this._col_remove_frame);
+        dBlock(this._col_change_mod_frame);
+        dBlock(this._col_clear_all);
     }
 
     clear()
@@ -113,6 +136,7 @@ export class SuperImagesCanvas
             this._frame = null;
             this._hideFrameImageButtons();
         }
+        matrixFill(this._map);
         this._clearCanvas();
     }
 
@@ -163,8 +187,13 @@ export class SuperImagesCanvas
     {
         this._clearCanvas();
         matrixFill(this._map);
-        this._drawImages();
-        this._drawFrame();
+        if (this._frame_mod) {
+            this._drawImages();
+            this._drawFrame();
+        } else {
+            this._drawFrame();
+            this._drawImages();
+        }
     }
 
     _resizeImage(img)

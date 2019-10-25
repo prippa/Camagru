@@ -1,4 +1,4 @@
-import {$, insertBefore, dNone} from '../lib.js';
+import {$, insertBefore, dNone, dBlock} from '../lib.js';
 
 export class PhotosCanvas
 {
@@ -60,7 +60,7 @@ export class PhotosCanvas
         this._images.unshift(data);
 
         if (this._images.length === 1) {
-            this._made_img_col_elem.style.display = 'block';
+            dBlock(this._made_img_col_elem);
         }
 
         $('delete-made-img' + data.id).onclick = () => this.delete(data.id);

@@ -34,21 +34,33 @@
                 <div class="col-md mb-2 display-none" id="col-make">
                     <button class="btn btn-primary btn-block">Make Photo</button>
                 </div>
+                <!-- Image Buttons -->
                 <div class="col-12">
                     <div class="row">
+                        <div class="col-md mb-2 display-none" id="col-zoom-in">
+                            <button class="btn btn-primary btn-block">+</button>
+                        </div>
+                        <div class="col-md mb-2 display-none" id="col-zoom-out">
+                            <button class="btn btn-primary btn-block">-</button>
+                        </div>
                         <div class="col-md mb-2 display-none" id="col-remove-img">
                             <button class="btn btn-danger btn-block">Remove Image</button>
                         </div>
-                        <div class="col-md mb-2 display-none" id="col-zoom-in">
-                            <button class="btn btn-success btn-block">+</button>
+                    </div>
+                </div>
+                <!-- Frame Buttons -->
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-md mb-2 display-none" id="col-change-mod">
+                            <button class="btn btn-primary btn-block">Under Image</button>
                         </div>
-                        <div class="col-md mb-2 display-none" id="col-zoom-out">
-                            <button class="btn btn-success btn-block">-</button>
+                        <div class="col-md mb-2 display-none" id="col-remove-frame">
+                            <button class="btn btn-danger btn-block">Remove Frame</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md mb-2 display-none" id="col-remove-frame">
-                    <button class="btn btn-danger btn-block">Remove Frame</button>
+                <div class="col-12 mb-2 display-none" id="col-clear-all">
+                    <button class="btn btn-danger btn-block">Remove All</button>
                 </div>
                 <div class="col-12 display-none" id="col-load-mod">
                     <button class="btn btn-dark btn-block" id="load-img-from-device">Load from device ...</button>

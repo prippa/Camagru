@@ -91,4 +91,15 @@ export function getPercentFromSumAndNumber(sum, number, integer=true)
 
 export function dNone(elem) { elem.style.display = 'none'; }
 export function dBlock(elem) { elem.style.display = 'block'; }
+
 export function setCursor(elem, cursor='default') { elem.style.cursor = cursor; }
+
+export function switchLogic(number)
+{
+    if (number) {
+        number = 0;
+    } else {
+        number = 1;
+    }
+    return number;
+}
