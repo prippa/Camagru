@@ -1,4 +1,4 @@
-import {$, ajaxSendDataByPOST, insertAfter, redirect} from '../lib.js';
+import {$, ajaxSendDataByPOST, insertAfter, redirect, dBlock, dNone} from '../lib.js';
 
 const MESSAGE_MAX = 1024;
 const POST_URL = '/api/AddNewComment';
@@ -8,7 +8,7 @@ function setError(input_elem, message)
     const comment_error_elem = $('comment-error');
 
     comment_error_elem.innerHTML = message;
-    comment_error_elem.style.display = 'block';
+    dBlock(comment_error_elem);
     input_elem.classList.add('is-invalid');
 }
 
@@ -31,7 +31,7 @@ function addNewComment(comment)
     const comment_error_elem = $('comment-error');
     const comments_elem = $('comments-block');
 
-    comment_error_elem.style.display = 'none';
+    dNone(comment_error_elem);
     input_elem.classList.remove('is-invalid');
 
     const div = document.createElement('div');

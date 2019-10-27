@@ -1,5 +1,5 @@
 import {$, matrixArray, matrixFill, getPercentage, switchLogic,
-    dBlock, dNone, setCursor, getPercentFromSumAndNumber} from '../lib.js';
+    dBlock, dNone, setCursor, getPercentFromSumAndNumber, clearCanvas} from '../lib.js';
 import {Point} from './Point.class.js';
 import {ImageSize} from './ImageSize.class.js';
 
@@ -7,13 +7,15 @@ export class SuperImagesCanvas
 {
     constructor()
     {
-        this._canv         = $('super-img-canvas');
-        this._ctx          = this._canv.getContext('2d');
-        this._super_base   = [];
-        this._frame        = null;
-        this._frame_mod    = 1;
-        this._map          = null;
-        this._id           = 1;
+        this._canv       = $('super-img-canvas');
+        this._sc_images  = $('super-canvas-images');
+        this._sc_buttons = $('super-canvas-buttons');
+        this._ctx        = this._canv.getContext('2d');
+        this._super_base = [];
+        this._frame      = null;
+        this._frame_mod  = 1;
+        this._map        = null;
+        this._id         = 1;
 
         this._is_image_in_focus = false;
         this._current_img       = null;
@@ -21,12 +23,12 @@ export class SuperImagesCanvas
 
         this._image_size = new ImageSize();
 
-        this._col_remove_img        = $('col-remove-img');
-        this._col_zoom_in_img       = $('col-zoom-in');
-        this._col_zoom_out_img      = $('col-zoom-out');
-        this._col_remove_frame      = $('col-remove-frame');
-        this._col_change_mod_frame  = $('col-change-mod');
-        this._col_clear_all         = $('col-clear-all');
+        this._col_remove_img       = $('col-remove-img');
+        this._col_zoom_in_img      = $('col-zoom-in');
+        this._col_zoom_out_img     = $('col-zoom-out');
+        this._col_remove_frame     = $('col-remove-frame');
+        this._col_change_mod_frame = $('col-change-mod');
+        this._col_clear_all        = $('col-clear-all');
 
         //Button Remove Image Event
         this._col_remove_img.firstElementChild.onclick = () => {
@@ -81,7 +83,6 @@ export class SuperImagesCanvas
 
     get canv() { return this._canv; }
 
-    _clearCanvas() { this._ctx.clearRect(0, 0, this._canv.width, this._canv.height); }
     _getCenterX() { return Math.round(this._canv.width / 2) }
     _getCenterY() { return Math.round(this._canv.height / 2) }
     _getMousePos(evt)
@@ -96,6 +97,12 @@ export class SuperImagesCanvas
         if (y < 0) {
             y = 0;
         }
+        if (x >= this._canv.width) {
+            x = this._canv.width - 1;
+        }
+        if (y >= this._canv.height) {
+            y = this._canv.height - 1;
+        }
 
         return new Point(x, y);
     }
@@ -104,13 +111,17 @@ export class SuperImagesCanvas
         dNone(this._col_remove_img);
         dNone(this._col_zoom_in_img);
         dNone(this._col_zoom_out_img);
-        dNone(this._col_clear_all);
+        if (!this._frame) {
+            dNone(this._col_clear_all);
+        }
     }
     _hideFrameImageButtons()
     {
         dNone(this._col_remove_frame);
         dNone(this._col_change_mod_frame);
-        dNone(this._col_clear_all);
+        if (!this._super_base.length) {
+            dNone(this._col_clear_all);
+        }
     }
     _showSuperImageButtons()
     {
@@ -126,6 +137,20 @@ export class SuperImagesCanvas
         dBlock(this._col_clear_all);
     }
 
+    hide()
+    {
+        dNone(this._canv);
+        dNone(this._sc_buttons);
+        dNone(this._sc_images);
+    }
+
+    show()
+    {
+        dBlock(this._canv);
+        dBlock(this._sc_buttons);
+        dBlock(this._sc_images);
+    }
+
     clear()
     {
         if (this._super_base.length) {
@@ -137,7 +162,7 @@ export class SuperImagesCanvas
             this._hideFrameImageButtons();
         }
         matrixFill(this._map);
-        this._clearCanvas();
+        clearCanvas(this._canv);
     }
 
     _drawOnMap(x, y, width, height, num)
@@ -185,7 +210,7 @@ export class SuperImagesCanvas
 
     _draw()
     {
-        this._clearCanvas();
+        clearCanvas(this._canv);
         matrixFill(this._map);
         if (this._frame_mod) {
             this._drawImages();

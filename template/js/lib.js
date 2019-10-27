@@ -103,3 +103,5 @@ export function switchLogic(number)
     }
     return number;
 }
+
+export function clearCanvas(canv) { canv.getContext('2d').clearRect(0, 0, canv.width, canv.height); }

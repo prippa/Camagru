@@ -1,4 +1,4 @@
-import {$} from "../lib.js";
+import {$, dBlock} from "../lib.js";
 import {initLikeSystem} from './likes.js';
 import {initDeleteSystem} from './delete.js';
 
@@ -26,6 +26,6 @@ export function initShowMore(func)
         show_more_elem.onclick = function() {
             func(window.ld_photo_count);
         };
-        $('show-more-block').style.display = 'block';
+        dBlock($('show-more-block'));
     }
 }

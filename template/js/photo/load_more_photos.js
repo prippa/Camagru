@@ -1,4 +1,4 @@
-import {$, insertAfter} from '../lib.js';
+import {$, insertAfter, dNone} from '../lib.js';
 import {initLikeSystem} from './likes.js';
 import {initDeleteSystem} from './delete.js';
 
@@ -113,7 +113,7 @@ function ajaxSend(func, photo_count, query_type)
             let photos = JSON.parse(xhr.responseText);
 
             if (photos.length < photo_count) {
-                $('show-more-block').style.display = 'none';
+                dNone($('show-more-block'));
             }
             func(photos);
             window.ld_cycle += photos.length;

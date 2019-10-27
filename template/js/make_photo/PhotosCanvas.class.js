@@ -1,4 +1,4 @@
-import {$, insertBefore, dNone, dBlock} from '../lib.js';
+import {$, insertBefore, dNone, dBlock, clearCanvas} from '../lib.js';
 
 export class PhotosCanvas
 {
@@ -21,7 +21,7 @@ export class PhotosCanvas
                `<img class="img-fluid" src="${data.src}" alt="">`;
     }
 
-    delete(id, video, super_img_obj)
+    delete(id)
     {
         const elem = $('made-img-block' + id);
 
@@ -33,7 +33,7 @@ export class PhotosCanvas
 
                 if (!this._images.length) {
                     dNone(this._made_img_col_elem);
-                    super_img_obj.resetSize(video.clientWidth, video.clientHeight);
+                    window.onresize();
                 }
 
                 return false;
@@ -43,12 +43,13 @@ export class PhotosCanvas
         return true;
     }
 
-    add(container_elem, video, super_img_obj)
+    add(container_elem, src_obj, super_img_obj)
     {
-        this._ctx.drawImage(video, 0, 0, this._canv.width, this._canv.height);
+        this._ctx.drawImage(src_obj, 0, 0, this._canv.width, this._canv.height);
         this._ctx.drawImage(super_img_obj.canv, 0, 0, this._canv.width, this._canv.height);
-
         const src = this._canv.toDataURL('image/png');
+        clearCanvas(this._canv);
+
         const div = document.createElement('div');
         const data = {id: this._id, src: src};
 
@@ -61,10 +62,10 @@ export class PhotosCanvas
 
         if (this._images.length === 1) {
             dBlock(this._made_img_col_elem);
-            super_img_obj.resetSize(video.clientWidth, video.clientHeight);
+            window.onresize();
         }
 
-        $('delete-made-img' + data.id).onclick = () => this.delete(data.id, video, super_img_obj);
+        $('delete-made-img' + data.id).onclick = () => this.delete(data.id);
 
         ++this._id;
     }
