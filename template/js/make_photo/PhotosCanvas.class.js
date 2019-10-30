@@ -70,27 +70,26 @@ export class PhotosCanvas
         ++this._id;
     }
 
-    _ajaxSend(image)
+    async _ajaxSend(image)
     {
-        let xhr = new XMLHttpRequest();
-
-        xhr.open('POST', this._url, true);
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                if (xhr.responseText !== 'KO') {
-                    this.delete(parseInt(xhr.responseText, 10));
-                }
-            }
-        };
-
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhr.send(`image_base_64=${image.src}&image_id=${image.id}`);
+        const res = await fetch(this._url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+            },
+            body: `image_base_64=${image.src}&image_id=${image.id}`
+        });
+        const photoId = await res.json();
+        this.delete(photoId);
+        return res;
     }
 
     upload()
     {
+        let promises = [];
         this._images.forEach((image) => {
-            this._ajaxSend(image);
+            promises.push(this._ajaxSend(image));
         });
+        return Promise.all(promises);
     }
 }
