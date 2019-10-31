@@ -10,7 +10,7 @@ abstract class DB
     /**
      * Get connected object of PDO Class
      */
-    public static function getConnection() : PDO
+    public static function getConnection(): PDO
     {
         $settings = require 'config/database.php';
         $dns = "mysql:dbname={$settings['dbname']};host={$settings['host']}";
@@ -25,7 +25,7 @@ abstract class DB
         return $db;
     }
 
-    public static function isArgExists(string $table, string $column, string $arg, PDO $db=null) : array
+    public static function isArgExists(string $table, string $column, string $arg, PDO $db = null): array
     {
         if (!$db) {
             $db = self::getConnection();
@@ -43,7 +43,7 @@ abstract class DB
      * @param PDO|null $db
      * @return bool|PDOStatement
      */
-    public static function execute(string $sql, array $params=[], PDO $db=null)
+    public static function execute(string $sql, array $params = [], PDO $db = null)
     {
         if (!$db) {
             $db = self::getConnection();

@@ -1,10 +1,9 @@
-import {$, ajaxSendDataByPOST, insertAfter, redirect, dBlock, dNone} from '../lib.js';
+import { $, ajaxSendDataByPOST, insertAfter, redirect, dBlock, dNone } from '../lib.js';
 
 const MESSAGE_MAX = 1024;
 const POST_URL = '/api/AddNewComment';
 
-function setError(input_elem, message)
-{
+function setError(input_elem, message) {
     const comment_error_elem = $('comment-error');
 
     comment_error_elem.innerHTML = message;
@@ -12,8 +11,7 @@ function setError(input_elem, message)
     input_elem.classList.add('is-invalid');
 }
 
-function errorValidation(input_elem)
-{
+function errorValidation(input_elem) {
     if (input_elem.value.length > MESSAGE_MAX) {
         setError(input_elem, `Message can't be more than ${MESSAGE_MAX} characters`);
     } else if (!input_elem.value.length) {
@@ -25,8 +23,7 @@ function errorValidation(input_elem)
     return true;
 }
 
-function addNewComment(comment)
-{
+function addNewComment(comment) {
     const input_elem = $('comment-input');
     const comment_error_elem = $('comment-error');
     const comments_elem = $('comments-block');
@@ -49,8 +46,7 @@ function addNewComment(comment)
     comments_elem.scrollTop = comments_elem.scrollHeight;
 }
 
-export function sendComment(photo_id)
-{
+export function sendComment(photo_id) {
     if (!window.is_logged) {
         redirect('login');
     }

@@ -69,7 +69,7 @@ abstract class View
             'page' => 'views/error_pages/500.php', 'title' => '500'],
     ];
 
-    private static function getAdditionalData() : array
+    private static function getAdditionalData(): array
     {
         $base_date = [];
         $base_date['is_logged'] = User::isLogged();
@@ -97,7 +97,7 @@ abstract class View
      * @param string|null $title
      * @param bool $is_exit
      */
-    public static function run(int $view_id, array $data=[], string $title=null, bool $is_exit=true) : void
+    public static function run(int $view_id, array $data=[], string $title=null, bool $is_exit=true): void
     {
         $data += self::getAdditionalData();
         $view_elem = self::VIEWS_PATH_MAP[$view_id];

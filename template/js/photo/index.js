@@ -1,8 +1,7 @@
-import {initPhotos, initShowMore} from './init.js';
-import {loadMorePhotosOnMainPage} from './load_more_photos.js'
+import { initPhotos, initShowMore } from './init.js';
+import { loadMorePhotosOnMainPage } from './load_more_photos.js'
 
-(function ()
-{
+(function () {
     initShowMore(loadMorePhotosOnMainPage);
     initPhotos(window.photos);
 })();

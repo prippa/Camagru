@@ -7,7 +7,7 @@ use PDO;
 
 abstract class PasswordReset extends Modal
 {
-    public static function validation(string $email) : ?array
+    public static function validation(string $email): ?array
     {
         $db = DB::getConnection();
 
@@ -32,7 +32,7 @@ abstract class PasswordReset extends Modal
         return null;
     }
 
-    public static function formValidation(string $password, string $password_confirm) : ?array
+    public static function formValidation(string $password, string $password_confirm): ?array
     {
         $errors = null;
         $dvr = require self::FVR_PATH;
@@ -47,13 +47,13 @@ abstract class PasswordReset extends Modal
         return $errors;
     }
 
-    public static function add(string $email, string $token) : void
+    public static function add(string $email, string $token): void
     {
         $sql = 'INSERT INTO password_reset (email, token) VALUES (:email, :token)';
         DB::execute($sql, [':email' => $email, ':token' => $token]);
     }
 
-    public static function getEmailByToken(string $token) : ?string
+    public static function getEmailByToken(string $token): ?string
     {
         $sql = 'SELECT email FROM password_reset WHERE token = :token LIMIT 1';
         $result = DB::execute($sql, [':token' => $token]);
@@ -63,7 +63,7 @@ abstract class PasswordReset extends Modal
         return $email['email'];
     }
 
-    public static function deleteByEmail(string $email) : void
+    public static function deleteByEmail(string $email): void
     {
         $sql = 'DELETE FROM password_reset WHERE email = :email LIMIT 1';
         DB::execute($sql, [':email' => $email]);

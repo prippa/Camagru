@@ -7,13 +7,13 @@ use PDO;
 
 abstract class Comment
 {
-    public static function add(int $user_id, int $photo_id, string $comment) : void
+    public static function add(int $user_id, int $photo_id, string $comment): void
     {
         $sql = 'INSERT INTO photo_comment (user_id, photo_id, comment) VALUES (:user_id, :photo_id, :comment)';
         DB::execute($sql, [':user_id' => $user_id, ':photo_id' => $photo_id, ':comment' => $comment]);
     }
 
-    public static function getByID(int $id) : ?array
+    public static function getByID(int $id): ?array
     {
         $sql = 'SELECT user_id, photo_id, comment FROM photo_comment WHERE id = :id';
 
@@ -22,7 +22,7 @@ abstract class Comment
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getAllCommentsByPhotoId(int $photo_id) : ?array
+    public static function getAllCommentsByPhotoId(int $photo_id): ?array
     {
         $sql = 'SELECT
                     photo_comment.comment,

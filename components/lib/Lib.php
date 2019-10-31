@@ -9,7 +9,7 @@ abstract class Lib
     /**
      * @param $url - Route
      */
-    public static function redirect(string $url = null) : void
+    public static function redirect(string $url = null): void
     {
         $request = $_SERVER['REQUEST_SCHEME'];
         $host = $_SERVER['HTTP_HOST'];
@@ -18,7 +18,7 @@ abstract class Lib
         exit();
     }
 
-    public static function getUniqueToken(string $text) : string
+    public static function getUniqueToken(string $text): string
     {
         $s = 'My super secret token';
         $token = md5(time() . $text . $s);
@@ -26,7 +26,7 @@ abstract class Lib
         return $token;
     }
 
-    public static function debug($data, bool $is_exit=true) : void
+    public static function debug($data, bool $is_exit = true): void
     {
         echo '<pre>';
         var_dump($data);
@@ -37,7 +37,7 @@ abstract class Lib
         }
     }
 
-    public static function fwrite(string $message, string $filename='test.txt', string $rights='a+')
+    public static function fwrite(string $message, string $filename = 'test.txt', string $rights = 'a+')
     {
         $fd = fopen($filename, $rights);
         fwrite($fd, $message);

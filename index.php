@@ -13,7 +13,7 @@ try {
     /**
      * Call the Psr4AutoloaderClass and load all namespaces in namespaces.php file
      */
-    (function() {
+    (function () {
         require 'components/Psr4AutoloaderClass.php';
         $ns_list = require 'config/namespaces.php';
 
@@ -30,14 +30,15 @@ try {
         require 'config/routes.php',
         'app\\controllers\\',
         'action',
-        'Controller');
+        'Controller'
+    );
 
     if (!$router->run()) {
         app\views\View::run(app\views\View::ERROR_404);
     }
 } catch (Exception $e) {
     if (DEBUG) {
-        echo "<pre style='color: red; font-size: 16px;'>". $e. "</pre>";
+        echo "<pre style='color: red; font-size: 16px;'>" . $e . "</pre>";
     } else {
         app\views\View::run(app\views\View::ERROR_500);
     }

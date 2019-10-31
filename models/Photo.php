@@ -8,19 +8,19 @@ use PDO;
 
 abstract class Photo
 {
-    public static function add(string $img, int $user_id) : void
+    public static function add(string $img, int $user_id): void
     {
         $sql = 'INSERT INTO photo (user_id, img) VALUES (:user_id, :img)';
         DB::execute($sql, [':user_id' => $user_id, ':img' => $img]);
     }
 
-    public static function deleteById(int $id) : void
+    public static function deleteById(int $id): void
     {
         $sql = 'DELETE FROM photo WHERE id = :id LIMIT 1';
         DB::execute($sql, [':id' => $id]);
     }
 
-    public static function getLastNPhotos(int $size, ?int $user_id, int $start_from=0) : ?array
+    public static function getLastNPhotos(int $size, ?int $user_id, int $start_from = 0): ?array
     {
         $sql = "SELECT
                     likes.like_status,
@@ -40,7 +40,7 @@ abstract class Photo
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getLastNUserPhotos(int $size, int $user_id, int $start_from=0) : ?array
+    public static function getLastNUserPhotos(int $size, int $user_id, int $start_from = 0): ?array
     {
         $sql = "SELECT
                     likes.like_status,
@@ -61,7 +61,7 @@ abstract class Photo
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function preparePhotos(?array & $photos) : void
+    public static function preparePhotos(?array &$photos): void
     {
         foreach ($photos as &$photo) {
             $photo['create_date'] = (new DateTime($photo['create_date']))->format('d M Y H:i');
@@ -69,7 +69,7 @@ abstract class Photo
         }
     }
 
-    public static function getPhotoById(int $id, ?int $user_id) : ?array
+    public static function getPhotoById(int $id, ?int $user_id): ?array
     {
         $sql = 'SELECT
                     likes.like_status,
@@ -90,7 +90,7 @@ abstract class Photo
         return $data ? $data : null;
     }
 
-    public static function getUserIdById(int $id) : ?string
+    public static function getUserIdById(int $id): ?string
     {
         $sql = 'SELECT user_id FROM photo WHERE id = :id LIMIT 1';
 
@@ -99,7 +99,7 @@ abstract class Photo
         return $result->fetch(PDO::FETCH_ASSOC)['user_id'];
     }
 
-    public static function getFileById(int $id) : ?string
+    public static function getFileById(int $id): ?string
     {
         $sql = 'SELECT img FROM photo WHERE id = :id LIMIT 1';
 

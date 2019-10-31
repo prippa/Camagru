@@ -26,7 +26,7 @@ class ApiController
         exit('OK');
     }
 
-    private function sendNotification(int $user_id, int $photo_id) : void
+    private function sendNotification(int $user_id, int $photo_id): void
     {
         $photo_user_id = Photo::getUserIdById($photo_id);
 
@@ -94,7 +94,7 @@ class ApiController
         echo 'OK';
     }
 
-    private function uploadImage(string $image) : ?string
+    private function uploadImage(string $image): ?string
     {
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);

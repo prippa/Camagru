@@ -8,7 +8,7 @@ use PDO;
 
 abstract class User extends Modal
 {
-    public static function add(string $login, string $email, string $password, string $vkey) : void
+    public static function add(string $login, string $email, string $password, string $vkey): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
@@ -16,7 +16,7 @@ abstract class User extends Modal
         DB::execute($sql, [':login' => $login, ':password' => $password, ':email' => $email, ':vkey' => $vkey]);
     }
 
-    public static function updatePasswordByLogin(string $login, string $password) : void
+    public static function updatePasswordByLogin(string $login, string $password): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
@@ -24,19 +24,19 @@ abstract class User extends Modal
         DB::execute($sql, [':password' => $password, ':login' => $login]);
     }
 
-    public static function updateLogin(int $id, string $login) : void
+    public static function updateLogin(int $id, string $login): void
     {
         $sql = "UPDATE user SET login = :login WHERE id = :id LIMIT 1";
         DB::execute($sql, [':login' => $login, ':id' => $id]);
     }
 
-    public static function updateEmail(string $email, int $id) : void
+    public static function updateEmail(string $email, int $id): void
     {
         $sql = "UPDATE user SET email = :email WHERE id = :id LIMIT 1";
         DB::execute($sql, [':email' => $email, ':id' => $id]);
     }
 
-    public static function updatePassword(string $password, int $id) : void
+    public static function updatePassword(string $password, int $id): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
@@ -44,13 +44,13 @@ abstract class User extends Modal
         DB::execute($sql, [':password' => $password, ':id' => $id]);
     }
 
-    public static function updateNotifications(string $notification, int $id) : void
+    public static function updateNotifications(string $notification, int $id): void
     {
         $sql = "UPDATE user SET notifications = :notification WHERE id = :id LIMIT 1";
         DB::execute($sql, [':notification' => $notification, ':id' => $id]);
     }
 
-    public static function confirmMail(string $vkey) : bool
+    public static function confirmMail(string $vkey): bool
     {
         $db = DB::getConnection();
 
@@ -66,7 +66,7 @@ abstract class User extends Modal
         return true;
     }
 
-    public static function checkLogin(string $login) : bool
+    public static function checkLogin(string $login): bool
     {
         $regex_rule = require self::FVR_PATH;
 
@@ -77,7 +77,7 @@ abstract class User extends Modal
         return false;
     }
 
-    public static function checkPassword(string $password) : bool
+    public static function checkPassword(string $password): bool
     {
         $regex_rule = require self::FVR_PATH;
 
@@ -88,7 +88,7 @@ abstract class User extends Modal
         return false;
     }
 
-    public static function checkEmail(string $email) : bool
+    public static function checkEmail(string $email): bool
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
@@ -97,7 +97,7 @@ abstract class User extends Modal
         return false;
     }
 
-    private static function baseValidation($login, $password) : ?array
+    private static function baseValidation($login, $password): ?array
     {
         $errors = null;
 
@@ -111,7 +111,7 @@ abstract class User extends Modal
         return $errors;
     }
 
-    public static function loginValidate(string $login, string $password) : array
+    public static function loginValidate(string $login, string $password): array
     {
         $errors = self::baseValidation($login, $password);
 
@@ -136,8 +136,10 @@ abstract class User extends Modal
         return ['id' => $user['id']];
     }
 
-    public static function registerValidate(string $login, string $email,
-                                            string $password, string $password_confirm) : ?array
+    public static function registerValidate(string $login,
+                                            string $email,
+                                            string $password,
+                                            string $password_confirm) : ?array
     {
         $errors = self::baseValidation($login, $password);
 
@@ -162,7 +164,7 @@ abstract class User extends Modal
         return $errors;
     }
 
-    public static function getLoginByEmail(string $email) : ?string
+    public static function getLoginByEmail(string $email): ?string
     {
         $sql = 'SELECT login FROM user WHERE email = :email LIMIT 1';
 
@@ -172,7 +174,7 @@ abstract class User extends Modal
         return $login['login'];
     }
 
-    public static function getLoginById(int $id) : ?string
+    public static function getLoginById(int $id): ?string
     {
         $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
 
@@ -181,7 +183,7 @@ abstract class User extends Modal
         return $result->fetch(PDO::FETCH_ASSOC)['login'];
     }
 
-    public static function getUserByID(int $id) : ?array
+    public static function getUserByID(int $id): ?array
     {
         $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
 
@@ -190,17 +192,17 @@ abstract class User extends Modal
         return $result->fetch(PDO::FETCH_ASSOC);
     }
 
-    public static function login(string $id) : void
+    public static function login(string $id): void
     {
         $_SESSION['user'] = $id;
     }
 
-    public static function logout() : void
+    public static function logout(): void
     {
         unset($_SESSION['user']);
     }
 
-    public static function isLogged() : bool
+    public static function isLogged(): bool
     {
         if (isset($_SESSION['user'])) {
             return true;
@@ -209,7 +211,7 @@ abstract class User extends Modal
         return false;
     }
 
-    public static function getId() : ?int
+    public static function getId(): ?int
     {
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
@@ -218,14 +220,14 @@ abstract class User extends Modal
         return null;
     }
 
-    public static function redirectToLoginCheck() : void
+    public static function redirectToLoginCheck(): void
     {
         if (!self::isLogged()) {
             Lib::redirect('login');
         }
     }
 
-    public static function redirectToHomeCheck() : void
+    public static function redirectToHomeCheck(): void
     {
         if (self::isLogged()) {
             Lib::redirect();

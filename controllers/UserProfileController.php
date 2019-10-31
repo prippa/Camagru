@@ -12,10 +12,10 @@ use app\models\User;
 class UserProfileController
 {
     //********************************************* Profile Settings ***************************************************
-    private function psProcessLogin(array &$db_data, array $form_data, array &$messages) : void
+    private function psProcessLogin(array &$db_data, array $form_data, array &$messages): void
     {
         if ($db_data['login'] == $form_data['login']) {
-            return ;
+            return;
         }
 
         if (User::checkLogin($form_data['login'])) {
@@ -27,20 +27,20 @@ class UserProfileController
         }
     }
 
-    private function psProcessEmail(array $db_data, array $form_data, array &$messages) : void
+    private function psProcessEmail(array $db_data, array $form_data, array &$messages): void
     {
         if ($db_data['email'] == $form_data['email']) {
-            return ;
+            return;
         }
 
         if (User::checkEmail($form_data['email'])) {
-            $messages['success'][] = 'Please confirm your new email address to change old. '.
-                               "We just emailed you at <b>{$form_data['email']}</b>. ".
-                               'Click the link in your email to confirm your new email. '.
-                               "If you can't find the email check your spam folder.";
+            $messages['success'][] = 'Please confirm your new email address to change old. ' .
+                "We just emailed you at <b>{$form_data['email']}</b>. " .
+                'Click the link in your email to confirm your new email. ' .
+                "If you can't find the email check your spam folder.";
 
             if (EmailReset::checkEmail($form_data['email'])) {
-                return ;
+                return;
             }
 
             $token = Lib::getUniqueToken($form_data['email']);
@@ -52,10 +52,10 @@ class UserProfileController
         }
     }
 
-    private function psProcessPassword(array $db_data, array $form_data, array &$messages) : void
+    private function psProcessPassword(array $db_data, array $form_data, array &$messages): void
     {
         if ($form_data['old_password'] == '') {
-            return ;
+            return;
         }
 
         if (password_verify($form_data['old_password'], $db_data['password'])) {
@@ -74,12 +74,12 @@ class UserProfileController
         }
     }
 
-    private function psProcessNotifications(array &$db_data, array $form_data, array &$messages) : void
+    private function psProcessNotifications(array &$db_data, array $form_data, array &$messages): void
     {
         $notifications = isset($form_data['notifications']) ? '1' : '0';
 
         if ($db_data['notifications'] == $notifications) {
-            return ;
+            return;
         }
 
         if ($notifications == '1') {
@@ -119,8 +119,8 @@ class UserProfileController
         }
 
         $user_data = User::getUserByID(User::getId());
-        $messages['success'][] = "Your old email - <b>{$user_data['email']}</b> ".
-                                 "has been changed to the new one - <b>$email</b>";
+        $messages['success'][] = "Your old email - <b>{$user_data['email']}</b> " .
+            "has been changed to the new one - <b>$email</b>";
 
         $user_data['email'] = $email;
         User::updateEmail($email, User::getId());

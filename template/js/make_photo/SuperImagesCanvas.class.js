@@ -1,34 +1,34 @@
-import {$, matrixArray, matrixFill, getPercentage, switchLogic,
-    dBlock, dNone, setCursor, getPercentFromSumAndNumber, clearCanvas} from '../lib.js';
-import {Point} from './Point.class.js';
-import {ImageSize} from './ImageSize.class.js';
+import {
+    $, matrixArray, matrixFill, getPercentage, switchLogic,
+    dBlock, dNone, setCursor, getPercentFromSumAndNumber, clearCanvas
+} from '../lib.js';
+import { Point } from './Point.class.js';
+import { ImageSize } from './ImageSize.class.js';
 
-export class SuperImagesCanvas
-{
-    constructor()
-    {
-        this._canv       = $('super-img-canvas');
-        this._sc_images  = $('super-canvas-images');
+export class SuperImagesCanvas {
+    constructor() {
+        this._canv = $('super-img-canvas');
+        this._sc_images = $('super-canvas-images');
         this._sc_buttons = $('super-canvas-buttons');
-        this._ctx        = this._canv.getContext('2d');
+        this._ctx = this._canv.getContext('2d');
         this._super_base = [];
-        this._frame      = null;
-        this._frame_mod  = 1;
-        this._map        = null;
-        this._id         = 1;
+        this._frame = null;
+        this._frame_mod = 1;
+        this._map = null;
+        this._id = 1;
 
         this._is_image_in_focus = false;
-        this._current_img       = null;
-        this._pos_size          = null;
+        this._current_img = null;
+        this._pos_size = null;
 
         this._image_size = new ImageSize();
 
-        this._col_remove_img       = $('col-remove-img');
-        this._col_zoom_in_img      = $('col-zoom-in');
-        this._col_zoom_out_img     = $('col-zoom-out');
-        this._col_remove_frame     = $('col-remove-frame');
+        this._col_remove_img = $('col-remove-img');
+        this._col_zoom_in_img = $('col-zoom-in');
+        this._col_zoom_out_img = $('col-zoom-out');
+        this._col_remove_frame = $('col-remove-frame');
         this._col_change_mod_frame = $('col-change-mod');
-        this._col_clear_all        = $('col-clear-all');
+        this._col_clear_all = $('col-clear-all');
 
         //Button Remove Image Event
         this._col_remove_img.firstElementChild.onclick = () => this._removeImage();
@@ -49,8 +49,7 @@ export class SuperImagesCanvas
         this._col_clear_all.firstElementChild.onclick = () => this.clear();
     }
 
-    _removeImage()
-    {
+    _removeImage() {
         if (this._super_base.length) {
             this._super_base.pop();
             this._draw();
@@ -59,30 +58,26 @@ export class SuperImagesCanvas
             }
         }
     }
-    _removeFrame()
-    {
+    _removeFrame() {
         this._frame = null;
         this._draw();
         this._hideFrameImageButtons();
     }
-    _zoomImageIn()
-    {
+    _zoomImageIn() {
         const img = this._super_base[this._super_base.length - 1];
 
         img.size_index = this._image_size.incrementIndex(img.size_index);
         this._resizeImage(img);
         this._draw();
     }
-    _zoomImageOut()
-    {
+    _zoomImageOut() {
         const img = this._super_base[this._super_base.length - 1];
 
         img.size_index = this._image_size.decrementIndex(img.size_index);
         this._resizeImage(img);
         this._draw();
     }
-    _changeFrameMod()
-    {
+    _changeFrameMod() {
         this._frame_mod = switchLogic(this._frame_mod);
         if (this._frame_mod) {
             this._col_change_mod_frame.firstElementChild.innerHTML = 'Under Image'
@@ -96,8 +91,7 @@ export class SuperImagesCanvas
 
     _getCenterX() { return Math.round(this._canv.width / 2) }
     _getCenterY() { return Math.round(this._canv.height / 2) }
-    _posValidation(x, y)
-    {
+    _posValidation(x, y) {
         if (x < 0) {
             x = 0;
         }
@@ -113,16 +107,14 @@ export class SuperImagesCanvas
 
         return new Point(x, y);
     }
-    _getMousePos(evt)
-    {
+    _getMousePos(evt) {
         const rect = this._canv.getBoundingClientRect();
         let x = Math.ceil(evt.clientX - rect.left);
         let y = Math.ceil(evt.clientY - rect.top);
 
         return this._posValidation(x, y);
     }
-    _getTouchPos(touchEvent)
-    {
+    _getTouchPos(touchEvent) {
         const rect = this._canv.getBoundingClientRect();
         let x = Math.ceil(touchEvent.touches[0].clientX - rect.left);
         let y = Math.ceil(touchEvent.touches[0].clientY - rect.top);
@@ -130,8 +122,7 @@ export class SuperImagesCanvas
         return this._posValidation(x, y);
     }
 
-    _hideSuperImageButtons()
-    {
+    _hideSuperImageButtons() {
         dNone(this._col_remove_img);
         dNone(this._col_zoom_in_img);
         dNone(this._col_zoom_out_img);
@@ -139,44 +130,38 @@ export class SuperImagesCanvas
             dNone(this._col_clear_all);
         }
     }
-    _hideFrameImageButtons()
-    {
+    _hideFrameImageButtons() {
         dNone(this._col_remove_frame);
         dNone(this._col_change_mod_frame);
         if (!this._super_base.length) {
             dNone(this._col_clear_all);
         }
     }
-    _showSuperImageButtons()
-    {
+    _showSuperImageButtons() {
         dBlock(this._col_remove_img);
         dBlock(this._col_zoom_in_img);
         dBlock(this._col_zoom_out_img);
         dBlock(this._col_clear_all);
     }
-    _showFrameImageButtons()
-    {
+    _showFrameImageButtons() {
         dBlock(this._col_remove_frame);
         dBlock(this._col_change_mod_frame);
         dBlock(this._col_clear_all);
     }
 
-    hide()
-    {
+    hide() {
         dNone(this._canv);
         dNone(this._sc_buttons);
         dNone(this._sc_images);
     }
 
-    show()
-    {
+    show() {
         dBlock(this._canv);
         dBlock(this._sc_buttons);
         dBlock(this._sc_images);
     }
 
-    clear()
-    {
+    clear() {
         if (this._super_base.length) {
             this._super_base = [];
             this._hideSuperImageButtons();
@@ -189,9 +174,8 @@ export class SuperImagesCanvas
         clearCanvas(this._canv);
     }
 
-    _drawOnMap(x, y, width, height, num)
-    {
-        let  yi = 0, xj = 0;
+    _drawOnMap(x, y, width, height, num) {
+        let yi = 0, xj = 0;
 
         for (let i = 0; i < height; ++i) {
             yi = y + i;
@@ -214,8 +198,7 @@ export class SuperImagesCanvas
         }
     }
 
-    _drawImages()
-    {
+    _drawImages() {
         for (let i = 0; i < this._super_base.length; ++i) {
             const sb = this._super_base[i];
 
@@ -224,16 +207,14 @@ export class SuperImagesCanvas
         }
     }
 
-    _drawFrame()
-    {
+    _drawFrame() {
         if (!this._frame) {
-            return ;
+            return;
         }
         this._ctx.drawImage(this._frame, 0, 0, this._canv.width, this._canv.height);
     }
 
-    _draw()
-    {
+    _draw() {
         clearCanvas(this._canv);
         matrixFill(this._map);
         if (this._frame_mod) {
@@ -245,8 +226,7 @@ export class SuperImagesCanvas
         }
     }
 
-    _resizeImage(img)
-    {
+    _resizeImage(img) {
         const map_sum = this._canv.height * this._canv.width;
         let img_sum = img.height * img.width;
         let current_percent = getPercentFromSumAndNumber(map_sum, img_sum);
@@ -274,8 +254,7 @@ export class SuperImagesCanvas
         }
     }
 
-    resetSize(width, height)
-    {
+    resetSize(width, height) {
         const old_width = this._canv.width;
         const old_height = this._canv.height;
 
@@ -304,8 +283,7 @@ export class SuperImagesCanvas
         this._draw();
     }
 
-    _onmousedown(evt, pos=null)
-    {
+    _onmousedown(evt, pos = null) {
         if (!pos) {
             pos = this._getMousePos(evt);
         }
@@ -329,13 +307,11 @@ export class SuperImagesCanvas
         }
     }
 
-    _onmouseup()
-    {
+    _onmouseup() {
         this._is_image_in_focus = false;
     }
 
-    _onmousemove(evt, pos=null)
-    {
+    _onmousemove(evt, pos = null) {
         if (!pos) {
             pos = this._getMousePos(evt);
         }
@@ -346,7 +322,7 @@ export class SuperImagesCanvas
             } else {
                 setCursor(this._canv, 'default');
             }
-            return ;
+            return;
         }
 
         this._current_img.point.y += (pos.y - this._current_img.point.y) - this._pos_size.height;
@@ -354,22 +330,18 @@ export class SuperImagesCanvas
         this._draw();
     }
 
-    _ontouchmove(evt)
-    {
+    _ontouchmove(evt) {
         this._onmousemove(evt, this._getTouchPos(evt));
     }
-    _ontouchstart(evt)
-    {
+    _ontouchstart(evt) {
         this._onmousedown(evt, this._getTouchPos(evt));
     }
 
-    _onmouseleave()
-    {
+    _onmouseleave() {
         this._is_image_in_focus = false;
     }
 
-    init(super_images)
-    {
+    init(super_images) {
         // Init Super Images
         super_images['base'].forEach((base) => {
             $('super-img-base' + base.id).onclick = () => {

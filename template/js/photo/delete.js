@@ -1,15 +1,14 @@
-import {$} from '../lib.js';
-import {loadMorePhotosOnMyPhotos} from './load_more_photos.js'
+import { $ } from '../lib.js';
+import { loadMorePhotosOnMyPhotos } from './load_more_photos.js'
 
 const API_DELETE_URL = '/api/DeletePhotoById';
 
-function sendByAjax(id)
-{
+function sendByAjax(id) {
     const data = `id=${id}`;
     let xhr = new XMLHttpRequest();
 
     xhr.open('POST', API_DELETE_URL, true);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             --window.ld_cycle;
             loadMorePhotosOnMyPhotos(1);
@@ -19,8 +18,7 @@ function sendByAjax(id)
     xhr.send(data);
 }
 
-function deletePhotoById(id)
-{
+function deletePhotoById(id) {
     let is_agree = confirm('Are you sure?');
 
     if (!is_agree) {
@@ -35,11 +33,10 @@ function deletePhotoById(id)
     return true;
 }
 
-export function initDeleteSystem(photo_id)
-{
+export function initDeleteSystem(photo_id) {
     const delete_elem = $('delete' + photo_id);
 
-    delete_elem.onclick = function() {
+    delete_elem.onclick = function () {
         deletePhotoById(photo_id);
     };
 }

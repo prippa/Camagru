@@ -1,9 +1,8 @@
-import {$, ajaxSendDataByPOST, redirect} from '../lib.js';
+import { $, ajaxSendDataByPOST, redirect } from '../lib.js';
 
 const POST_REQUEST_URL = '/api/LikeDislikePOST';
 
-function likeLogic(elem)
-{
+function likeLogic(elem) {
     const like_status = elem.like.classList.contains('like') ? 1 : 0;
 
     if (elem.dislike.classList.contains('dislike')) {
@@ -19,8 +18,7 @@ function likeLogic(elem)
     }
 }
 
-function dislikeLogic(elem)
-{
+function dislikeLogic(elem) {
     const like_status = elem.dislike.classList.contains('dislike') ? 0 : 1;
 
     if (elem.like.classList.contains('like')) {
@@ -36,8 +34,7 @@ function dislikeLogic(elem)
     }
 }
 
-function getElements(id)
-{
+function getElements(id) {
     return {
         like: $('like' + id),
         dislike: $('dislike' + id),
@@ -46,8 +43,7 @@ function getElements(id)
     };
 }
 
-function like(id, elem_id)
-{
+function like(id, elem_id) {
     if (!window.is_logged) {
         redirect('login');
     }
@@ -58,8 +54,7 @@ function like(id, elem_id)
     ajaxSendDataByPOST(POST_REQUEST_URL, data);
 }
 
-function dislike(id, elem_id)
-{
+function dislike(id, elem_id) {
     if (!window.is_logged) {
         redirect('login');
     }
@@ -70,8 +65,7 @@ function dislike(id, elem_id)
     ajaxSendDataByPOST(POST_REQUEST_URL, data);
 }
 
-export function initLikeSystem(photo_id, like_status, id='')
-{
+export function initLikeSystem(photo_id, like_status, id = '') {
     const like_elem = $('like' + id);
     const dislike_elem = $('dislike' + id);
 
@@ -81,10 +75,10 @@ export function initLikeSystem(photo_id, like_status, id='')
         dislike_elem.classList.add('dislike');
     }
 
-    like_elem.onclick = function() {
+    like_elem.onclick = function () {
         like(photo_id, id)
     };
-    dislike_elem.onclick = function() {
+    dislike_elem.onclick = function () {
         dislike(photo_id, id)
     };
 }

@@ -1,39 +1,38 @@
-import {$, dNone, dBlock} from '../lib.js';
-import {PhotosCanvas} from './PhotosCanvas.class.js';
-import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
+import { $, dNone, dBlock } from '../lib.js';
+import { PhotosCanvas } from './PhotosCanvas.class.js';
+import { SuperImagesCanvas } from './SuperImagesCanvas.class.js'
 
 (function () {
     // Variables INIT
     navigator.getMedia = navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
-                         navigator.msGetUserMedia;
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia;
 
-    let video          = $('video-element'),
-        img            = $('device-img'),
-        col_load_img   = $('col-load-img'),
+    let video = $('video-element'),
+        img = $('device-img'),
+        col_load_img = $('col-load-img'),
         col_load_video = $('col-load-video'),
-        col_cancel     = $('col-cancel'),
-        col_confirm    = $('col-confirm'),
-        col_make       = $('col-make'),
-        btn_load_img   = col_load_img.firstElementChild,
+        col_cancel = $('col-cancel'),
+        col_confirm = $('col-confirm'),
+        col_make = $('col-make'),
+        btn_load_img = col_load_img.firstElementChild,
         btn_load_video = col_load_video.firstElementChild,
-        btn_cancel     = col_cancel.firstElementChild,
-        btn_confirm    = col_confirm.firstElementChild,
-        btn_make       = col_make.firstElementChild,
-        btn_upload     = $('btn-upload'),
-        input_file     = $('load-from-device'),
-        photos         = new PhotosCanvas(),
-        super_images   = new SuperImagesCanvas();
+        btn_cancel = col_cancel.firstElementChild,
+        btn_confirm = col_confirm.firstElementChild,
+        btn_make = col_make.firstElementChild,
+        btn_upload = $('btn-upload'),
+        input_file = $('load-from-device'),
+        photos = new PhotosCanvas(),
+        super_images = new SuperImagesCanvas();
 
     const VIDEO_MOD = 1,
-          IMG_MOD   = 2;
-    let   mod       = VIDEO_MOD;
+        IMG_MOD = 2;
+    let mod = VIDEO_MOD;
 
-    function videoOff()
-    {
+    function videoOff() {
         if (!video.srcObject) {
-            return ;
+            return;
         }
         let stream = video.srcObject;
         let tracks = stream.getTracks();
@@ -47,10 +46,9 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         super_images.hide();
     }
 
-    function videoOn()
-    {
+    function videoOn() {
         if (navigator.getMedia) {
-            navigator.getMedia({video: true, audio: false},
+            navigator.getMedia({ video: true, audio: false },
                 function (stream) {
                     video.srcObject = stream;
                     video.play();
@@ -64,8 +62,7 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         }
     }
 
-    function imgOff()
-    {
+    function imgOff() {
         dNone(col_make);
         super_images.hide();
         videoOn();
@@ -74,8 +71,7 @@ import {SuperImagesCanvas} from './SuperImagesCanvas.class.js'
         mod = VIDEO_MOD;
     }
 
-    function imgOn()
-    {
+    function imgOn() {
         videoOff();
         dBlock(img);
         dBlock(col_load_video);

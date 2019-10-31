@@ -7,7 +7,7 @@ use PDO;
 
 abstract class Like
 {
-    public static function action(int $user_id, int $photo_id, int $like_status) : void
+    public static function action(int $user_id, int $photo_id, int $like_status): void
     {
         $db = DB::getConnection();
         $sql_postfix = 'user_id = :user_id AND photo_id = :photo_id LIMIT 1';
@@ -22,13 +22,19 @@ abstract class Like
                 DB::execute($sql, [':user_id' => $user_id, ':photo_id' => $photo_id], $db);
             } else {
                 $sql = 'UPDATE likes SET like_status = :like_status WHERE ' . $sql_postfix;
-                DB::execute($sql,
-                    [':like_status' => $like_status, ':user_id' => $user_id, ':photo_id' => $photo_id], $db);
+                DB::execute(
+                    $sql,
+                    [':like_status' => $like_status, ':user_id' => $user_id, ':photo_id' => $photo_id],
+                    $db
+                );
             }
         } else {
             $sql = 'INSERT INTO likes (user_id, photo_id, like_status) VALUES (:user_id, :photo_id, :like_status)';
-            DB::execute($sql,
-                [':user_id' => $user_id, ':photo_id' => $photo_id, ':like_status' => $like_status], $db);
+            DB::execute(
+                $sql,
+                [':user_id' => $user_id, ':photo_id' => $photo_id, ':like_status' => $like_status],
+                $db
+            );
         }
     }
 }

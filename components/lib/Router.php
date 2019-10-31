@@ -46,7 +46,7 @@ class Router
     /**
      * Returns request uri
      */
-    private function getURI() : string
+    private function getURI(): string
     {
         return trim($_SERVER['REQUEST_URI'], '/');
     }
@@ -55,7 +55,7 @@ class Router
      * Find the valid route, create the associated controller class and call the action method
      * @return bool if route was found returns true otherwise false.
      */
-    public function run() : bool
+    public function run(): bool
     {
         $uri = $this->getURI();
 

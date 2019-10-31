@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,13 +11,15 @@
     <link rel="stylesheet" href="/template/css/style.css">
     <title><?= $title ?></title>
 </head>
+
 <body>
 
-<?php require 'views/includes/header.php' ?>
+    <?php require 'views/includes/header.php' ?>
 
-<?php require $page ?>
+    <?php require $page ?>
 
-<?php require 'views/includes/footer.php' ?>
+    <?php require 'views/includes/footer.php' ?>
 
 </body>
+
 </html>

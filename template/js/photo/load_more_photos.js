@@ -1,9 +1,8 @@
-import {$, insertAfter, dNone} from '../lib.js';
-import {initLikeSystem} from './likes.js';
-import {initDeleteSystem} from './delete.js';
+import { $, insertAfter, dNone } from '../lib.js';
+import { initLikeSystem } from './likes.js';
+import { initDeleteSystem } from './delete.js';
 
-function getNewPhotoBlockForMainPage(photo)
-{
+function getNewPhotoBlockForMainPage(photo) {
     return `<div class="row no-gutters">` +
                `<div class="col-auto mr-auto">` +
                    `<div class="post-head-elem">` +
@@ -37,8 +36,7 @@ function getNewPhotoBlockForMainPage(photo)
             `</div>`;
 }
 
-function getNewPhotoBlockForMyPhotos(photo)
-{
+function getNewPhotoBlockForMyPhotos(photo) {
     return `<div class="row no-gutters">` +
                `<div class="col-auto mr-auto">` +
                    `<div class="post-head-elem">` +
@@ -73,11 +71,10 @@ function getNewPhotoBlockForMyPhotos(photo)
 }
 
 
-function setNewPhotosOnMainPage(photos)
-{
+function setNewPhotosOnMainPage(photos) {
     const photo_container_elem = $('photo-container');
 
-    photos.forEach(function(photo) {
+    photos.forEach(function (photo) {
         const div = document.createElement('div');
 
         div.classList.add('col-md-6', 'col-main-block');
@@ -87,11 +84,10 @@ function setNewPhotosOnMainPage(photos)
     });
 }
 
-function setNewPhotosOnMyPhotos(photos)
-{
+function setNewPhotosOnMyPhotos(photos) {
     const photo_container_elem = $('photo-container');
 
-    photos.forEach(function(photo) {
+    photos.forEach(function (photo) {
         const div = document.createElement('div');
 
         div.classList.add('col-lg-6', 'col-main-block');
@@ -103,12 +99,11 @@ function setNewPhotosOnMyPhotos(photos)
     });
 }
 
-function ajaxSend(func, photo_count, query_type)
-{
+function ajaxSend(func, photo_count, query_type) {
     let xhr = new XMLHttpRequest();
 
     xhr.open('POST', '/api/GetMorePhotos', true);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let photos = JSON.parse(xhr.responseText);
 
@@ -124,12 +119,10 @@ function ajaxSend(func, photo_count, query_type)
     xhr.send(`photo_count=${photo_count}&cycle=${window.ld_cycle}&query_type=${query_type}`);
 }
 
-export function loadMorePhotosOnMainPage(photo_count)
-{
+export function loadMorePhotosOnMainPage(photo_count) {
     ajaxSend(setNewPhotosOnMainPage, photo_count, 1);
 }
 
-export function loadMorePhotosOnMyPhotos(photo_count)
-{
+export function loadMorePhotosOnMyPhotos(photo_count) {
     ajaxSend(setNewPhotosOnMyPhotos, photo_count, 2);
 }

@@ -17,18 +17,18 @@ abstract class Mail
         );
 
         // Set mail header
-        $header = "Content-type: text/html; charset=".$encoding." \r\n";
+        $header = "Content-type: text/html; charset=" . $encoding . " \r\n";
         $header .= "From: <prippa@student.42.fr> \r\n";
         $header .= "MIME-Version: 1.0 \r\n";
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
-        $header .= "Date: ".date("r (T)")." \r\n";
+        $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $subject, $subject_preferences);
 
         // Send mail
         mail($to, $subject, $message, $header);
     }
 
-    public static function confirmAccount(string $login, string $email, string $token) : void
+    public static function confirmAccount(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/register/confirm/$token";
         $subject = 'Camagru: confirm your email address';
@@ -37,7 +37,7 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
-    public static function confirmPassword(string $login, string $email, string $token) : void
+    public static function confirmPassword(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/password_reset/$token";
         $subject = 'Camagru: please reset your password';
@@ -46,7 +46,7 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
-    public static function changeEmailConfirm(string $login, string $email, string $token) : void
+    public static function changeEmailConfirm(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/profile/settings/email_reset/$token";
         $subject = 'Camagru: confirm your new email address';
@@ -55,7 +55,7 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
-    public static function notification(string $login, string $email, string $photo_id) : void
+    public static function notification(string $login, string $email, string $photo_id): void
     {
         $link = HOST_NAME . "/photo/$photo_id";
         $subject = 'Camagru: you have a new comment';

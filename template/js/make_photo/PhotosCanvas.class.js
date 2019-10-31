@@ -1,28 +1,24 @@
-import {$, insertBefore, dNone, dBlock, clearCanvas} from '../lib.js';
+import { $, insertBefore, dNone, dBlock, clearCanvas } from '../lib.js';
 
-export class PhotosCanvas
-{
-    constructor()
-    {
-        this._id                = 0;
-        this._images            = [];
-        this._url               = '/api/UploadPhotos';
+export class PhotosCanvas {
+    constructor() {
+        this._id = 0;
+        this._images = [];
+        this._url = '/api/UploadPhotos';
         this._made_img_col_elem = $('made-img-col');
-        this._canv              = $('img-canvas');
-        this._ctx               = this._canv.getContext('2d');
+        this._canv = $('img-canvas');
+        this._ctx = this._canv.getContext('2d');
 
-        this._canv.width  = 1280;
+        this._canv.width = 1280;
         this._canv.height = 720;
     }
 
-    _getNewImageHTML(data)
-    {
+    _getNewImageHTML(data) {
         return `<span class="delete-made-img-block" id="delete-made-img${data.id}">&times;</span>` +
-               `<img class="img-fluid" src="${data.src}" alt="">`;
+            `<img class="img-fluid" src="${data.src}" alt="">`;
     }
 
-    delete(id)
-    {
+    delete(id) {
         const elem = $('made-img-block' + id);
 
         elem.parentNode.removeChild(elem);
@@ -43,15 +39,14 @@ export class PhotosCanvas
         return true;
     }
 
-    add(container_elem, src_obj, super_img_obj)
-    {
+    add(container_elem, src_obj, super_img_obj) {
         this._ctx.drawImage(src_obj, 0, 0, this._canv.width, this._canv.height);
         this._ctx.drawImage(super_img_obj.canv, 0, 0, this._canv.width, this._canv.height);
         const src = this._canv.toDataURL('image/png');
         clearCanvas(this._canv);
 
         const div = document.createElement('div');
-        const data = {id: this._id, src: src};
+        const data = { id: this._id, src: src };
 
         div.classList.add('col-xl-12', 'col-lg-3', 'col-md-4', 'col-sm-6', 'made-img-block');
         div.id = `made-img-block${this._id}`;
@@ -70,8 +65,7 @@ export class PhotosCanvas
         ++this._id;
     }
 
-    async _ajaxSend(image)
-    {
+    async _ajaxSend(image) {
         const res = await fetch(this._url, {
             method: 'POST',
             headers: {
@@ -84,8 +78,7 @@ export class PhotosCanvas
         return res;
     }
 
-    upload()
-    {
+    upload() {
         let promises = [];
         this._images.forEach((image) => {
             promises.push(this._ajaxSend(image));
