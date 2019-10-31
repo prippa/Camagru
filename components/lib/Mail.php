@@ -55,7 +55,7 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
-    public static function notification(string $login, string $email, string $photo_id): void
+    public static function notification(string $login, string $email, int $photo_id): void
     {
         $link = HOST_NAME . "/photo/$photo_id";
         $subject = 'Camagru: you have a new comment';

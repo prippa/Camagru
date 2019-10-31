@@ -90,7 +90,7 @@ abstract class Photo
         return $data ? $data : null;
     }
 
-    public static function getUserIdById(int $id): ?string
+    public static function getUserIdById(int $id): ?int
     {
         $sql = 'SELECT user_id FROM photo WHERE id = :id LIMIT 1';
 
