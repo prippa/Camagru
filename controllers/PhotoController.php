@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\SuperImages;
-use app\views\View;
+use app\core\View;
 use app\models\Comment;
 use app\models\Photo;
 use app\models\User;
@@ -19,7 +19,7 @@ class PhotoController
             'frame' => SuperImages::getImagesByType('frame')
         ];
 
-        View::run(View::MAKE_PHOTO, ['super_images' => $super_images]);
+        View::run('make_photo', ['super_images' => $super_images]);
     }
 
     public function actionSinglePhoto(int $id)
@@ -27,11 +27,11 @@ class PhotoController
         $photo = Photo::getPhotoById($id, User::getId());
 
         if (!$photo) {
-            View::run(View::ERROR_404);
+            View::run('error_pages/404');
         }
 
         $photo['comments'] = Comment::getAllCommentsByPhotoId($id);
 
-        View::run(View::SINGLE_PHOTO, ['photo' => $photo]);
+        View::run('single_photo', ['photo' => $photo]);
     }
 }

@@ -2,8 +2,6 @@
 
 namespace app\components\lib;
 
-use app\models\User;
-
 abstract class Lib
 {
     /**

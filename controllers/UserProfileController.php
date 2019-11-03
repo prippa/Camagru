@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\components\lib\Lib;
 use app\components\lib\Mail;
-use app\views\View;
+use app\core\View;
 use app\models\EmailReset;
 use app\models\Photo;
 use app\models\User;
@@ -107,7 +107,7 @@ class UserProfileController
 
         $view_title = $user_data['login'] . ' • Settings';
 
-        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data], $view_title);
+        View::run('profile/settings', ['messages' => $messages, 'user_data' => $user_data], $view_title);
     }
 
     public function actionConfirmNewMail($token)
@@ -115,7 +115,8 @@ class UserProfileController
         $email = EmailReset::getEmailByToken($token);
 
         if (!$email) {
-            View::run(View::ERROR_SOMETHING_WENT_WRONG, ['error' => 'Unable to change email by this link']);
+            View::run('error_pages/something_went_wrong',
+                ['error' => 'Unable to change email by this link'], 'Oops :(');
         }
 
         $user_data = User::getUserByID(User::getId());
@@ -126,7 +127,7 @@ class UserProfileController
         User::updateEmail($email, User::getId());
         EmailReset::deleteByEmail($email);
 
-        View::run(View::PROFILE_SETTINGS, ['messages' => $messages, 'user_data' => $user_data]);
+        View::run('profile/settings', ['messages' => $messages, 'user_data' => $user_data]);
     }
     //******************************************************************************************************************
 
@@ -139,6 +140,6 @@ class UserProfileController
 
         $view_title = User::getLoginById(User::getId()) . ' • Photos';
 
-        View::run(View::PROFILE_MY_PHOTOS, ['photos' => $photos], $view_title);
+        View::run('profile/my_photos', ['photos' => $photos], $view_title);
     }
 }

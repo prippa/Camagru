@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\lib\DB;
+use app\core\Modal;
 use PDO;
 
 abstract class PasswordReset extends Modal

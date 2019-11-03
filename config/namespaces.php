@@ -21,4 +21,8 @@ return array(
         'namespace' => 'app\components\lib',
         'path' => 'components/lib'
     ],
+    [
+        'namespace' => 'app\core',
+        'path' => 'core'
+    ],
 );

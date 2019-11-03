@@ -7,14 +7,14 @@ use app\models\Comment;
 use app\models\Like;
 use app\models\Photo;
 use app\models\User;
-use app\views\View;
+use app\core\View;
 
 class ApiController
 {
     public function actionLikeDislikePOST()
     {
         if (empty($_POST)) {
-            View::run(View::ERROR_404);
+            View::run('error_pages/404');
         }
 
         $user_id = User::getId();
@@ -44,7 +44,7 @@ class ApiController
     public function actionAddNewComment()
     {
         if (empty($_POST)) {
-            View::run(View::ERROR_404);
+            View::run('error_pages/404');
         }
 
         $user_id = User::getId();
@@ -61,7 +61,7 @@ class ApiController
     public function actionGetMorePhotos()
     {
         if (empty($_POST)) {
-            View::run(View::ERROR_404);
+            View::run('error_pages/404');
         }
 
         $photo_count = $_POST['photo_count'];
@@ -82,7 +82,7 @@ class ApiController
     public function actionDeletePhotoById()
     {
         if (empty($_POST)) {
-            View::run(View::ERROR_404);
+            View::run('error_pages/404');
         }
 
         $id = $_POST['id'];
