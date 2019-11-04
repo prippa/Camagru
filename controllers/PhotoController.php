@@ -3,12 +3,12 @@
 namespace app\controllers;
 
 use app\models\SuperImages;
-use app\core\View;
 use app\models\Comment;
 use app\models\Photo;
 use app\models\User;
+use app\core\Controller;
 
-class PhotoController
+class PhotoController extends Controller
 {
     public function actionMakePhoto()
     {
@@ -19,7 +19,7 @@ class PhotoController
             'frame' => SuperImages::getImagesByType('frame')
         ];
 
-        View::run('make_photo', ['super_images' => $super_images]);
+        $this->view->run('make_photo', ['super_images' => $super_images]);
     }
 
     public function actionSinglePhoto(int $id)
@@ -27,11 +27,11 @@ class PhotoController
         $photo = Photo::getPhotoById($id, User::getId());
 
         if (!$photo) {
-            View::run('error_pages/404');
+            $this->view->run('error_pages/404');
         }
 
         $photo['comments'] = Comment::getAllCommentsByPhotoId($id);
 
-        View::run('single_photo', ['photo' => $photo]);
+        $this->view->run('single_photo', ['photo' => $photo]);
     }
 }

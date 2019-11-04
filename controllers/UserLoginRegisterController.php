@@ -6,9 +6,9 @@ use app\components\lib\Lib;
 use app\components\lib\Mail;
 use app\models\PasswordReset;
 use app\models\User;
-use app\core\View;
+use app\core\Controller;
 
-class UserLoginRegisterController
+class UserLoginRegisterController extends Controller
 {
     public function actionRegister()
     {
@@ -30,19 +30,19 @@ class UserLoginRegisterController
 
                 User::add($login, $email, $password, $vkey);
                 Mail::confirmAccount($login, $email, $vkey);
-                View::run('login_register_system/confirm_account', ['email' => $email], 'Confirm Email');
+                $this->view->run('login_register_system/confirm_account', ['email' => $email], 'Confirm Email');
             }
         }
 
-        View::run('login_register_system/register', ['errors' => $errors, 'login' => $login, 'email' => $email]);
+        $this->view->run('login_register_system/register', ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
     public function actionConfirmMail($vkey)
     {
         if (User::confirmMail($vkey)) {
-            View::run('login_register_system/account_confirmed');
+            $this->view->run('login_register_system/account_confirmed');
         } else {
-            View::run('error_pages/something_went_wrong', ['error' => 'Invalid account'], 'Oops :(');
+            $this->view->run('error_pages/something_went_wrong', ['error' => 'Invalid account'], 'Oops :(');
         }
     }
 
@@ -59,7 +59,7 @@ class UserLoginRegisterController
 
             $result = User::loginValidate($login, $password);
             if (isset($result['email'])) {
-                View::run('login_register_system/confirm_account', ['email' => $result['email']], 'Confirm Email');
+                $this->view->run('login_register_system/confirm_account', ['email' => $result['email']], 'Confirm Email');
             }
             if (isset($result['id'])) {
                 User::login($result['id']);
@@ -69,7 +69,7 @@ class UserLoginRegisterController
             $errors = $result;
         }
 
-        View::run('login_register_system/login', ['errors' => $errors, 'login' => $login]);
+        $this->view->run('login_register_system/login', ['errors' => $errors, 'login' => $login]);
     }
 
     public function actionLogout()
@@ -94,19 +94,19 @@ class UserLoginRegisterController
 
                 PasswordReset::add($email, $vkey);
                 Mail::confirmPassword(User::getLoginByEmail($email), $email, $vkey);
-                View::run('login_register_system/confirm_password', ['email' => $email]);
+                $this->view->run('login_register_system/confirm_password', ['email' => $email]);
             }
             if (in_array('account_email', $result)) {
-                View::run('login_register_system/confirm_account', ['email' => $email], 'Confirm Email');
+                $this->view->run('login_register_system/confirm_account', ['email' => $email], 'Confirm Email');
             }
             if (in_array('password_email', $result)) {
-                View::run('login_register_system/confirm_password', ['email' => $email]);
+                $this->view->run('login_register_system/confirm_password', ['email' => $email]);
             }
 
             $errors = $result;
         }
 
-        View::run('login_register_system/forgot_password',
+        $this->view->run('login_register_system/forgot_password',
             ['errors' => $errors, 'email' => $email], 'Forgot your password?');
     }
 
@@ -115,7 +115,7 @@ class UserLoginRegisterController
         $email = PasswordReset::getEmailByToken($token);
 
         if (!$email) {
-            View::run('error_pages/something_went_wrong',
+            $this->view->run('error_pages/something_went_wrong',
                 ['error' => 'Unable to change password by this link'], 'Oops :(');
         }
 
@@ -130,11 +130,11 @@ class UserLoginRegisterController
             if (!$errors) {
                 PasswordReset::deleteByEmail($email);
                 User::updatePasswordByLogin($login, $password);
-                View::run('login_register_system/password_changed', ['login' => $login]);
+                $this->view->run('login_register_system/password_changed', ['login' => $login]);
             }
         }
 
-        View::run('login_register_system/password_reset_form',
+        $this->view->run('login_register_system/password_reset_form',
             ['errors' => $errors, 'login' => $login, 'token' => $token], 'Change your password');
     }
 }

@@ -4,9 +4,16 @@ namespace app\core;
 
 use app\models\User;
 
-abstract class View
+class View
 {
-    private static function getAdditionalData(): array
+    public $layout;
+
+    public function __construct()
+    {
+        $this->layout = 'default';
+    }
+
+    private function getAdditionalData(): array
     {
         $data = [];
         $data['is_logged'] = User::isLogged();
@@ -25,7 +32,7 @@ abstract class View
         return $data;
     }
 
-    private static function getTitleByFilename($path)
+    private function getTitleByFilename($path)
     {
         $title = strrchr($path, "/");
         if (!$title) {
@@ -43,16 +50,16 @@ abstract class View
      * @param array $data
      * @param string|null $title
      */
-    public static function run(string $path, array $data = [], string $title = null): void
+    public function run(string $path, array $data = [], string $title = null): void
     {
-        $data += self::getAdditionalData();
+        $data += $this->getAdditionalData();
         $page = 'views/' . $path . '.php';
 
         if (!$title) {
-            $title = self::getTitleByFilename($path);
+            $title = $this->getTitleByFilename($path);
         }
 
-        require 'views/layouts/default.php';
+        require 'views/layouts/' . $this->layout . '.php';
 
         exit();
     }

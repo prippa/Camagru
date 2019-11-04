@@ -118,10 +118,10 @@ import { SuperImagesCanvas } from './SuperImagesCanvas.class.js'
     };
 
     // Upload Event
-    btn_upload.onclick = async () => {
+    btn_upload.onclick = async function () {
         btn_upload.disabled = true;
         await photos.upload();
-        btn_upload.disabled = false
+        btn_upload.disabled = false;
     };
 
     // Load Image from Device Event

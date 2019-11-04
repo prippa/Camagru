@@ -2,17 +2,17 @@
 
 namespace app\controllers;
 
-use app\core\View;
 use app\models\Photo;
 use app\models\User;
+use app\core\Controller;
 
-class SiteController
+class SiteController extends Controller
 {
     public function actionIndex()
     {
         $photos = Photo::getLastNPhotos(6, User::getId());
         Photo::preparePhotos($photos);
 
-        View::run('index', ['photos' => $photos], 'Camagru');
+        $this->view->run('index', ['photos' => $photos], 'Camagru');
     }
 }

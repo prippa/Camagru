@@ -34,12 +34,12 @@ try {
     );
 
     if (!$router->run()) {
-        app\core\View::run('error_pages/404');
+        (new app\core\View())->run('error_pages/404');
     }
 } catch (Exception $e) {
     if (DEBUG) {
         echo "<pre style='color: red; font-size: 16px;'>" . $e . "</pre>";
     } else {
-        app\core\View::run('error_pages/500');
+        (new app\core\View())->run('error_pages/500');
     }
 }
