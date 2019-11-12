@@ -2,27 +2,20 @@
 
 namespace app\models;
 
-use app\components\lib\DB;
+use app\core\DB;
 use app\components\lib\Lib;
 use app\core\Modal;
 use PDO;
 
 abstract class User extends Modal
 {
+    private const TABLE = 'user';
+
     public static function add(string $login, string $email, string $password, string $vkey): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        $sql = 'INSERT INTO user (login, password, email, vkey) VALUES (:login, :password, :email, :vkey)';
-        DB::execute($sql, [':login' => $login, ':password' => $password, ':email' => $email, ':vkey' => $vkey]);
-    }
-
-    public static function updatePasswordByLogin(string $login, string $password): void
-    {
-        $password = password_hash($password, self::PASSWORD_HASH_TYPE);
-
-        $sql = "UPDATE user SET password = :password WHERE login = :login LIMIT 1";
-        DB::execute($sql, [':password' => $password, ':login' => $login]);
+        self::db()->insert(TABLE, ['login' => $login, 'password' => $password, 'email' => $email, 'vkey' => $vkey]);
     }
 
     public static function updateLogin(int $id, string $login): void
@@ -49,6 +42,14 @@ abstract class User extends Modal
     {
         $sql = "UPDATE user SET notifications = :notification WHERE id = :id LIMIT 1";
         DB::execute($sql, [':notification' => $notification, ':id' => $id]);
+    }
+
+    public static function updatePasswordByLogin(string $login, string $password): void
+    {
+        $password = password_hash($password, self::PASSWORD_HASH_TYPE);
+
+        $sql = "UPDATE user SET password = :password WHERE login = :login LIMIT 1";
+        DB::execute($sql, [':password' => $password, ':login' => $login]);
     }
 
     public static function confirmMail(string $vkey): bool

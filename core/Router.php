@@ -1,11 +1,7 @@
 <?php
 
-namespace app\components\lib;
+namespace app\core;
 
-/**
- * Simple Router class
- * @author prippa
- */
 class Router
 {
     /**

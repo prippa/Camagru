@@ -26,7 +26,7 @@ try {
     })();
 
     // Call the Router
-    $router = new app\components\lib\Router(
+    $router = new app\core\Router(
         require 'config/routes.php',
         'app\\controllers\\',
         'action',

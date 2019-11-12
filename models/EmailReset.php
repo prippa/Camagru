@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\components\lib\DB;
+use app\core\DB;
 use PDO;
 
 abstract class EmailReset
