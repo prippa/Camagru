@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\core\DB;
+use app\core\Modal;
 use PDO;
 
-abstract class Like
+abstract class Like extends Modal
 {
     public static function action(int $user_id, int $photo_id, int $like_status): void
     {

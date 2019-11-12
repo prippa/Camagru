@@ -28,7 +28,7 @@ class ApiController extends Controller
 
     private function sendNotification(int $user_id, int $photo_id): void
     {
-        $photo_user_id = Photo::getUserIdById($photo_id);
+        $photo_user_id = Photo::getUserId($photo_id);
 
         if ($user_id != $photo_user_id) {
             $photo_user = User::getUserByID($photo_user_id);
@@ -86,9 +86,9 @@ class ApiController extends Controller
         }
 
         $id = $_POST['id'];
-        $file = Photo::getFileById($id);
+        $file = Photo::getFile($id);
 
-        Photo::deleteById($id);
+        Photo::delete($id);
         unlink($file);
 
         echo 'OK';
@@ -112,7 +112,7 @@ class ApiController extends Controller
 
         $file = $this->uploadImage($image);
         if ($file) {
-            Photo::add($file, User::getId());
+            Photo::insert($file, User::getId());
             echo $image_id;
         } else {
             echo 'KO';

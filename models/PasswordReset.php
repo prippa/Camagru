@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use app\core\DB;
 use app\core\Modal;
 use PDO;
 

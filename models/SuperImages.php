@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\core\DB;
+use app\core\Modal;
 use PDO;
 
-abstract class SuperImages
+abstract class SuperImages extends Modal
 {
     static function getImagesByType(string $type): ?array
     {

@@ -2,26 +2,26 @@
 
 namespace app\models;
 
-use app\core\DB;
+use app\core\Modal;
 use DateTime;
-use PDO;
 
-abstract class Photo
+abstract class Photo extends Modal
 {
-    public static function add(string $img, int $user_id): void
+    private static $table = 'photo';
+
+    public static function insert(string $img, int $user_id): void
     {
-        $sql = 'INSERT INTO photo (user_id, img) VALUES (:user_id, :img)';
-        DB::execute($sql, [':user_id' => $user_id, ':img' => $img]);
+        self::db()->insert($this->table, ['user_id' => $user_id, 'img' => $img]);
     }
 
-    public static function deleteById(int $id): void
+    public static function delete(int $id): void
     {
-        $sql = 'DELETE FROM photo WHERE id = :id LIMIT 1';
-        DB::execute($sql, [':id' => $id]);
+        self::db()->delete($this->table, $id);
     }
 
     public static function getLastNPhotos(int $size, ?int $user_id, int $start_from = 0): ?array
     {
+        // echo `self::$table`;die();
         $sql = "SELECT
                     likes.like_status,
                     user.login,
@@ -30,14 +30,13 @@ abstract class Photo
                     photo.likes,
                     photo.dislikes,
                     photo.id
-                FROM photo
+                FROM {self::$table}
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
                 ORDER BY photo.create_date DESC LIMIT $size OFFSET $start_from";
+        echo $sql;die();
 
-        $result = DB::execute($sql, [':user_id' => $user_id]);
-
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        return self::db()->rows($sql, ['user_id' => $user_id]);
     }
 
     public static function getLastNUserPhotos(int $size, int $user_id, int $start_from = 0): ?array
@@ -50,15 +49,13 @@ abstract class Photo
                     photo.likes,
                     photo.dislikes,
                     photo.id
-                FROM photo
+                FROM $this->table
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
                 WHERE :user_id = photo.user_id
                 ORDER BY photo.create_date DESC LIMIT $size OFFSET $start_from";
 
-        $result = DB::execute($sql, [':user_id' => $user_id]);
-
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        return self::db()->rows($sql, ['user_id' => $user_id]);
     }
 
     public static function preparePhotos(?array &$photos): void
@@ -69,9 +66,9 @@ abstract class Photo
         }
     }
 
-    public static function getPhotoById(int $id, ?int $user_id): ?array
+    public static function getPhoto(int $id, ?int $user_id): ?array
     {
-        $sql = 'SELECT
+        $sql = "SELECT
                     likes.like_status,
                     user.login,
                     photo.create_date,
@@ -79,32 +76,27 @@ abstract class Photo
                     photo.likes,
                     photo.dislikes,
                     photo.id
-                FROM photo
+                FROM $this->table
                 LEFT JOIN user ON photo.user_id = user.id
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
-                WHERE photo.id = :id LIMIT 1';
+                WHERE photo.id = :id LIMIT 1";
 
-        $result = DB::execute($sql, [':user_id' => $user_id, ':id' => $id]);
+        $data = self::db()->row($sql, ['user_id' => $user_id, 'id' => $id]);
 
-        $data = $result->fetch(PDO::FETCH_ASSOC);
         return $data ? $data : null;
     }
 
-    public static function getUserIdById(int $id): ?int
+    public static function getUserId(int $id): ?int
     {
-        $sql = 'SELECT user_id FROM photo WHERE id = :id LIMIT 1';
+        $sql = "SELECT user_id FROM $this->table WHERE id = :id LIMIT 1";
 
-        $result = DB::execute($sql, [':id' => $id]);
-
-        return $result->fetch(PDO::FETCH_ASSOC)['user_id'];
+        return self::db()->column($sql, ['id' => $id]);
     }
 
-    public static function getFileById(int $id): ?string
+    public static function getFile(int $id): ?string
     {
-        $sql = 'SELECT img FROM photo WHERE id = :id LIMIT 1';
+        $sql = "SELECT img FROM $this->table WHERE id = :id LIMIT 1";
 
-        $result = DB::execute($sql, [':id' => $id]);
-
-        return $result->fetch(PDO::FETCH_ASSOC)['img'];
+        return self::db()->column($sql, ['id' => $id]);
     }
 }

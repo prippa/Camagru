@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\core\DB;
+use app\core\Modal;
 use PDO;
 
-abstract class EmailReset
+abstract class EmailReset extends Modal
 {
     public static function add(string $email, string $token): void
     {

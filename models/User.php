@@ -2,9 +2,8 @@
 
 namespace app\models;
 
-use app\core\DB;
-use app\components\lib\Lib;
 use app\core\Modal;
+use app\components\lib\Lib;
 use PDO;
 
 abstract class User extends Modal

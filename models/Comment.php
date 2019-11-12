@@ -2,10 +2,10 @@
 
 namespace app\models;
 
-use app\core\DB;
+use app\core\Modal;
 use PDO;
 
-abstract class Comment
+abstract class Comment extends Modal
 {
     public static function add(int $user_id, int $photo_id, string $comment): void
     {

@@ -24,7 +24,7 @@ class PhotoController extends Controller
 
     public function actionSinglePhoto(int $id)
     {
-        $photo = Photo::getPhotoById($id, User::getId());
+        $photo = Photo::getPhoto($id, User::getId());
 
         if (!$photo) {
             $this->view->run('error_pages/404');
