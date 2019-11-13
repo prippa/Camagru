@@ -24,7 +24,7 @@ class DB
         $this->db = new PDO($dns, $settings['user'], $settings['password'], $options);
     }
 
-    public function insert(string $table, array $params = []): void
+    public function insert(string $table, array $params): void
     {
         $fields = '';
         $values = '';
@@ -40,22 +40,31 @@ class DB
         $this->execute($sql, $params);
     }
 
-    public function delete(string $table, int $id): void
+    public function delete(string $table, array $where, ?int $limit = 1): void
     {
-        $sql = "DELETE FROM $table WHERE id = $id";
-        $this->execute($sql);
+        $whereString = $this->prepareWhere($where);
+        $sql = "DELETE FROM $table WHERE $whereString";
+        if ($limit) {
+            $sql .= " LIMIT $limit";
+        }
+        $this->execute($sql, $where);
     }
 
-    public function update(string $table, int $id, array $params = [])
+    public function update(string $table, array $params, array $where, ?int $limit = 1)
     {
         $setString = '';
+        $whereString = $this->prepareWhere($where);
 
         foreach ($params as $field) {
             $setString .= "$field = :$field,";
         }
         $setString = rtrim($setString, ',');
-        $sql = "UPDATE $table SET $setString WHERE id = $id";
-        $this->execute($sql);
+        $sql = "UPDATE $table SET $setString WHERE $whereString";
+        if ($limit) {
+            $sql .= " LIMIT $limit";
+        }
+        $params = array_merge($params, $where);
+        $this->execute($sql, $params);
     }
 
     public function row(string $sql, array $params = [])
@@ -70,11 +79,41 @@ class DB
 		return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function column(string $sql, array $params = [])
+    public function selectRow(string $table, int $id, array $params = [])
+    {
+        $paramsString = '';
+
+        foreach ($params as $field) {
+            $paramsString .= "$field,";
+        }
+        $paramsString = rtrim($paramsString, ',');
+        $sql = "SELECT $paramsString FROM $table WHERE id = $id LIMIT 1";
+        return $this->row($sql, $params);
+    }
+
+    public function selectRows(string $table, int $id, array $params = [])
+    {
+        $paramsString = '';
+
+        foreach ($params as $field) {
+            $paramsString .= "$field,";
+        }
+        $paramsString = rtrim($paramsString, ',');
+        $sql = "SELECT $paramsString FROM $table WHERE id = $id";
+        return $this->rows($sql, $params);
+    }
+
+    public function col(string $sql, array $params = [])
     {
 		$result = $this->execute($sql, $params);
 		return $result->fetchColumn();
 	}
+
+	public function selectCol(string $table, int $id, string $col)
+    {
+        $sql = "SELECT $col FROM $table WHERE id = $id LIMIT 1";
+        return $this->col($sql);
+    }
 
     public function execute(string $sql, array $params = [])
     {
@@ -85,5 +124,18 @@ class DB
         $result->execute();
 
         return $result;
+    }
+
+    private function prepareWhere(array & $where): string
+    {
+        $whereString = '';
+
+        foreach ($where as $key) {
+            $whereString .= "$key = :w$key AND ";
+            $where["w$key"] = $where[$key];
+            unset($where[$key]);
+        }
+        $whereString = rtrim($whereString, ' AND ');
+        return $whereString;
     }
 }

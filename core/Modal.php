@@ -2,8 +2,6 @@
 
 namespace app\core;
 
-use DB;
-
 abstract class Modal
 {
     private static $db = null;

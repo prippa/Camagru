@@ -10,37 +10,33 @@ abstract class User extends Modal
 {
     private const TABLE = 'user';
 
-    public static function add(string $login, string $email, string $password, string $vkey): void
+    public static function insert(string $login, string $email, string $password, string $vkey): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        self::db()->insert(TABLE, ['login' => $login, 'password' => $password, 'email' => $email, 'vkey' => $vkey]);
+        self::db()->insert(self::TABLE, ['login' => $login, 'password' => $password, 'email' => $email, 'vkey' => $vkey]);
     }
 
     public static function updateLogin(int $id, string $login): void
     {
-        $sql = "UPDATE user SET login = :login WHERE id = :id LIMIT 1";
-        DB::execute($sql, [':login' => $login, ':id' => $id]);
+        self::db()->update(self::TABLE, $id, ['login' => $login]);
     }
 
     public static function updateEmail(string $email, int $id): void
     {
-        $sql = "UPDATE user SET email = :email WHERE id = :id LIMIT 1";
-        DB::execute($sql, [':email' => $email, ':id' => $id]);
+        self::db()->update(self::TABLE, $id, ['email' => $email]);
     }
 
     public static function updatePassword(string $password, int $id): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        $sql = "UPDATE user SET password = :password WHERE id = :id LIMIT 1";
-        DB::execute($sql, [':password' => $password, ':id' => $id]);
+        self::db()->update(self::TABLE, $id, ['password' => $password]);
     }
 
     public static function updateNotifications(string $notification, int $id): void
     {
-        $sql = "UPDATE user SET notifications = :notification WHERE id = :id LIMIT 1";
-        DB::execute($sql, [':notification' => $notification, ':id' => $id]);
+        self::db()->update(self::TABLE, $id, ['notification' => $notification]);
     }
 
     public static function updatePasswordByLogin(string $login, string $password): void
@@ -48,21 +44,21 @@ abstract class User extends Modal
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
         $sql = "UPDATE user SET password = :password WHERE login = :login LIMIT 1";
-        DB::execute($sql, [':password' => $password, ':login' => $login]);
+        self::db()->execute($sql, ['password' => $password, 'login' => $login]);
     }
 
     public static function confirmMail(string $vkey): bool
     {
-        $db = DB::getConnection();
+        $db = self::db()->getConnection();
 
         $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = :vkey LIMIT 1";
-        $result = DB::execute($sql, [':vkey' => $vkey], $db);
+        $result = self::db()->execute($sql, [':vkey' => $vkey], $db);
         if ($result->rowCount() != 1) {
             return false;
         }
 
         $sql = "UPDATE user SET verified = 1 WHERE vkey = :vkey LIMIT 1";
-        DB::execute($sql, [':vkey' => $vkey], $db);
+        self::db()->execute($sql, ['vkey' => $vkey], $db);
 
         return true;
     }
@@ -121,7 +117,7 @@ abstract class User extends Modal
         }
 
         $sql = 'SELECT id, password, verified, email FROM user WHERE login = :login LIMIT 1';
-        $result = DB::execute($sql, [':login' => $login]);
+        $result = self::db()->execute($sql, ['login' => $login]);
 
         $user = $result->fetch(PDO::FETCH_ASSOC);
         if (!$user) {
@@ -152,12 +148,10 @@ abstract class User extends Modal
         }
 
         if (!$errors) {
-            $db = DB::getConnection();
-
-            if (DB::isArgExists('user', 'login', $login, $db)) {
+            if (self::db()->isArgExists('user', 'login', $login, $db)) {
                 $errors[] = "<b>$login</b> is already taken";
             }
-            if (DB::isArgExists('user', 'email', $email, $db)) {
+            if (self::db()->isArgExists('user', 'email', $email, $db)) {
                 $errors[] = "<b>$email</b> is already registered";
             }
         }
@@ -169,7 +163,7 @@ abstract class User extends Modal
     {
         $sql = 'SELECT login FROM user WHERE email = :email LIMIT 1';
 
-        $result = DB::execute($sql, [':email' => $email]);
+        $result = self::db()->execute($sql, ['email' => $email]);
         $login = $result->fetch(PDO::FETCH_ASSOC);
 
         return $login['login'];
@@ -179,7 +173,7 @@ abstract class User extends Modal
     {
         $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
 
-        $result = DB::execute($sql, [':id' => $id]);
+        $result = self::db()->execute($sql, ['id' => $id]);
 
         return $result->fetch(PDO::FETCH_ASSOC)['login'];
     }
@@ -188,7 +182,7 @@ abstract class User extends Modal
     {
         $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
 
-        $result = DB::execute($sql, [':id' => $id]);
+        $result = self::db()->execute($sql, ['id' => $id]);
 
         return $result->fetch(PDO::FETCH_ASSOC);
     }

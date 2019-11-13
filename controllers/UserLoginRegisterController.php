@@ -59,7 +59,8 @@ class UserLoginRegisterController extends Controller
 
             $result = User::loginValidate($login, $password);
             if (isset($result['email'])) {
-                $this->view->run('login_register_system/confirm_account', ['email' => $result['email']], 'Confirm Email');
+                $this->view->run('login_register_system/confirm_account',
+                    ['email' => $result['email']], 'Confirm Email');
             }
             if (isset($result['id'])) {
                 User::login($result['id']);
