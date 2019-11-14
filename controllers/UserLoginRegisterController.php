@@ -8,9 +8,16 @@ use app\models\PasswordReset;
 use app\models\User;
 use app\core\Controller;
 
+/**
+ * Class UserLoginRegisterController
+ * @package app\controllers
+ */
 class UserLoginRegisterController extends Controller
 {
-    public function actionRegister()
+    /**
+     * @return void
+     */
+    public function actionRegister(): void
     {
         User::redirectToHomeCheck();
 
@@ -38,7 +45,11 @@ class UserLoginRegisterController extends Controller
             ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
-    public function actionConfirmMail($vkey)
+    /**
+     * @param $vkey
+     * @return void
+     */
+    public function actionConfirmMail($vkey): void
     {
         if (User::confirmMail($vkey)) {
             $this->view->run('login_register_system/account_confirmed');
@@ -47,7 +58,10 @@ class UserLoginRegisterController extends Controller
         }
     }
 
-    public function actionLogin()
+    /**
+     * @return void
+     */
+    public function actionLogin(): void
     {
         User::redirectToHomeCheck();
 
@@ -74,13 +88,19 @@ class UserLoginRegisterController extends Controller
         $this->view->run('login_register_system/login', ['errors' => $errors, 'login' => $login]);
     }
 
-    public function actionLogout()
+    /**
+     * @return void
+     */
+    public function actionLogout(): void
     {
         User::logout();
         Lib::redirect();
     }
 
-    public function actionPasswordReset()
+    /**
+     * @return void
+     */
+    public function actionPasswordReset(): void
     {
         User::redirectToHomeCheck();
 
@@ -112,7 +132,11 @@ class UserLoginRegisterController extends Controller
             ['errors' => $errors, 'email' => $email], 'Forgot your password?');
     }
 
-    public function actionPasswordResetForm($token)
+    /**
+     * @param $token
+     * @return void
+     */
+    public function actionPasswordResetForm($token): void
     {
         $email = PasswordReset::getEmailByToken($token);
 

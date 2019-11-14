@@ -2,9 +2,19 @@
 
 namespace app\components\lib;
 
+/**
+ * Class Mail
+ * @package app\components\lib
+ */
 abstract class Mail
 {
-    private static function send(string $to, string $subject, string $message)
+    /**
+     * @param string $to
+     * @param string $subject
+     * @param string $message
+     * @return void
+     */
+    private static function send(string $to, string $subject, string $message): void
     {
         $encoding = "utf-8";
 
@@ -28,6 +38,12 @@ abstract class Mail
         mail($to, $subject, $message, $header);
     }
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param string $token
+     * @return void
+     */
     public static function confirmAccount(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/register/confirm/$token";
@@ -37,6 +53,12 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param string $token
+     * @return void
+     */
     public static function confirmPassword(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/password_reset/$token";
@@ -46,6 +68,12 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param string $token
+     * @return void
+     */
     public static function changeEmailConfirm(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/profile/settings/email_reset/$token";
@@ -55,6 +83,12 @@ abstract class Mail
         self::send($email, $subject, $message);
     }
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param int $photo_id
+     * @return void
+     */
     public static function notification(string $login, string $email, int $photo_id): void
     {
         $link = HOST_NAME . "/photo/$photo_id";

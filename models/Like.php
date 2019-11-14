@@ -4,10 +4,23 @@ namespace app\models;
 
 use app\core\Modal;
 
+/**
+ * Class Like
+ * @package app\models
+ */
 abstract class Like extends Modal
 {
+    /**
+     * Table name
+     */
     private const TABLE = 'likes';
 
+    /**
+     * @param int $user_id
+     * @param int $photo_id
+     * @param int $like_status
+     * @return void
+     */
     public static function action(int $user_id, int $photo_id, int $like_status): void
     {
         $where = ['user_id', $user_id, 'photo_id', $photo_id];

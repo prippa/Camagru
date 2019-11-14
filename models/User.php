@@ -5,10 +5,24 @@ namespace app\models;
 use app\core\Modal;
 use app\components\lib\Lib;
 
+/**
+ * Class User
+ * @package app\models
+ */
 abstract class User extends Modal
 {
+    /**
+     * Table name
+     */
     private const TABLE = 'user';
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param string $password
+     * @param string $vkey
+     * @return void
+     */
     public static function insert(string $login, string $email, string $password, string $vkey): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
@@ -16,16 +30,31 @@ abstract class User extends Modal
         self::db()->insert(self::TABLE, ['login', $login, 'password', $password, 'email', $email, 'vkey', $vkey]);
     }
 
+    /**
+     * @param int $id
+     * @param string $login
+     * @return void
+     */
     public static function updateLogin(int $id, string $login): void
     {
         self::db()->update(self::TABLE, ['login', $login], ['id', $id], 1);
     }
 
+    /**
+     * @param string $email
+     * @param int $id
+     * @return void
+     */
     public static function updateEmail(string $email, int $id): void
     {
         self::db()->update(self::TABLE, ['email', $email], ['id', $id], 1);
     }
 
+    /**
+     * @param string $password
+     * @param int $id
+     * @return void
+     */
     public static function updatePassword(string $password, int $id): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
@@ -33,11 +62,21 @@ abstract class User extends Modal
         self::db()->update(self::TABLE, ['password', $password], ['id', $id], 1);
     }
 
+    /**
+     * @param string $notification
+     * @param int $id
+     * @return void
+     */
     public static function updateNotifications(string $notification, int $id): void
     {
         self::db()->update(self::TABLE, ['notifications', $notification], ['id', $id], 1);
     }
 
+    /**
+     * @param string $login
+     * @param string $password
+     * @return void
+     */
     public static function updatePasswordByLogin(string $login, string $password): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
@@ -45,6 +84,10 @@ abstract class User extends Modal
         self::db()->update(self::TABLE, ['password', $password], ['login', $login], 1);
     }
 
+    /**
+     * @param string $vkey
+     * @return bool
+     */
     public static function confirmMail(string $vkey): bool
     {
         $result = self::db()->select(self::TABLE, ['verified', 'vkey'], ['verified', 0, 'vkey', $vkey], 1);
@@ -57,6 +100,10 @@ abstract class User extends Modal
         return true;
     }
 
+    /**
+     * @param string $login
+     * @return bool
+     */
     public static function checkLogin(string $login): bool
     {
         $regex_rule = require self::FVR_PATH;
@@ -68,6 +115,10 @@ abstract class User extends Modal
         return false;
     }
 
+    /**
+     * @param string $password
+     * @return bool
+     */
     public static function checkPassword(string $password): bool
     {
         $regex_rule = require self::FVR_PATH;
@@ -79,6 +130,10 @@ abstract class User extends Modal
         return false;
     }
 
+    /**
+     * @param string $email
+     * @return bool
+     */
     public static function checkEmail(string $email): bool
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -88,6 +143,11 @@ abstract class User extends Modal
         return false;
     }
 
+    /**
+     * @param $login
+     * @param $password
+     * @return array|null
+     */
     private static function baseValidation($login, $password): ?array
     {
         $errors = null;
@@ -102,6 +162,11 @@ abstract class User extends Modal
         return $errors;
     }
 
+    /**
+     * @param string $login
+     * @param string $password
+     * @return array
+     */
     public static function loginValidate(string $login, string $password): array
     {
         $errors = self::baseValidation($login, $password);
@@ -124,6 +189,13 @@ abstract class User extends Modal
         return ['id' => $user['id']];
     }
 
+    /**
+     * @param string $login
+     * @param string $email
+     * @param string $password
+     * @param string $password_confirm
+     * @return array|null
+     */
     public static function registerValidate(string $login,
                                             string $email,
                                             string $password,
@@ -150,36 +222,62 @@ abstract class User extends Modal
         return $errors;
     }
 
+    /**
+     * @param string $email
+     * @return string|null
+     */
     public static function getLoginByEmail(string $email): ?string
     {
         return self::db()->selectCol(self::TABLE, 'login', ['email', $email]);
     }
 
+    /**
+     * @param string $email
+     * @return string|null
+     */
     public static function getVerifiedByEmail(string $email): ?string
     {
         return self::db()->selectCol(self::TABLE, 'verified', ['email', $email]);
     }
 
+    /**
+     * @param int $id
+     * @return string|null
+     */
     public static function getLogin(int $id): ?string
     {
         return self::db()->selectCol(self::TABLE, 'login', ['id', $id]);
     }
 
+    /**
+     * @param int $id
+     * @return array|null
+     */
     public static function getUser(int $id): ?array
     {
         return self::db()->selectRow(self::TABLE, [], ['id', $id]);
     }
 
+    /**
+     * @param string $id
+     * @return void
+     */
     public static function login(string $id): void
     {
         $_SESSION['user'] = $id;
     }
 
+    /**
+     * @return void
+     */
     public static function logout(): void
     {
         unset($_SESSION['user']);
     }
 
+    /**
+     * @return bool
+     */
     public static function isLogged(): bool
     {
         if (isset($_SESSION['user'])) {
@@ -189,6 +287,9 @@ abstract class User extends Modal
         return false;
     }
 
+    /**
+     * @return int|null
+     */
     public static function getId(): ?int
     {
         if (isset($_SESSION['user'])) {
@@ -198,6 +299,9 @@ abstract class User extends Modal
         return null;
     }
 
+    /**
+     * @return void
+     */
     public static function redirectToLoginCheck(): void
     {
         if (!self::isLogged()) {
@@ -205,6 +309,9 @@ abstract class User extends Modal
         }
     }
 
+    /**
+     * @return void
+     */
     public static function redirectToHomeCheck(): void
     {
         if (self::isLogged()) {

@@ -4,15 +4,28 @@ namespace app\core;
 
 use app\models\User;
 
+/**
+ * Class View
+ * @package app\core
+ */
 class View
 {
+    /**
+     * @var string layout name
+     */
     public $layout;
 
+    /**
+     * View constructor.
+     */
     public function __construct()
     {
         $this->layout = 'default';
     }
 
+    /**
+     * @return array
+     */
     private function getAdditionalData(): array
     {
         $data = [];
@@ -32,7 +45,11 @@ class View
         return $data;
     }
 
-    private function getTitleByFilename($path)
+    /**
+     * @param $path
+     * @return string
+     */
+    private function getTitleByFilename($path): string
     {
         $title = strrchr($path, "/");
         if (!$title) {

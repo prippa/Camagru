@@ -2,6 +2,10 @@
 
 namespace app\core;
 
+/**
+ * Class Router
+ * @package app\core
+ */
 class Router
 {
     /**
@@ -41,6 +45,7 @@ class Router
 
     /**
      * Returns request uri
+     * @return string
      */
     private function getURI(): string
     {

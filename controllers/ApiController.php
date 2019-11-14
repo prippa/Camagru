@@ -9,9 +9,16 @@ use app\models\Photo;
 use app\models\User;
 use app\core\Controller;
 
+/**
+ * Class ApiController
+ * @package app\controllers
+ */
 class ApiController extends Controller
 {
-    public function actionLikeDislikePOST()
+    /**
+     * @return void
+     */
+    public function actionLikeDislikePOST(): void
     {
         if (empty($_POST)) {
             $this->view->run('error_pages/404');
@@ -26,6 +33,11 @@ class ApiController extends Controller
         exit('OK');
     }
 
+    /**
+     * @param int $user_id
+     * @param int $photo_id
+     * @return void
+     */
     private function sendNotification(int $user_id, int $photo_id): void
     {
         $photo_user_id = Photo::getUserId($photo_id);
@@ -41,7 +53,10 @@ class ApiController extends Controller
         }
     }
 
-    public function actionAddNewComment()
+    /**
+     * @return void
+     */
+    public function actionAddNewComment(): void
     {
         if (empty($_POST)) {
             $this->view->run('error_pages/404');
@@ -58,7 +73,10 @@ class ApiController extends Controller
         exit('OK');
     }
 
-    public function actionGetMorePhotos()
+    /**
+     * @return void
+     */
+    public function actionGetMorePhotos(): void
     {
         if (empty($_POST)) {
             $this->view->run('error_pages/404');
@@ -79,7 +97,10 @@ class ApiController extends Controller
         echo json_encode($photos);
     }
 
-    public function actionDeletePhotoById()
+    /**
+     * @return void
+     */
+    public function actionDeletePhotoById(): void
     {
         if (empty($_POST)) {
             $this->view->run('error_pages/404');
@@ -94,6 +115,10 @@ class ApiController extends Controller
         echo 'OK';
     }
 
+    /**
+     * @param string $image
+     * @return string|null
+     */
     private function uploadImage(string $image): ?string
     {
         $image = str_replace('data:image/png;base64,', '', $image);
@@ -105,7 +130,10 @@ class ApiController extends Controller
         return $success ? $file : null;
     }
 
-    public function actionUploadPhotos()
+    /**
+     * @return void
+     */
+    public function actionUploadPhotos(): void
     {
         $image = $_POST['image_base_64'];
         $image_id = $_POST['image_id'];

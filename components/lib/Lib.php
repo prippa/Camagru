@@ -2,10 +2,15 @@
 
 namespace app\components\lib;
 
+/**
+ * Class Lib
+ * @package app\components\lib
+ */
 abstract class Lib
 {
     /**
-     * @param $url - Route
+     * @param string|null $url - Route
+     * @return void
      */
     public static function redirect(string $url = null): void
     {
@@ -16,6 +21,10 @@ abstract class Lib
         exit();
     }
 
+    /**
+     * @param string $text
+     * @return string
+     */
     public static function getUniqueToken(string $text): string
     {
         $s = 'My super secret token';
@@ -24,6 +33,11 @@ abstract class Lib
         return $token;
     }
 
+    /**
+     * @param $data
+     * @param bool $is_exit
+     * @return void
+     */
     public static function debug($data, bool $is_exit = true): void
     {
         echo '<pre>';
@@ -35,7 +49,13 @@ abstract class Lib
         }
     }
 
-    public static function fwrite(string $message, string $filename = 'test.txt', string $rights = 'a+')
+    /**
+     * @param string $message
+     * @param string $filename
+     * @param string $rights
+     * @return void
+     */
+    public static function fwrite(string $message, string $filename = 'test.txt', string $rights = 'a+'): void
     {
         $fd = fopen($filename, $rights);
         fwrite($fd, $message);

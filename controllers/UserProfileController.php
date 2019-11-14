@@ -9,9 +9,19 @@ use app\models\Photo;
 use app\models\User;
 use app\core\Controller;
 
+/**
+ * Class UserProfileController
+ * @package app\controllers
+ */
 class UserProfileController extends Controller
 {
     //********************************************* Profile Settings ***************************************************
+    /**
+     * @param array $db_data
+     * @param array $form_data
+     * @param array $messages
+     * @return void
+     */
     private function psProcessLogin(array &$db_data, array $form_data, array &$messages): void
     {
         if ($db_data['login'] == $form_data['login']) {
@@ -27,6 +37,12 @@ class UserProfileController extends Controller
         }
     }
 
+    /**
+     * @param array $db_data
+     * @param array $form_data
+     * @param array $messages
+     * @return void
+     */
     private function psProcessEmail(array $db_data, array $form_data, array &$messages): void
     {
         if ($db_data['email'] == $form_data['email']) {
@@ -52,6 +68,12 @@ class UserProfileController extends Controller
         }
     }
 
+    /**
+     * @param array $db_data
+     * @param array $form_data
+     * @param array $messages
+     * @return void
+     */
     private function psProcessPassword(array $db_data, array $form_data, array &$messages): void
     {
         if ($form_data['old_password'] == '') {
@@ -74,6 +96,12 @@ class UserProfileController extends Controller
         }
     }
 
+    /**
+     * @param array $db_data
+     * @param array $form_data
+     * @param array $messages
+     * @return void
+     */
     private function psProcessNotifications(array &$db_data, array $form_data, array &$messages): void
     {
         $notifications = isset($form_data['notifications']) ? '1' : '0';
@@ -91,7 +119,10 @@ class UserProfileController extends Controller
         $db_data['notifications'] = $notifications;
     }
 
-    public function actionProfileSettings()
+    /**
+     * @return void
+     */
+    public function actionProfileSettings(): void
     {
         User::redirectToLoginCheck();
 
@@ -110,7 +141,11 @@ class UserProfileController extends Controller
         $this->view->run('profile/settings', ['messages' => $messages, 'user_data' => $user_data], $title);
     }
 
-    public function actionConfirmNewMail($token)
+    /**
+     * @param $token
+     * @return void
+     */
+    public function actionConfirmNewMail($token): void
     {
         $email = EmailReset::getEmailByToken($token);
 
@@ -131,7 +166,10 @@ class UserProfileController extends Controller
     }
     //******************************************************************************************************************
 
-    public function actionProfileMyPhotos()
+    /**
+     * @return void
+     */
+    public function actionProfileMyPhotos(): void
     {
         User::redirectToLoginCheck();
 

@@ -8,9 +8,16 @@ use app\models\Photo;
 use app\models\User;
 use app\core\Controller;
 
+/**
+ * Class PhotoController
+ * @package app\controllers
+ */
 class PhotoController extends Controller
 {
-    public function actionMakePhoto()
+    /**
+     * @return void
+     */
+    public function actionMakePhoto(): void
     {
         User::redirectToLoginCheck();
 
@@ -22,7 +29,11 @@ class PhotoController extends Controller
         $this->view->run('make_photo', ['super_images' => $super_images]);
     }
 
-    public function actionSinglePhoto(int $id)
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function actionSinglePhoto(int $id): void
     {
         $photo = Photo::getPhoto($id, User::getId());
 

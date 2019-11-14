@@ -4,6 +4,10 @@ namespace app\core;
 
 use PDO;
 
+/**
+ * Class DB
+ * @package app\core
+ */
 class DB
 {
     protected $db;
@@ -24,6 +28,11 @@ class DB
         $this->db = new PDO($dsn, $settings['user'], $settings['password'], $options);
     }
 
+    /**
+     * @param string $table
+     * @param array $params
+     * @return void
+     */
     public function insert(string $table, array $params): void
     {
         $fields = '';
@@ -42,7 +51,13 @@ class DB
         $this->execute($sql, $params);
     }
 
-    public function delete(string $table, array $where, ?int $limit = null): void
+    /**
+     * @param string $table
+     * @param array $where
+     * @param int|null $limit
+     * @return void
+     */
+    public function delete(string $table, array $where, int $limit = null): void
     {
         $where_string = $this->prepareWhere($where);
         $sql = "DELETE FROM $table WHERE $where_string";
@@ -52,7 +67,14 @@ class DB
         $this->execute($sql, $where);
     }
 
-    public function update(string $table, array $params, array $where, ?int $limit = null)
+    /**
+     * @param string $table
+     * @param array $params
+     * @param array $where
+     * @param int|null $limit
+     * @return void
+     */
+    public function update(string $table, array $params, array $where, int $limit = null): void
     {
         $setString = '';
         $where_string = $this->prepareWhere($where);
@@ -71,7 +93,14 @@ class DB
         $this->execute($sql, $params);
     }
 
-    public function select(string $table, array $params = [], array $where = [], ?int $limit = null)
+    /**
+     * @param string $table
+     * @param array $params
+     * @param array $where
+     * @param int|null $limit
+     * @return bool|\PDOStatement
+     */
+    public function select(string $table, array $params = [], array $where = [], int $limit = null)
     {
         $sql = $this->prepareSelect($table, $params, $where);
 
@@ -82,24 +111,45 @@ class DB
         return $this->execute($sql, $where);
     }
 
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return mixed
+     */
     public function row(string $sql, array $params = [])
     {
         $result = $this->execute($sql, $params);
 		return $result->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function rows(string $sql, array $params = [])
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return array
+     */
+    public function rows(string $sql, array $params = []): array
     {
         $result = $this->execute($sql, $params);
 		return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return mixed
+     */
     public function col(string $sql, array $params = [])
     {
 		$result = $this->execute($sql, $params);
 		return $result->fetchColumn();
 	}
 
+    /**
+     * @param string $table
+     * @param string $col
+     * @param array $where
+     * @return mixed
+     */
 	public function selectCol(string $table, string $col, array $where = [])
     {
         $where_string = $this->prepareWhere($where);
@@ -111,6 +161,12 @@ class DB
         return $this->col($sql, $where);
     }
 
+    /**
+     * @param string $table
+     * @param array $params
+     * @param array $where
+     * @return mixed
+     */
     public function selectRow(string $table, array $params = [], array $where = [])
     {
         $sql = $this->prepareSelect($table, $params, $where);
@@ -119,13 +175,24 @@ class DB
         return $this->row($sql, $where);
     }
 
-    public function selectRows(string $table, array $params = [], array $where = [])
+    /**
+     * @param string $table
+     * @param array $params
+     * @param array $where
+     * @return array
+     */
+    public function selectRows(string $table, array $params = [], array $where = []): array
     {
         $sql = $this->prepareSelect($table, $params, $where);
 
         return $this->rows($sql, $where);
     }
 
+    /**
+     * @param string $sql
+     * @param array $params
+     * @return bool|\PDOStatement
+     */
     public function execute(string $sql, array $params = [])
     {
         $result = $this->db->prepare($sql);
@@ -139,6 +206,10 @@ class DB
         return $result;
     }
 
+    /**
+     * @param array $where
+     * @return string
+     */
     private function prepareWhere(array &$where): string
     {
         $where_string = '';
@@ -154,7 +225,13 @@ class DB
         return $where_string;
     }
 
-    private function prepareSelect(string $table, array &$params, array &$where)
+    /**
+     * @param string $table
+     * @param array $params
+     * @param array $where
+     * @return string
+     */
+    private function prepareSelect(string $table, array &$params, array &$where): string
     {
         $params_string = '';
         $where_string = $this->prepareWhere($where);
