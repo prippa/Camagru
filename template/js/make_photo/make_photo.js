@@ -1,6 +1,6 @@
 import { $, dNone, dBlock } from '../lib.js';
-import { PhotosCanvas } from './PhotosCanvas.class.js';
-import { SuperImagesCanvas } from './SuperImagesCanvas.class.js'
+import { PhotosCanvas } from './PhotosCanvas.js';
+import { SuperImagesCanvas } from './SuperImagesCanvas.js'
 
 (function () {
     // Variables INIT

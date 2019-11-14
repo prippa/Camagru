@@ -3,23 +3,14 @@
 namespace app\models;
 
 use app\core\Modal;
-use PDO;
 
 abstract class Comment extends Modal
 {
-    public static function add(int $user_id, int $photo_id, string $comment): void
+    private const TABLE = 'photo_comment';
+
+    public static function insert(int $user_id, int $photo_id, string $comment): void
     {
-        $sql = 'INSERT INTO photo_comment (user_id, photo_id, comment) VALUES (:user_id, :photo_id, :comment)';
-        DB::execute($sql, [':user_id' => $user_id, ':photo_id' => $photo_id, ':comment' => $comment]);
-    }
-
-    public static function getByID(int $id): ?array
-    {
-        $sql = 'SELECT user_id, photo_id, comment FROM photo_comment WHERE id = :id';
-
-        $result = DB::execute($sql, [':id' => $id]);
-
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        self::db()->insert(self::TABLE, ['user_id', $user_id, 'photo_id', $photo_id, 'comment', $comment]);
     }
 
     public static function getAllCommentsByPhotoId(int $photo_id): ?array
@@ -27,13 +18,11 @@ abstract class Comment extends Modal
         $sql = 'SELECT
                     photo_comment.comment,
                     user.login
-                FROM photo_comment
+                FROM ' . self::TABLE . '
                 LEFT JOIN user ON photo_comment.user_id = user.id
                 WHERE photo_comment.photo_id = :photo_id
                 ORDER BY photo_comment.create_date';
 
-        $result = DB::execute($sql, [':photo_id' => $photo_id]);
-
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        return self::db()->rows($sql, ['photo_id', $photo_id]);
     }
 }

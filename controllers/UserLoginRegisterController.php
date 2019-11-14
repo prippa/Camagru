@@ -28,13 +28,14 @@ class UserLoginRegisterController extends Controller
             if (!$errors) {
                 $vkey = Lib::getUniqueToken($login);
 
-                User::add($login, $email, $password, $vkey);
+                User::insert($login, $email, $password, $vkey);
                 Mail::confirmAccount($login, $email, $vkey);
                 $this->view->run('login_register_system/confirm_account', ['email' => $email], 'Confirm Email');
             }
         }
 
-        $this->view->run('login_register_system/register', ['errors' => $errors, 'login' => $login, 'email' => $email]);
+        $this->view->run('login_register_system/register',
+            ['errors' => $errors, 'login' => $login, 'email' => $email]);
     }
 
     public function actionConfirmMail($vkey)
@@ -93,7 +94,7 @@ class UserLoginRegisterController extends Controller
             if (!$result) {
                 $vkey = Lib::getUniqueToken($email);
 
-                PasswordReset::add($email, $vkey);
+                PasswordReset::insert($email, $vkey);
                 Mail::confirmPassword(User::getLoginByEmail($email), $email, $vkey);
                 $this->view->run('login_register_system/confirm_password', ['email' => $email]);
             }

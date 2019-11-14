@@ -45,7 +45,7 @@ class UserProfileController extends Controller
 
             $token = Lib::getUniqueToken($form_data['email']);
 
-            EmailReset::add($form_data['email'], $token);
+            EmailReset::insert($form_data['email'], $token);
             Mail::changeEmailConfirm($db_data['login'], $form_data['email'], $token);
         } else {
             $messages['errors']['email'][] = "<b>{$form_data['email']}</b> Invalid Email";
@@ -96,7 +96,7 @@ class UserProfileController extends Controller
         User::redirectToLoginCheck();
 
         $messages = [];
-        $user_data = User::getUserByID(User::getId());
+        $user_data = User::getUser(User::getId());
 
         if (!empty($_POST)) {
             $this->psProcessLogin($user_data, $_POST, $messages);
@@ -105,9 +105,9 @@ class UserProfileController extends Controller
             $this->psProcessNotifications($user_data, $_POST, $messages);
         }
 
-        $view_title = $user_data['login'] . ' • Settings';
+        $title = $user_data['login'] . ' • Settings';
 
-        $this->view->run('profile/settings', ['messages' => $messages, 'user_data' => $user_data], $view_title);
+        $this->view->run('profile/settings', ['messages' => $messages, 'user_data' => $user_data], $title);
     }
 
     public function actionConfirmNewMail($token)
@@ -119,7 +119,7 @@ class UserProfileController extends Controller
                 ['error' => 'Unable to change email by this link'], 'Oops :(');
         }
 
-        $user_data = User::getUserByID(User::getId());
+        $user_data = User::getUser(User::getId());
         $messages['success'][] = "Your old email - <b>{$user_data['email']}</b> " .
             "has been changed to the new one - <b>$email</b>";
 
@@ -138,8 +138,8 @@ class UserProfileController extends Controller
         $photos = Photo::getLastNUserPhotos(4, User::getId());
         Photo::preparePhotos($photos);
 
-        $view_title = User::getLoginById(User::getId()) . ' • Photos';
+        $title = User::getLogin(User::getId()) . ' • Photos';
 
-        $this->view->run('profile/my_photos', ['photos' => $photos], $view_title);
+        $this->view->run('profile/my_photos', ['photos' => $photos], $title);
     }
 }

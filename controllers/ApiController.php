@@ -31,10 +31,10 @@ class ApiController extends Controller
         $photo_user_id = Photo::getUserId($photo_id);
 
         if ($user_id != $photo_user_id) {
-            $photo_user = User::getUserByID($photo_user_id);
+            $photo_user = User::getUser($photo_user_id);
 
             if ($photo_user['notifications'] === '1') {
-                $login = User::getLoginById($user_id);
+                $login = User::getLogin($user_id);
                 $email = $photo_user['email'];
                 Mail::notification($login, $email, $photo_id);
             }
@@ -51,7 +51,7 @@ class ApiController extends Controller
         $photo_id = $_POST['id'];
         $comment = $_POST['comment'];
 
-        Comment::add($user_id, $photo_id, $comment);
+        Comment::insert($user_id, $photo_id, $comment);
 
         $this->sendNotification($user_id, $photo_id);
 
@@ -99,7 +99,7 @@ class ApiController extends Controller
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
         $data = base64_decode($image);
-        $file = UPLOADS . uniqid() . '.png';
+        $file = 'uploads/' . uniqid() . '.png';
         $success = file_put_contents($file, $data);
 
         return $success ? $file : null;

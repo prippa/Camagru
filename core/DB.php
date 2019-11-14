@@ -14,24 +14,26 @@ class DB
     public function __construct()
     {
         $settings = require 'config/database.php';
-        $dns = "mysql:dbname={$settings['dbname']};host={$settings['host']}";
+        $dsn = "mysql:dbname={$settings['dbname']};host={$settings['host']}";
 
         $options = [
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'",
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
-        $this->db = new PDO($dns, $settings['user'], $settings['password'], $options);
+        $this->db = new PDO($dsn, $settings['user'], $settings['password'], $options);
     }
 
     public function insert(string $table, array $params): void
     {
         $fields = '';
         $values = '';
+        $count = count($params);
 
-        foreach ($params as $field) {
-            $fields .= "$field,";
-            $values .= ":$field,";
+        for ($i = 0; ($i + 1) < $count; $i += 2) {
+            $key = $params[$i];
+            $fields .= "$key,";
+            $values .= ":$key,";
         }
         $fields = rtrim($fields, ',');
         $values = rtrim($values, ',');
@@ -40,31 +42,44 @@ class DB
         $this->execute($sql, $params);
     }
 
-    public function delete(string $table, array $where, ?int $limit = 1): void
+    public function delete(string $table, array $where, ?int $limit = null): void
     {
-        $whereString = $this->prepareWhere($where);
-        $sql = "DELETE FROM $table WHERE $whereString";
+        $where_string = $this->prepareWhere($where);
+        $sql = "DELETE FROM $table WHERE $where_string";
         if ($limit) {
             $sql .= " LIMIT $limit";
         }
         $this->execute($sql, $where);
     }
 
-    public function update(string $table, array $params, array $where, ?int $limit = 1)
+    public function update(string $table, array $params, array $where, ?int $limit = null)
     {
         $setString = '';
-        $whereString = $this->prepareWhere($where);
+        $where_string = $this->prepareWhere($where);
+        $count = count($params);
 
-        foreach ($params as $field) {
-            $setString .= "$field = :$field,";
+        for ($i = 0; ($i + 1) < $count; $i += 2) {
+            $key = $params[$i];
+            $setString .= "$key = :$key,";
         }
         $setString = rtrim($setString, ',');
-        $sql = "UPDATE $table SET $setString WHERE $whereString";
+        $sql = "UPDATE $table SET $setString WHERE $where_string";
         if ($limit) {
             $sql .= " LIMIT $limit";
         }
         $params = array_merge($params, $where);
         $this->execute($sql, $params);
+    }
+
+    public function select(string $table, array $params = [], array $where = [], ?int $limit = null)
+    {
+        $sql = $this->prepareSelect($table, $params, $where);
+
+        if ($limit) {
+            $sql .= " LIMIT $limit";
+        }
+
+        return $this->execute($sql, $where);
     }
 
     public function row(string $sql, array $params = [])
@@ -79,63 +94,82 @@ class DB
 		return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectRow(string $table, int $id, array $params = [])
-    {
-        $paramsString = '';
-
-        foreach ($params as $field) {
-            $paramsString .= "$field,";
-        }
-        $paramsString = rtrim($paramsString, ',');
-        $sql = "SELECT $paramsString FROM $table WHERE id = $id LIMIT 1";
-        return $this->row($sql, $params);
-    }
-
-    public function selectRows(string $table, int $id, array $params = [])
-    {
-        $paramsString = '';
-
-        foreach ($params as $field) {
-            $paramsString .= "$field,";
-        }
-        $paramsString = rtrim($paramsString, ',');
-        $sql = "SELECT $paramsString FROM $table WHERE id = $id";
-        return $this->rows($sql, $params);
-    }
-
     public function col(string $sql, array $params = [])
     {
 		$result = $this->execute($sql, $params);
 		return $result->fetchColumn();
 	}
 
-	public function selectCol(string $table, int $id, string $col)
+	public function selectCol(string $table, string $col, array $where = [])
     {
-        $sql = "SELECT $col FROM $table WHERE id = $id LIMIT 1";
-        return $this->col($sql);
+        $where_string = $this->prepareWhere($where);
+        $sql = "SELECT $col FROM $table";
+        if (!empty($where_string)) {
+            $sql .= " WHERE $where_string";
+        }
+        $sql .= ' LIMIT 1';
+        return $this->col($sql, $where);
+    }
+
+    public function selectRow(string $table, array $params = [], array $where = [])
+    {
+        $sql = $this->prepareSelect($table, $params, $where);
+        $sql .= " LIMIT 1";
+
+        return $this->row($sql, $where);
+    }
+
+    public function selectRows(string $table, array $params = [], array $where = [])
+    {
+        $sql = $this->prepareSelect($table, $params, $where);
+
+        return $this->rows($sql, $where);
     }
 
     public function execute(string $sql, array $params = [])
     {
         $result = $this->db->prepare($sql);
-        foreach ($params as $key => &$value) {
-            $result->bindParam(":$key", $value);
+        $count = count($params);
+
+        for ($i = 0; ($i + 1) < $count; ++$i) {
+            $result->bindParam(':' . $params[$i], $params[++$i]);
         }
         $result->execute();
 
         return $result;
     }
 
-    private function prepareWhere(array & $where): string
+    private function prepareWhere(array &$where): string
     {
-        $whereString = '';
+        $where_string = '';
+        $count = count($where);
 
-        foreach ($where as $key) {
-            $whereString .= "$key = :w$key AND ";
-            $where["w$key"] = $where[$key];
-            unset($where[$key]);
+        for ($i = 0; ($i + 1) < $count; $i += 2) {
+            $key = $where[$i];
+            $where_string .= "$key = :w$key AND ";
+            $where[$i] = "w$key";
         }
-        $whereString = rtrim($whereString, ' AND ');
-        return $whereString;
+        $where_string = rtrim($where_string, ' AND ');
+
+        return $where_string;
+    }
+
+    private function prepareSelect(string $table, array &$params, array &$where)
+    {
+        $params_string = '';
+        $where_string = $this->prepareWhere($where);
+
+        foreach ($params as $param) {
+            $params_string .= "$param,";
+        }
+        $params_string = rtrim($params_string, ',');
+        $sql = 'SELECT';
+        $sql .= (empty($params_string) ? ' *' : " $params_string");
+        $sql .= " FROM $table";
+        if (!empty($where_string)) {
+            $sql .= " WHERE $where_string";
+        }
+
+        return $sql;
     }
 }

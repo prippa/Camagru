@@ -4,7 +4,6 @@ namespace app\models;
 
 use app\core\Modal;
 use app\components\lib\Lib;
-use PDO;
 
 abstract class User extends Modal
 {
@@ -14,51 +13,46 @@ abstract class User extends Modal
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        self::db()->insert(self::TABLE, ['login' => $login, 'password' => $password, 'email' => $email, 'vkey' => $vkey]);
+        self::db()->insert(self::TABLE, ['login', $login, 'password', $password, 'email', $email, 'vkey', $vkey]);
     }
 
     public static function updateLogin(int $id, string $login): void
     {
-        self::db()->update(self::TABLE, $id, ['login' => $login]);
+        self::db()->update(self::TABLE, ['login', $login], ['id', $id], 1);
     }
 
     public static function updateEmail(string $email, int $id): void
     {
-        self::db()->update(self::TABLE, $id, ['email' => $email]);
+        self::db()->update(self::TABLE, ['email', $email], ['id', $id], 1);
     }
 
     public static function updatePassword(string $password, int $id): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        self::db()->update(self::TABLE, $id, ['password' => $password]);
+        self::db()->update(self::TABLE, ['password', $password], ['id', $id], 1);
     }
 
     public static function updateNotifications(string $notification, int $id): void
     {
-        self::db()->update(self::TABLE, $id, ['notification' => $notification]);
+        self::db()->update(self::TABLE, ['notifications', $notification], ['id', $id], 1);
     }
 
     public static function updatePasswordByLogin(string $login, string $password): void
     {
         $password = password_hash($password, self::PASSWORD_HASH_TYPE);
 
-        $sql = "UPDATE user SET password = :password WHERE login = :login LIMIT 1";
-        self::db()->execute($sql, ['password' => $password, 'login' => $login]);
+        self::db()->update(self::TABLE, ['password', $password], ['login', $login], 1);
     }
 
     public static function confirmMail(string $vkey): bool
     {
-        $db = self::db()->getConnection();
-
-        $sql = "SELECT verified, vkey FROM user WHERE verified = 0 AND vkey = :vkey LIMIT 1";
-        $result = self::db()->execute($sql, [':vkey' => $vkey], $db);
+        $result = self::db()->select(self::TABLE, ['verified', 'vkey'], ['verified', 0, 'vkey', $vkey], 1);
         if ($result->rowCount() != 1) {
             return false;
         }
 
-        $sql = "UPDATE user SET verified = 1 WHERE vkey = :vkey LIMIT 1";
-        self::db()->execute($sql, ['vkey' => $vkey], $db);
+        self::db()->update(self::TABLE, ['verified', 1], ['vkey', $vkey], 1);
 
         return true;
     }
@@ -116,10 +110,7 @@ abstract class User extends Modal
             return $errors;
         }
 
-        $sql = 'SELECT id, password, verified, email FROM user WHERE login = :login LIMIT 1';
-        $result = self::db()->execute($sql, ['login' => $login]);
-
-        $user = $result->fetch(PDO::FETCH_ASSOC);
+        $user = self::db()->selectRow(self::TABLE, ['id', 'password', 'verified', 'email'], ['login', $login]);
         if (!$user) {
             return ["<b>$login</b> is not registered"];
         }
@@ -148,10 +139,10 @@ abstract class User extends Modal
         }
 
         if (!$errors) {
-            if (self::db()->isArgExists('user', 'login', $login, $db)) {
+            if (self::db()->selectCol(self::TABLE, 'login', ['login', $login])) {
                 $errors[] = "<b>$login</b> is already taken";
             }
-            if (self::db()->isArgExists('user', 'email', $email, $db)) {
+            if (self::db()->selectCol(self::TABLE, 'email', ['email', $email])) {
                 $errors[] = "<b>$email</b> is already registered";
             }
         }
@@ -161,30 +152,22 @@ abstract class User extends Modal
 
     public static function getLoginByEmail(string $email): ?string
     {
-        $sql = 'SELECT login FROM user WHERE email = :email LIMIT 1';
-
-        $result = self::db()->execute($sql, ['email' => $email]);
-        $login = $result->fetch(PDO::FETCH_ASSOC);
-
-        return $login['login'];
+        return self::db()->selectCol(self::TABLE, 'login', ['email', $email]);
     }
 
-    public static function getLoginById(int $id): ?string
+    public static function getVerifiedByEmail(string $email): ?string
     {
-        $sql = 'SELECT login FROM user WHERE id = :id LIMIT 1';
-
-        $result = self::db()->execute($sql, ['id' => $id]);
-
-        return $result->fetch(PDO::FETCH_ASSOC)['login'];
+        return self::db()->selectCol(self::TABLE, 'verified', ['email', $email]);
     }
 
-    public static function getUserByID(int $id): ?array
+    public static function getLogin(int $id): ?string
     {
-        $sql = 'SELECT * FROM user WHERE id = :id LIMIT 1';
+        return self::db()->selectCol(self::TABLE, 'login', ['id', $id]);
+    }
 
-        $result = self::db()->execute($sql, ['id' => $id]);
-
-        return $result->fetch(PDO::FETCH_ASSOC);
+    public static function getUser(int $id): ?array
+    {
+        return self::db()->selectRow(self::TABLE, [], ['id', $id]);
     }
 
     public static function login(string $id): void

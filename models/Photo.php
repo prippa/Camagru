@@ -11,12 +11,12 @@ abstract class Photo extends Modal
 
     public static function insert(string $img, int $user_id): void
     {
-        self::db()->insert(self::TABLE, ['user_id' => $user_id, 'img' => $img]);
+        self::db()->insert(self::TABLE, ['user_id', $user_id, 'img', $img]);
     }
 
     public static function delete(int $id): void
     {
-        self::db()->delete(self::TABLE, $id);
+        self::db()->delete(self::TABLE, ['id', $id], 1);
     }
 
     public static function getLastNPhotos(int $size, ?int $user_id, int $start_from = 0): ?array
@@ -34,7 +34,7 @@ abstract class Photo extends Modal
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
                 ORDER BY photo.create_date DESC LIMIT ' . $size . ' OFFSET ' . $start_from;
 
-        return self::db()->rows($sql, ['user_id' => $user_id]);
+        return self::db()->rows($sql, ['user_id', $user_id]);
     }
 
     public static function getLastNUserPhotos(int $size, int $user_id, int $start_from = 0): ?array
@@ -53,7 +53,7 @@ abstract class Photo extends Modal
                 WHERE :user_id = photo.user_id
                 ORDER BY photo.create_date DESC LIMIT ' . $size . ' OFFSET ' . $start_from;
 
-        return self::db()->rows($sql, ['user_id' => $user_id]);
+        return self::db()->rows($sql, ['user_id', $user_id]);
     }
 
     public static function preparePhotos(?array &$photos): void
@@ -79,22 +79,18 @@ abstract class Photo extends Modal
                 LEFT JOIN likes ON :user_id = likes.user_id AND photo.id = likes.photo_id
                 WHERE photo.id = :id LIMIT 1';
 
-        $data = self::db()->row($sql, ['user_id' => $user_id, 'id' => $id]);
+        $data = self::db()->row($sql, ['user_id', $user_id, 'id', $id]);
 
         return $data ? $data : null;
     }
 
     public static function getUserId(int $id): ?int
     {
-        $sql = 'SELECT user_id FROM ' . self::TABLE . ' WHERE id = :id LIMIT 1';
-
-        return self::db()->column($sql, ['id' => $id]);
+        return self::db()->selectCol(self::TABLE, 'user_id', ['id', $id]);
     }
 
     public static function getFile(int $id): ?string
     {
-        $sql = 'SELECT img FROM ' . self::TABLE . ' WHERE id = :id LIMIT 1';
-
-        return self::db()->column($sql, ['id' => $id]);
+        return self::db()->selectCol(self::TABLE, 'img', ['id', $id]);
     }
 }

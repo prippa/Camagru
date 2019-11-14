@@ -3,29 +3,22 @@
 namespace app\models;
 
 use app\core\Modal;
-use PDO;
 
 abstract class PasswordReset extends Modal
 {
+    private const TABLE = 'password_reset';
+
     public static function validation(string $email): ?array
     {
-        $db = DB::getConnection();
+        $verified = User::getVerifiedByEmail($email);
 
-        $sql = 'SELECT verified FROM user WHERE email = :email LIMIT 1';
-        $result = DB::execute($sql, [':email' => $email], $db);
-
-        $user = $result->fetch(PDO::FETCH_ASSOC);
-        if (!$user) {
+        if (!$verified) {
             return ["Can't find that email, sorry."];
         }
-        if ($user['verified'] == '0') {
+        if ($verified == '0') {
             return ['account_email'];
         }
-
-        $sql = 'SELECT email FROM password_reset WHERE email = :email LIMIT 1';
-        $result = DB::execute($sql, [':email' => $email], $db);
-
-        if ($result->fetch()) {
+        if (self::db()->selectCol(self::TABLE, 'email', ['email', $email])) {
             return ['password_email'];
         }
 
@@ -47,25 +40,18 @@ abstract class PasswordReset extends Modal
         return $errors;
     }
 
-    public static function add(string $email, string $token): void
+    public static function insert(string $email, string $token): void
     {
-        $sql = 'INSERT INTO password_reset (email, token) VALUES (:email, :token)';
-        DB::execute($sql, [':email' => $email, ':token' => $token]);
+        self::db()->insert(self::TABLE, ['email', $email, 'token', $token]);
     }
 
     public static function getEmailByToken(string $token): ?string
     {
-        $sql = 'SELECT email FROM password_reset WHERE token = :token LIMIT 1';
-        $result = DB::execute($sql, [':token' => $token]);
-
-        $email = $result->fetch(PDO::FETCH_ASSOC);
-
-        return $email['email'];
+        return self::db()->selectCol(self::TABLE, 'email', ['token', $token]);
     }
 
     public static function deleteByEmail(string $email): void
     {
-        $sql = 'DELETE FROM password_reset WHERE email = :email LIMIT 1';
-        DB::execute($sql, [':email' => $email]);
+        self::db()->delete(self::TABLE, ['email', $email], 1);
     }
 }

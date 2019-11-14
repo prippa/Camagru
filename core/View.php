@@ -21,7 +21,7 @@ class View
         $data['login'] = '';
 
         if ($data['is_logged']) {
-            $data['login'] = User::getLoginById(User::getId());
+            $data['login'] = User::getLogin(User::getId());
             $data['header_login'] = $data['login'];
 
             if (strlen($data['login']) > 12) {

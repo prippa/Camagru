@@ -3,34 +3,29 @@
 namespace app\models;
 
 use app\core\Modal;
-use PDO;
 
 abstract class EmailReset extends Modal
 {
-    public static function add(string $email, string $token): void
+    private const TABLE = 'email_reset';
+
+    public static function insert(string $email, string $token): void
     {
-        $sql = 'INSERT INTO email_reset (email, token) VALUES (:email, :token)';
-        DB::execute($sql, [':email' => $email, ':token' => $token]);
+        self::db()->insert(self::TABLE, ['email', $email, 'token', $token]);
     }
 
     public static function getEmailByToken(string $token): ?string
     {
-        $sql = 'SELECT email FROM email_reset WHERE token = :token LIMIT 1';
-        $result = DB::execute($sql, [':token' => $token]);
-
-        $email = $result->fetch(PDO::FETCH_ASSOC);
-        return $email['email'];
+        return self::db()->selectCol(self::TABLE, 'email', ['token', $token]);
     }
 
     public static function deleteByEmail(string $email): void
     {
-        $sql = 'DELETE FROM email_reset WHERE email = :email LIMIT 1';
-        DB::execute($sql, [':email' => $email]);
+        self::db()->delete(self::TABLE, ['email', $email], 1);
     }
 
     public static function checkEmail(string $email): bool
     {
-        if (DB::isArgExists('email_reset', 'email', $email)) {
+        if (self::db()->selectCol(self::TABLE, 'email', ['email', $email])) {
             return true;
         }
 
