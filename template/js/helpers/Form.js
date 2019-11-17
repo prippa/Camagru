@@ -54,14 +54,15 @@ export class Form {
     _validateUsername(id, all_username) {
         const input = $(id + '-field');
         const invalid = $(id + '-field-invalid');
-        const res = input.value.search(this._fv['username']);
+        let res = true;
 
-        if (res) {
+        if (input.value.search(this._fv['username'])) {
             this._setIsInvalid(input, invalid, '0-9, a-z, _, from 1 to 32 characters');
         } else if (this._checkDBData(all_username, 'login', input.value)) {
             this._setIsInvalid(input, invalid, `<b>${input.value}</b> is already taken`);
         } else {
             this._setIsValid(input);
+            res = false;
         }
         this._afterValidation(id, !!res);
     }
@@ -69,14 +70,15 @@ export class Form {
     _validateEmail(id, all_email) {
         const input = $(id + '-field');
         const invalid = $(id + '-field-invalid');
-        const res = input.value.search(this._fv['email']);
+        let res = true;
 
-        if (res) {
+        if (input.value.search(this._fv['email'])) {
             this._setIsInvalid(input, invalid, 'Invalid Email');
         } else if (this._checkDBData(all_email, 'email', input.value)) {
             this._setIsInvalid(input, invalid, `<b>${input.value}</b> is already registered`);
         } else {
             this._setIsValid(input);
+            res = false;
         }
         this._afterValidation(id, !!res);
     }
@@ -84,12 +86,13 @@ export class Form {
     _validatePassword(id) {
         const input = $(id + '-field');
         const invalid = $(id + '-field-invalid');
-        const res = input.value.search(this._fv['password']);
+        let res = true;
 
-        if (res) {
+        if (input.value.search(this._fv['password'])) {
             this._setIsInvalid(input, invalid, 'From 6 to 128 characters');
         } else {
             this._setIsValid(input);
+            res = false;
         }
         this._afterValidation(id, !!res);
     }
