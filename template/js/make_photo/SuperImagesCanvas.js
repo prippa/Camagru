@@ -1,8 +1,8 @@
 import {
     $, matrixArray, matrixFill, getPercentage, switchLogic,
     dBlock, dNone, setCursor, getPercentFromSumAndNumber, clearCanvas
-} from '../lib.js';
-import { Point } from './Point.js';
+} from '../helpers/lib.js';
+import { Point } from '../helpers/Point.js';
 import { ImageSize } from './ImageSize.js';
 
 export class SuperImagesCanvas {

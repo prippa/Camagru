@@ -1,6 +1,6 @@
-import { $, dNone, dBlock } from '../lib.js';
-import { PhotosCanvas } from './PhotosCanvas.js';
-import { SuperImagesCanvas } from './SuperImagesCanvas.js'
+import { $, dNone, dBlock } from './helpers/lib.js';
+import { PhotosCanvas } from './make_photo/PhotosCanvas.js';
+import { SuperImagesCanvas } from './make_photo/SuperImagesCanvas.js'
 
 (function () {
     // Variables INIT
@@ -132,7 +132,7 @@ import { SuperImagesCanvas } from './SuperImagesCanvas.js'
     // Turn Off the img mod and turn on video
     btn_load_video.onclick = function () {
         imgOff();
-    }
+    };
 
     // Input File onchange Event
     input_file.onchange = function () {

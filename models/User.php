@@ -106,9 +106,9 @@ abstract class User extends Modal
      */
     public static function checkLogin(string $login): bool
     {
-        $regex_rule = require self::FVR_PATH;
+        $regex_rule = json_decode(file_get_contents(self::FIELDS_VALIDATION_PATH), true);
 
-        if (preg_match($regex_rule['login'], $login)) {
+        if (preg_match("~{$regex_rule['username']}~", $login)) {
             return true;
         }
 
@@ -121,9 +121,9 @@ abstract class User extends Modal
      */
     public static function checkPassword(string $password): bool
     {
-        $regex_rule = require self::FVR_PATH;
+        $regex_rule = json_decode(file_get_contents(self::FIELDS_VALIDATION_PATH), true);
 
-        if (preg_match($regex_rule['password'], $password)) {
+        if (preg_match("~{$regex_rule['password']}~", $password)) {
             return true;
         }
 
@@ -256,6 +256,22 @@ abstract class User extends Modal
     public static function getUser(int $id): ?array
     {
         return self::db()->selectRow(self::TABLE, [], ['id', $id]);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllLogin(): array
+    {
+        return self::db()->selectRows(self::TABLE, ['login']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAllEmail(): array
+    {
+        return self::db()->selectRows(self::TABLE, ['email']);
     }
 
     /**

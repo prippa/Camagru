@@ -1,4 +1,4 @@
-import { $ } from '../lib.js';
+import { $ } from '../helpers/lib.js';
 import { loadMorePhotosOnMyPhotos } from './load_more_photos.js'
 
 const API_DELETE_URL = '/api/DeletePhotoById';

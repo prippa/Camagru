@@ -76,4 +76,4 @@
     window.is_logged = <?= $data['is_logged'] ? 1 : 0 ?>;
     window.login = '<?= $data['login'] ?>';
 </script>
-<script src="/template/js/photo/single_photo.js" type="module"></script>
+<script src="/template/js/single_photo.js" type="module"></script>

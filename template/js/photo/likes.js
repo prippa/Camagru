@@ -1,4 +1,4 @@
-import { $, ajaxSendDataByPOST, redirect } from '../lib.js';
+import { $, ajaxSendDataByPOST, redirect } from '../helpers/lib.js';
 
 const POST_REQUEST_URL = '/api/LikeDislikePOST';
 

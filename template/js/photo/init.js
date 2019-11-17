@@ -1,4 +1,4 @@
-import { $, dBlock } from "../lib.js";
+import { $, dBlock } from "../helpers/lib.js";
 import { initLikeSystem } from './likes.js';
 import { initDeleteSystem } from './delete.js';
 

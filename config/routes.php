@@ -18,6 +18,8 @@ return array(
     'api/LikeDislikePOST' => 'Api/LikeDislikePOST',
     'api/AddNewComment' => 'Api/AddNewComment',
     'api/GetMorePhotos' => 'Api/GetMorePhotos',
+    'api/GetAllLogin' => 'Api/GetAllLogin',
+    'api/GetAllEmail' => 'Api/GetAllEmail',
     'api/DeletePhotoById' => 'Api/DeletePhotoById',
     'api/UploadPhotos' => 'Api/UploadPhotos',
     'make_photo' => 'Photo/MakePhoto',

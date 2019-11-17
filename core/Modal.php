@@ -16,7 +16,7 @@ abstract class Modal
     /**
      * Path to field regex validation
      */
-    protected const FVR_PATH = 'config/form_validation_rules.php';
+    protected const FIELDS_VALIDATION_PATH = 'config/fields_validation.json';
 
     /**
      * DB password hash type

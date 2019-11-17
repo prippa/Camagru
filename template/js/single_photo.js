@@ -1,6 +1,6 @@
-import { $ } from '../lib.js';
-import { initLikeSystem } from './likes.js';
-import { sendComment } from './comments.js'
+import { $ } from './helpers/lib.js';
+import { initLikeSystem } from './photo/likes.js';
+import { sendComment } from './photo/comments.js'
 
 (function () {
     function initCommentSystem(photo_id) {

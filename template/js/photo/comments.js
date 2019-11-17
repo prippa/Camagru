@@ -1,4 +1,4 @@
-import { $, ajaxSendDataByPOST, insertAfter, redirect, dBlock, dNone } from '../lib.js';
+import { $, ajaxSendDataByPOST, insertAfter, redirect, dBlock, dNone } from '../helpers/lib.js';
 
 const MESSAGE_MAX = 1024;
 const POST_URL = '/api/AddNewComment';

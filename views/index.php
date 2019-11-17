@@ -51,4 +51,4 @@
     window.is_logged = <?= $data['is_logged'] ? 1 : 0 ?>;
     window.ld_photo_count = 6;
 </script>
-<script src="/template/js/photo/index.js" type="module"></script>
+<script src="/template/js/index.js" type="module"></script>

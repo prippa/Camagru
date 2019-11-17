@@ -1,4 +1,4 @@
-import { $, insertBefore, dNone, dBlock, clearCanvas } from '../lib.js';
+import { $, insertBefore, dNone, dBlock, clearCanvas } from '../helpers/lib.js';
 
 export class PhotosCanvas {
     constructor() {
@@ -29,7 +29,7 @@ export class PhotosCanvas {
 
                 if (!this._images.length) {
                     dNone(this._made_img_col_elem);
-                    window.onresize();
+                    window.onresize(undefined);
                 }
 
                 return false;
@@ -57,7 +57,7 @@ export class PhotosCanvas {
 
         if (this._images.length === 1) {
             dBlock(this._made_img_col_elem);
-            window.onresize();
+            window.onresize(undefined);
         }
 
         $('delete-made-img' + data.id).onclick = () => this.delete(data.id);

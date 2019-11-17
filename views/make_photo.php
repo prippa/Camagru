@@ -101,4 +101,4 @@
 <script type="module">
     window.super_images = <?= json_encode($data['super_images']) ?>;
 </script>
-<script src="/template/js/make_photo/make_photo.js" type="module"></script>
+<script src="/template/js/make_photo.js" type="module"></script>

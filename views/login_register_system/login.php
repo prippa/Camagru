@@ -10,13 +10,14 @@
 
             <?php require 'views/login_register_system/includes/print_errors.php' ?>
 
-            <form action="/login" method="post">
+            <form action="/login" method="post" id="form">
                 <div class="form-row">
 
                     <div class="form-group col-12">
                         <label for="username-field">Username</label>
                         <input type="text" class="form-control" id="username-field"
                                name="login" required tabindex="1" value="<?= $data['login'] ?>">
+                        <div class="invalid-feedback" id="username-field-invalid"></div>
                     </div>
 
                     <div class="form-group col-12">
@@ -30,10 +31,13 @@
                         </div>
                         <input type="password" class="form-control" id="password-field"
                                name="password" required tabindex="2">
+                        <div class="invalid-feedback" id="password-field-invalid"></div>
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="3">Login</button>
+                <button type="submit" class="btn btn-primary btn-block" tabindex="3" id="form-submit-btn">
+                    Login
+                </button>
             </form>
 
         </div>
@@ -46,5 +50,9 @@
         </div>
     </div>
 
-
 </div>
+
+<script type="module">
+    window.fv = <?= file_get_contents('config/fields_validation.json') ?>;
+</script>
+<script src="/template/js/login.js" type="module"></script>

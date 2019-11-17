@@ -146,4 +146,20 @@ class ApiController extends Controller
             echo 'KO';
         }
     }
+
+    /**
+     * @return void
+     */
+    public function actionGetAllLogin(): void
+    {
+        echo json_encode(User::getAllLogin());
+    }
+
+    /**
+     * @return void
+     */
+    public function actionGetAllEmail(): void
+    {
+        echo json_encode(User::getAllEmail());
+    }
 }

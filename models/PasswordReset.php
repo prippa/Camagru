@@ -44,9 +44,9 @@ abstract class PasswordReset extends Modal
     public static function formValidation(string $password, string $password_confirm): ?array
     {
         $errors = null;
-        $dvr = require self::FVR_PATH;
+        $regex_rule = json_decode(file_get_contents(self::FIELDS_VALIDATION_PATH), true);
 
-        if (!preg_match($dvr['password'], $password)) {
+        if (!preg_match("~{$regex_rule['password']}~", $password)) {
             $errors[] = 'Invalid password';
         }
         if ($password != $password_confirm) {

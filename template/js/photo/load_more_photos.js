@@ -1,4 +1,4 @@
-import { $, insertAfter, dNone } from '../lib.js';
+import { $, insertAfter, dNone } from '../helpers/lib.js';
 import { initLikeSystem } from './likes.js';
 import { initDeleteSystem } from './delete.js';
 
