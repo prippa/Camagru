@@ -139,4 +139,16 @@ abstract class Photo extends Modal
     {
         return self::db()->selectCol(self::TABLE, 'img', ['id', $id]);
     }
+
+    /**
+     * @param int $id
+     * @param string $column
+     * @param string $op
+     * @return void
+     */
+    public static function updateLikes(int $id, string $column, string $op): void
+    {
+        $sql = 'UPDATE ' . self::TABLE . " SET $column = $column $op 1 WHERE id = :id";
+        self::db()->execute($sql, ['id', $id]);
+    }
 }

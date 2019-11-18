@@ -16,7 +16,7 @@ function getNewPhotoBlockForMainPage(photo) {
                `</div>` +
            `</div>` +
 
-            `<a target="_blank" class="post-block" href="${photo['link']}">` +
+            `<a class="post-block" href="${photo['link']}">` +
                 `<img class="img-fluid main-img" src="/${photo['img']}" alt="">` +
             `</a>` +
 
@@ -50,7 +50,7 @@ function getNewPhotoBlockForMyPhotos(photo) {
                `</div>` +
            `</div>` +
 
-            `<a target="_blank" class="post-block" href="${photo['link']}">` +
+            `<a class="post-block" href="${photo['link']}">` +
                 `<img class="img-fluid main-img" src="/${photo['img']}" alt="">` +
             `</a>` +
 

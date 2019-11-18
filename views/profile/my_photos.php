@@ -23,7 +23,7 @@
                             </div>
                         </div>
 
-                        <a target="_blank" class="post-block" href="<?= $item['link'] ?>">
+                        <a class="post-block" href="<?= $item['link'] ?>">
                             <img class="img-fluid main-img" src="/<?= $item['img'] ?>" alt="">
                         </a>
 

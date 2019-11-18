@@ -48,42 +48,6 @@ CREATE TABLE `likes` (
   `like_status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Тригери `likes`
---
-CREATE TRIGGER increment_likes_count AFTER INSERT ON likes FOR EACH ROW
-BEGIN
-    IF NEW.like_status = TRUE THEN
-        UPDATE photo SET likes = likes + 1 WHERE id = NEW.photo_id;
-    ELSE
-        UPDATE photo SET dislikes = dislikes + 1 WHERE id = NEW.photo_id;
-    END IF;
-END;
-
-
-CREATE TRIGGER update_likes_count AFTER UPDATE ON likes FOR EACH ROW
-BEGIN
-    IF NEW.like_status = TRUE THEN
-        UPDATE photo
-        SET likes = likes + 1, dislikes = dislikes - 1
-        WHERE id = NEW.photo_id;
-    ELSE
-        UPDATE photo
-        SET likes = likes - 1, dislikes = dislikes + 1
-        WHERE id = NEW.photo_id;
-    END IF;
-END;
-
-
-CREATE TRIGGER decrement_likes_count AFTER DELETE ON likes FOR EACH ROW
-BEGIN
-    IF OLD.like_status = TRUE THEN
-        UPDATE photo SET likes = likes - 1 WHERE id = OLD.photo_id;
-    ELSE
-        UPDATE photo SET dislikes = dislikes - 1 WHERE id = OLD.photo_id;
-    END IF;
-END;
-
 -- --------------------------------------------------------
 
 --
