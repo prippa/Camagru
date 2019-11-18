@@ -28,7 +28,7 @@ class ApiController extends Controller
         $photo_id = $_POST['id'];
         $like_status = $_POST['like_status'];
 
-        Like::action($user_id, $photo_id, $like_status);
+        Like::make($user_id, $photo_id, $like_status);
 
         exit('OK');
     }
