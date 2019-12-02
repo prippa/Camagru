@@ -8,7 +8,7 @@
 
         <div class="col-12 mt-3 col-radius-form">
 
-            <?php require 'views/login_register_system/includes/print_errors.php' ?>
+            <?php require 'views/includes/error_messages.php' ?>
 
             <form action="/login" method="post" id="form">
                 <div class="form-row">

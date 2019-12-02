@@ -19,10 +19,8 @@ class UserProfileController extends Controller
     /**
      * @param array $db_data
      * @param array $form_data
-     * @param array $messages
-     * @return void
      */
-    private function psProcessLogin(array &$db_data, array $form_data, array &$messages): void
+    private function psProcessLogin(array &$db_data, array $form_data): void
     {
         if ($db_data['login'] == $form_data['login']) {
             return;
@@ -31,26 +29,24 @@ class UserProfileController extends Controller
         if (User::checkLogin($form_data['login'])) {
             User::updateLogin($db_data['id'], $form_data['login']);
             $db_data['login'] = $form_data['login'];
-            $messages['success'][] = 'Login has been changed';
+            $this->view->success[] = 'Login has been changed';
         } else {
-            $messages['errors']['login'][] = "<b>{$form_data['login']}</b> Invalid login";
+            $this->view->errors['login'][] = "<b>{$form_data['login']}</b> Invalid login";
         }
     }
 
     /**
      * @param array $db_data
      * @param array $form_data
-     * @param array $messages
-     * @return void
      */
-    private function psProcessEmail(array $db_data, array $form_data, array &$messages): void
+    private function psProcessEmail(array $db_data, array $form_data): void
     {
         if ($db_data['email'] == $form_data['email']) {
             return;
         }
 
         if (User::checkEmail($form_data['email'])) {
-            $messages['success'][] = 'Please confirm your new email address to change old. ' .
+            $this->view->success[] = 'Please confirm your new email address to change old. ' .
                 "We just emailed you at <b>{$form_data['email']}</b>. " .
                 'Click the link in your email to confirm your new email. ' .
                 "If you can't find the email check your spam folder.";
@@ -64,17 +60,15 @@ class UserProfileController extends Controller
             EmailReset::insert($form_data['email'], $token);
             Mail::changeEmailConfirm($db_data['login'], $form_data['email'], $token);
         } else {
-            $messages['errors']['email'][] = "<b>{$form_data['email']}</b> Invalid Email";
+            $this->view->errors['email'][] = "<b>{$form_data['email']}</b> Invalid Email";
         }
     }
 
     /**
      * @param array $db_data
      * @param array $form_data
-     * @param array $messages
-     * @return void
      */
-    private function psProcessPassword(array $db_data, array $form_data, array &$messages): void
+    private function psProcessPassword(array $db_data, array $form_data): void
     {
         if ($form_data['old_password'] == '') {
             return;
@@ -82,38 +76,35 @@ class UserProfileController extends Controller
 
         if (password_verify($form_data['old_password'], $db_data['password'])) {
             if (!User::checkPassword($form_data['password'])) {
-                $messages['errors']['password'][] = 'New password is invalid';
+                $this->view->errors['password'][] = 'New password is invalid';
             }
             if ($form_data['password'] != $form_data['password_confirm']) {
-                $messages['errors']['password'][] = 'Passwords are not equal';
+                $this->view->errors['password'][] = 'Passwords are not equal';
             }
-            if (!isset($messages['errors']['password'])) {
+            if (!isset($this->view->errors['password'])) {
                 User::updatePassword($form_data['password'], User::getId());
-                $messages['success'][] = 'Old password has been changed successfully.';
+                $this->view->success[] = 'Old password has been changed successfully.';
             }
         } else {
-            $messages['errors']['password'][] = 'Wrong old password';
+            $this->view->errors['password'][] = 'Wrong old password';
         }
     }
 
     /**
      * @param array $db_data
      * @param array $form_data
-     * @param array $messages
-     * @return void
      */
-    private function psProcessNotifications(array &$db_data, array $form_data, array &$messages): void
+    private function psProcessNotifications(array &$db_data, array $form_data): void
     {
         $notifications = isset($form_data['notifications']) ? '1' : '0';
 
         if ($db_data['notifications'] == $notifications) {
             return;
         }
-
         if ($notifications == '1') {
-            $messages['success'][] = 'Notifications is on';
+           $this->view->success[] = 'Notifications is on';
         } else {
-            $messages['success'][] = 'Notifications is off';
+           $this->view->success[] = 'Notifications is off';
         }
         User::updateNotifications($notifications, User::getId());
         $db_data['notifications'] = $notifications;
@@ -126,19 +117,18 @@ class UserProfileController extends Controller
     {
         User::redirectToLoginCheck();
 
-        $messages = [];
         $user_data = User::getUser(User::getId());
 
         if (!empty($_POST)) {
-            $this->psProcessLogin($user_data, $_POST, $messages);
-            $this->psProcessEmail($user_data, $_POST, $messages);
-            $this->psProcessPassword($user_data, $_POST, $messages);
-            $this->psProcessNotifications($user_data, $_POST, $messages);
+            $this->psProcessLogin($user_data, $_POST);
+            $this->psProcessEmail($user_data, $_POST);
+            $this->psProcessPassword($user_data, $_POST);
+            $this->psProcessNotifications($user_data, $_POST);
         }
 
         $title = $user_data['login'] . ' • Settings';
 
-        $this->view->run('profile/settings', ['messages' => $messages, 'user_data' => $user_data], $title);
+        $this->view->run('profile/settings', ['user_data' => $user_data], $title);
     }
 
     /**
@@ -155,14 +145,14 @@ class UserProfileController extends Controller
         }
 
         $user_data = User::getUser(User::getId());
-        $messages['success'][] = "Your old email - <b>{$user_data['email']}</b> " .
+        $this->view->success[] = "Your old email - <b>{$user_data['email']}</b> " .
             "has been changed to the new one - <b>$email</b>";
 
         $user_data['email'] = $email;
         User::updateEmail($email, User::getId());
         EmailReset::deleteByEmail($email);
 
-        $this->view->run('profile/settings', ['messages' => $messages, 'user_data' => $user_data]);
+        $this->view->run('profile/settings', ['user_data' => $user_data]);
     }
     //******************************************************************************************************************
 

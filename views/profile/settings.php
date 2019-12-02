@@ -7,7 +7,7 @@
         <div class="col-md-8">
             <h1 class="text-center mb-5">Settings</h1>
 
-            <?php require 'views/includes/success_message.php' ?>
+            <?php require 'views/includes/success_messages.php' ?>
 
             <form action="/profile/settings" method="post">
                 <div class="row mr-2 ml-2 justify-content-center">
@@ -16,10 +16,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['messages']['errors']['login'])): ?>
+                        <?php if (isset($this->errors['login'])): ?>
                             <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['messages']['errors']['login'] as $item): ?>
+                                    <?php foreach ($this->errors['login'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>
@@ -38,10 +38,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['messages']['errors']['email'])): ?>
+                        <?php if (isset($this->errors['email'])): ?>
                             <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['messages']['errors']['email'] as $item): ?>
+                                    <?php foreach ($this->errors['email'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>
@@ -60,10 +60,10 @@
                     </div>
 
                     <div class="col-12 mt-2 mb-4 col-radius-form">
-                        <?php if (isset($data['messages']['errors']['password'])): ?>
+                        <?php if (isset($this->errors['password'])): ?>
                             <div class="message-box">
                                 <ul class="error-list">
-                                    <?php foreach ($data['messages']['errors']['password'] as $item): ?>
+                                    <?php foreach ($this->errors['password'] as $item): ?>
                                         <li class="error-item"><?= $item ?></li>
                                     <?php endforeach ?>
                                 </ul>

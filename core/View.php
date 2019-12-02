@@ -16,11 +16,23 @@ class View
     public $layout;
 
     /**
+     * @var array error messages
+     */
+    public $errors;
+
+    /**
+     * @var array success messages
+     */
+    public $success;
+
+    /**
      * View constructor.
      */
     public function __construct()
     {
         $this->layout = 'default';
+        $this->errors = [];
+        $this->success = [];
     }
 
     /**
