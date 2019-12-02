@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     '' => 'Site/Index',
 
     'register' => 'UserLoginRegister/Register',
@@ -24,4 +24,4 @@ return array(
     'api/UploadPhotos' => 'Api/UploadPhotos',
     'make_photo' => 'Photo/MakePhoto',
     'photo/(.+)' => 'Photo/SinglePhoto/$1'
-);
+];

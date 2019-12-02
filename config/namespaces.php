@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     [
         'namespace' => 'app\components',
         'path' => 'components'
@@ -25,4 +25,4 @@ return array(
         'namespace' => 'app\core',
         'path' => 'core'
     ],
-);
+];

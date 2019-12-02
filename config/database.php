@@ -1,8 +1,8 @@
 <?php
 
-return array(
+return [
     'dbname' => 'camagru_db',
     'host' => 'localhost',
     'user' => 'root',
     'password' => 'prippa',
-);
+];
