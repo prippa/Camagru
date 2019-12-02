@@ -16,7 +16,7 @@ abstract class Mail
      */
     private static function send(string $to, string $subject, string $message): void
     {
-        $header = "From: The Sender Name <{$_SERVER['HTTP_HOST']}>\r\n";
+        $header = "From: Camagru <{$_SERVER['HTTP_HOST']}>\r\n";
         $header .= "Content-type: text/html; charset=utf-8\r\n";
 
         // Send mail
@@ -32,7 +32,7 @@ abstract class Mail
     public static function confirmAccount(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/register/confirm/$token";
-        $subject = 'Camagru: confirm your email address';
+        $subject = 'Confirm your email address';
         $message = require 'views/login_register_system/mail/confirm_account.php';
 
         self::send($email, $subject, $message);
@@ -47,7 +47,7 @@ abstract class Mail
     public static function confirmPassword(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/password_reset/$token";
-        $subject = 'Camagru: please reset your password';
+        $subject = 'Please reset your password';
         $message = require 'views/login_register_system/mail/password_reset.php';
 
         self::send($email, $subject, $message);
@@ -62,7 +62,7 @@ abstract class Mail
     public static function changeEmailConfirm(string $login, string $email, string $token): void
     {
         $link = HOST_NAME . "/profile/settings/email_reset/$token";
-        $subject = 'Camagru: confirm your new email address';
+        $subject = 'Confirm your new email address';
         $message = require 'views/mail/confirm_new_email.php';
 
         self::send($email, $subject, $message);
@@ -77,7 +77,7 @@ abstract class Mail
     public static function notification(string $login, string $email, int $photo_id): void
     {
         $link = HOST_NAME . "/photo/$photo_id";
-        $subject = 'Camagru: you have a new comment';
+        $subject = 'You have a new comment';
         $message = require 'views/mail/notification.php';
 
         self::send($email, $subject, $message);
