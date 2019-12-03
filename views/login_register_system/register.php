@@ -42,7 +42,7 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="5" id="form-submit-btn">
+                <button type="submit" class="btn btn-primary btn-block" tabindex="5" id="form-submit-btn" disabled>
                     Register
                 </button>
             </form>

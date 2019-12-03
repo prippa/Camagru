@@ -5,10 +5,8 @@ export class Form {
         this._fv = fields_validation;
         this._fields = {};
         this._sb = $(submit_btn_id);
-
-        this._sb.disabled = true;
-        this._sb.onclick = () => {
-            $(form_id).submit();
+        $(form_id).onsubmit = () => {
+            this._sb.disabled = true;
         };
     }
 
