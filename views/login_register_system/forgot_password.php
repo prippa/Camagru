@@ -20,10 +20,11 @@
                         <input placeholder="Enter your email address" type="email"
                                class="form-control" id="email-field"
                                name="email" required tabindex="1" value="<?= $data['email'] ?>">
+                        <div class="invalid-feedback" id="email-field-invalid"></div>
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="2" id="form-submit-btn">
+                <button type="submit" class="btn btn-primary btn-block" tabindex="2" id="form-submit-btn" disabled>
                     Send password reset email
                 </button>
             </form>
@@ -34,4 +35,7 @@
 
 </div>
 
+<script type="module">
+    window.fv = <?= file_get_contents('config/fields_validation.json') ?>;
+</script>
 <script src="/template/js/forgot_password.js" type="module"></script>

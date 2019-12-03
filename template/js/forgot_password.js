@@ -1,7 +1,6 @@
-import {$, setLoadButton} from './helpers/lib.js'
+import {Form} from "./helpers/Form.js";
 
 (function () {
-    $('form').onsubmit = function () {
-        setLoadButton($('form-submit-btn'));
-    };
+    let form = new Form('form', 'form-submit-btn', window.fv);
+    form.setEmailValidation('email');
 })();

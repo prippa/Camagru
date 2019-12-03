@@ -127,7 +127,7 @@ export class Form {
         }
     }
 
-    setEmailValidationWithAllUsernameCheck(id) {
+    isetEmailValidationWithAllEmailCheck(id) {
         this._getDataFromDB('/api/GetAllEmail', ((data) => {
             const input = $(id + '-field');
 
