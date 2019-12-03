@@ -1,4 +1,4 @@
-import {$} from './lib.js'
+import {$, setLoadButton} from './lib.js'
 
 export class Form {
     constructor(form_id, submit_btn_id, fields_validation) {
@@ -6,7 +6,7 @@ export class Form {
         this._fields = {};
         this._sb = $(submit_btn_id);
         $(form_id).onsubmit = () => {
-            this._sb.disabled = true;
+            setLoadButton(this._sb);
         };
     }
 

@@ -10,7 +10,7 @@
 
             <?php require 'views/includes/error_messages.php' ?>
 
-            <form action="/password_reset" method="post">
+            <form action="/password_reset" method="post" id="form">
                 <div class="form-row">
 
                     <div class="form-group col-12">
@@ -23,7 +23,9 @@
                     </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-block" tabindex="2">Send password reset email</button>
+                <button type="submit" class="btn btn-primary btn-block" tabindex="2" id="form-submit-btn">
+                    Send password reset email
+                </button>
             </form>
 
         </div>
@@ -31,3 +33,5 @@
     </div>
 
 </div>
+
+<script src="/template/js/forgot_password.js" type="module"></script>

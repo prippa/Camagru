@@ -1,4 +1,4 @@
-import { $, dNone, dBlock } from './helpers/lib.js';
+import { $, dNone, dBlock, setLoadButton } from './helpers/lib.js';
 import { PhotosCanvas } from './make_photo/PhotosCanvas.js';
 import { SuperImagesCanvas } from './make_photo/SuperImagesCanvas.js'
 
@@ -30,6 +30,15 @@ import { SuperImagesCanvas } from './make_photo/SuperImagesCanvas.js'
         IMG_MOD = 2;
     let mod = VIDEO_MOD;
 
+    function disableButtonUpload() {
+        setLoadButton(btn_upload);
+    }
+
+    function enableButtonUpload() {
+        btn_upload.disabled = false;
+        btn_upload.innerHTML = 'Upload';
+    }
+
     function videoOff() {
         if (!video.srcObject) {
             return;
@@ -52,8 +61,10 @@ import { SuperImagesCanvas } from './make_photo/SuperImagesCanvas.js'
                 function (stream) {
                     video.srcObject = stream;
                     video.play();
-                    dBlock(video);
-                    super_images.show();
+                    video.onloadedmetadata = function() {
+                        dBlock(video);
+                        super_images.show();
+                    };
                 },
                 function (e) {
                     alert('There has some problems with video: ' + e);
@@ -119,9 +130,9 @@ import { SuperImagesCanvas } from './make_photo/SuperImagesCanvas.js'
 
     // Upload Event
     btn_upload.onclick = async function () {
-        btn_upload.disabled = true;
+        disableButtonUpload();
         await photos.upload();
-        btn_upload.disabled = false;
+        enableButtonUpload();
     };
 
     // Load Image from Device Event

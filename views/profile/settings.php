@@ -9,7 +9,7 @@
 
             <?php require 'views/includes/success_messages.php' ?>
 
-            <form action="/profile/settings" method="post">
+            <form action="/profile/settings" method="post" id="form">
                 <div class="row mr-2 ml-2 justify-content-center">
                     <div class="col-12">
                         <h2 class="text-center">Change Username</h2>
@@ -101,10 +101,14 @@
                     </div>
 
                     <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary btn-block" tabindex="7">Update profile</button>
+                        <button type="submit" class="btn btn-primary btn-block" tabindex="7" id="form-submit-btn">
+                            Update profile
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script src="/template/js/settings.js" type="module"></script>

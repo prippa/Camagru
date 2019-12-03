@@ -1,5 +1,11 @@
-export function $(name) { return document.getElementById(name); }
-export function redirect(url) { window.location.href = '/' + url; exit(); }
+export function $(name) {
+    return document.getElementById(name);
+}
+
+export function redirect(url) {
+    window.location.href = '/' + url; exit();
+}
+
 export function exit() {
     window.addEventListener('error', function (e) {
         e.preventDefault();
@@ -81,10 +87,17 @@ export function getPercentFromSumAndNumber(sum, number, integer = true) {
     return result;
 }
 
-export function dNone(elem) { elem.style.display = 'none'; }
-export function dBlock(elem) { elem.style.display = 'block'; }
+export function dNone(elem) {
+    elem.style.display = 'none';
+}
 
-export function setCursor(elem, cursor = 'default') { elem.style.cursor = cursor; }
+export function dBlock(elem) {
+    elem.style.display = 'block';
+}
+
+export function setCursor(elem, cursor = 'default') {
+    elem.style.cursor = cursor;
+}
 
 export function switchLogic(number) {
     if (number) {
@@ -95,4 +108,11 @@ export function switchLogic(number) {
     return number;
 }
 
-export function clearCanvas(canv) { canv.getContext('2d').clearRect(0, 0, canv.width, canv.height); }
+export function clearCanvas(canv) {
+    canv.getContext('2d').clearRect(0, 0, canv.width, canv.height);
+}
+
+export function setLoadButton(btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
+}
