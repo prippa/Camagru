@@ -31,7 +31,7 @@ abstract class Mail
      */
     public static function confirmAccount(string $login, string $email, string $token): void
     {
-        $link = HOST_NAME . "/register/confirm/$token";
+        $link = Lib::getSiteUrl() . "/register/confirm/$token";
         $subject = 'Confirm your email address';
         $message = require 'views/login_register_system/mail/confirm_account.php';
 
@@ -46,7 +46,7 @@ abstract class Mail
      */
     public static function confirmPassword(string $login, string $email, string $token): void
     {
-        $link = HOST_NAME . "/password_reset/$token";
+        $link = Lib::getSiteUrl() . "/password_reset/$token";
         $subject = 'Please reset your password';
         $message = require 'views/login_register_system/mail/password_reset.php';
 
@@ -61,7 +61,7 @@ abstract class Mail
      */
     public static function changeEmailConfirm(string $login, string $email, string $token): void
     {
-        $link = HOST_NAME . "/profile/settings/email_reset/$token";
+        $link = Lib::getSiteUrl() . "/profile/settings/email_reset/$token";
         $subject = 'Confirm your new email address';
         $message = require 'views/mail/confirm_new_email.php';
 
@@ -76,7 +76,7 @@ abstract class Mail
      */
     public static function notification(string $login, string $email, int $photo_id): void
     {
-        $link = HOST_NAME . "/photo/$photo_id";
+        $link = Lib::getSiteUrl() . "/photo/$photo_id";
         $subject = 'You have a new comment';
         $message = require 'views/mail/notification.php';
 

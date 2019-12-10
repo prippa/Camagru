@@ -6,7 +6,6 @@ try {
     define('DEBUG', true);
     ini_set('display_errors', DEBUG);
     error_reporting(E_ALL);
-    define('HOST_NAME', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}");
 
     /**
      * Call the Psr4AutoloaderClass and load all namespaces in namespaces.php file
