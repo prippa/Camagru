@@ -16,7 +16,13 @@ abstract class Mail
      */
     private static function send(string $to, string $subject, string $message): void
     {
-        $header = "From: Camagru <{$_SERVER['HTTP_HOST']}>\r\n";
+        $mail = require 'config/mail.php';
+        $from = "Camagru <{$_SERVER['HTTP_HOST']}>";
+        if (!empty($mail['noreplay'])) {
+            $from = $mail['noreplay'];
+        }
+
+        $header = "From: $from\r\n";
         $header .= "Content-type: text/html; charset=utf-8\r\n";
 
         // Send mail

@@ -13,7 +13,7 @@ try {
     $db->query($DROP_IF_EXIST);
     $db->query($CREATE_DB);
     $db->query($USE_DB);
-    $sql = file_get_contents(ROOT . $db_settings['dbname'] . '.sql');
+    $sql = file_get_contents(ROOT . 'camagru_db.sql');
     $db->query($sql);
     echo 'Database IS ALIVE!!!' . PHP_EOL;
 } catch (PDOException $e) {
