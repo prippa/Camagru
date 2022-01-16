@@ -3,7 +3,7 @@ export function $(name) {
 }
 
 export function redirect(url) {
-    window.location.href = '/' + url; exit();
+    window.location.replace('/' + url);
 }
 
 export function exit() {
