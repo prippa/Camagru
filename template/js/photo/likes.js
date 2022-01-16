@@ -46,23 +46,29 @@ function getElements(id) {
 function like(id, elem_id) {
     if (!window.is_logged) {
         redirect('login');
+        return true;
     }
 
     const data = `id=${id}&like_status=1`;
 
     likeLogic(getElements(elem_id));
     ajaxSendDataByPOST(POST_REQUEST_URL, data);
+
+    return false;
 }
 
 function dislike(id, elem_id) {
     if (!window.is_logged) {
         redirect('login');
+        return true;
     }
 
     const data = `id=${id}&like_status=0`;
 
     dislikeLogic(getElements(elem_id));
     ajaxSendDataByPOST(POST_REQUEST_URL, data);
+
+    return false;
 }
 
 export function initLikeSystem(photo_id, like_status, id = '') {

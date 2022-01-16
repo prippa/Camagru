@@ -49,6 +49,7 @@ function addNewComment(comment) {
 export function sendComment(photo_id) {
     if (!window.is_logged) {
         redirect('login');
+        return true;
     }
 
     const input_elem = $('comment-input');
