@@ -8,7 +8,6 @@ PHP 7.3.5
 For CSS i used bootstrap 4 and font-awesome 4.7.0 without additional javascript
 
 Site - https://camagru.pavelrippa.com
-You can use https://temp-mail.org to Register.
 
 ## Bonuses
 • “AJAXify” exchanges with the server.                                         [✓]
