@@ -7,7 +7,7 @@ PHP 7.3.5
 
 For CSS i used bootstrap 4 and font-awesome 4.7.0 without additional javascript
 
-Site - https://camagru.pavelrippa.com
+Site - https://camagru.pavelrippa.online
 
 ## Bonuses
 • “AJAXify” exchanges with the server.                                         [✓]
